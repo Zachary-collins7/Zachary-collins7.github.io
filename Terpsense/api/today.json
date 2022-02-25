@@ -7,18 +7,21 @@
       "type": "scroll.product",
       "content": [
         {
+          "id": 1,
           "title": "title",
           "description": "description",
           "contentType": "product",
           "contentID": 1
         },
         {
+          "id": 2,
           "title": "title",
           "description": "description",
           "contentType": "product",
           "contentID": 2
         },
         {
+          "id": 3,
           "title": "title",
           "description": "description",
           "contentType": "product",
@@ -32,18 +35,21 @@
       "type": "scroll.dispo",
       "content": [
         {
+          "id": 1,
           "title": "title",
           "description": "description",
           "contentType": "dispo",
           "contentID": 1
         },
         {
+          "id": 2,
           "title": "title",
           "description": "description",
           "contentType": "dispo",
           "contentID": 2
         },
         {
+          "id": 3,
           "title": "title",
           "description": "description",
           "contentType": "dispo",
