@@ -67,6 +67,7 @@
           "title": "title",
           "description": "subtitle",
           "contentType": "banner",
+          "contentID": 1,
           "textContent": "https://baconipsum.com/api/?type=all-meat&sentences=1"
         }
       ]
