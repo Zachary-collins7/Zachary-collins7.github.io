@@ -2,27 +2,27 @@
   "property": "value",
   "sections": [
     {
-      "title": "title",
+      "title": "Recomended Products",
       "description": "description",
       "type": "scroll.product",
       "content": [
         {
           "id": 1,
-          "title": "title",
+          "title": "title1",
           "description": "description",
           "contentType": "product",
           "contentID": 1
         },
         {
           "id": 2,
-          "title": "title",
+          "title": "titl2",
           "description": "description",
           "contentType": "product",
           "contentID": 2
         },
         {
           "id": 3,
-          "title": "title",
+          "title": "title3",
           "description": "description",
           "contentType": "product",
           "contentID": 3
@@ -30,27 +30,27 @@
       ]
     },
     {
-      "title": "title",
+      "title": "Nearby Dispensaries",
       "description": "description",
       "type": "scroll.dispo",
       "content": [
         {
           "id": 1,
-          "title": "title",
+          "title": "title1",
           "description": "description",
           "contentType": "dispo",
           "contentID": 1
         },
         {
           "id": 2,
-          "title": "title",
+          "title": "titl2",
           "description": "description",
           "contentType": "dispo",
           "contentID": 2
         },
         {
           "id": 3,
-          "title": "title",
+          "title": "titl3",
           "description": "description",
           "contentType": "dispo",
           "contentID": 3
