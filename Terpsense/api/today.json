@@ -63,8 +63,10 @@
       "type": "banner",
       "content": [
         {
+          "id": 3,
           "title": "title",
           "description": "subtitle",
+          "contentType": "banner",
           "textContent": "https://baconipsum.com/api/?type=all-meat&sentences=1"
         }
       ]
