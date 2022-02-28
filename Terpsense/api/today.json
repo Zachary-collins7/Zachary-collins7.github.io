@@ -7,21 +7,18 @@
       "type": "scroll.product",
       "content": [
         {
-          "id": 1,
           "title": "title1",
           "description": "description",
           "contentType": "product",
           "contentID": 1
         },
         {
-          "id": 2,
-          "title": "titl2",
+          "title": "title2",
           "description": "description",
           "contentType": "product",
           "contentID": 2
         },
         {
-          "id": 3,
           "title": "title3",
           "description": "description",
           "contentType": "product",
@@ -35,22 +32,19 @@
       "type": "scroll.dispo",
       "content": [
         {
-          "id": 1,
           "title": "title1",
           "description": "description",
           "contentType": "dispo",
           "contentID": 1
         },
         {
-          "id": 2,
-          "title": "titl2",
+          "title": "title2",
           "description": "description",
           "contentType": "dispo",
           "contentID": 2
         },
         {
-          "id": 3,
-          "title": "titl3",
+          "title": "title3",
           "description": "description",
           "contentType": "dispo",
           "contentID": 3
@@ -63,12 +57,10 @@
       "type": "banner",
       "content": [
         {
-          "id": 3,
           "title": "title",
           "description": "subtitle",
           "contentType": "banner",
-          "contentID": 1,
-          "textContent": "https://baconipsum.com/api/?type=all-meat&sentences=1"
+          "contentID": 1
         }
       ]
     }
