@@ -4,24 +4,25 @@
     {
       "title": "Recomended Products",
       "description": "description",
-      "type": "scroll.product",
+      "type": "scroll",
+      "contentType": "product",
       "content": [
         {
           "title": "title1",
           "description": "description",
-          "contentType": "product",
+          "type": "product",
           "contentID": 1
         },
         {
           "title": "title2",
           "description": "description",
-          "contentType": "product",
+          "type": "product",
           "contentID": 2
         },
         {
           "title": "title3",
           "description": "description",
-          "contentType": "product",
+          "type": "product",
           "contentID": 3
         }
       ]
@@ -29,24 +30,25 @@
     {
       "title": "Nearby Dispensaries",
       "description": "description",
-      "type": "scroll.dispo",
+      "type": "scroll",
+      "contentType": "dispo",
       "content": [
         {
           "title": "title1",
           "description": "description",
-          "contentType": "dispo",
+          "type": "dispo",
           "contentID": 1
         },
         {
           "title": "title2",
           "description": "description",
-          "contentType": "dispo",
+          "type": "dispo",
           "contentID": 2
         },
         {
           "title": "title3",
           "description": "description",
-          "contentType": "dispo",
+          "type": "dispo",
           "contentID": 3
         }
       ]
@@ -55,11 +57,12 @@
       "title": "title",
       "description": "description",
       "type": "banner",
+      "contentType": "banner",
       "content": [
         {
           "title": "title",
           "description": "subtitle",
-          "contentType": "banner",
+          "type": "banner",
           "contentID": 1
         }
       ]
