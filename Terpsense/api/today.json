@@ -2,7 +2,33 @@
   "property": "value",
   "sections": [
     {
-      "title": "Recomended Products",
+      "title": "For you",
+      "description": "description",
+      "type": "scroll",
+      "contentType": "product",
+      "content": [
+        {
+          "title": "title1",
+          "description": "description",
+          "type": "product",
+          "contentID": 1
+        },
+        {
+          "title": "title2",
+          "description": "description",
+          "type": "product",
+          "contentID": 2
+        },
+        {
+          "title": "title3",
+          "description": "description",
+          "type": "product",
+          "contentID": 3
+        }
+      ]
+    },
+    {
+      "title": "Popular near you",
       "description": "description",
       "type": "scroll",
       "contentType": "product",
@@ -54,18 +80,44 @@
       ]
     },
     {
-      "title": "title",
+      "title": "What do terpenes do?",
       "description": "description",
       "type": "banner",
       "contentType": "banner",
       "content": [
         {
-          "title": "title",
-          "description": "subtitle",
+          "title": "How terpenes impact your body",
+          "description": "Terpenes can impact your body in various ways and different combinations can have even more unique effects",
           "type": "banner",
           "contentID": 1
         }
       ]
     }
+    {
+      "title": "Most Popular Dispensaries",
+      "description": "description",
+      "type": "scroll",
+      "contentType": "dispo",
+      "content": [
+        {
+          "title": "title1",
+          "description": "description",
+          "type": "dispo",
+          "contentID": 1
+        },
+        {
+          "title": "title2",
+          "description": "description",
+          "type": "dispo",
+          "contentID": 2
+        },
+        {
+          "title": "title3",
+          "description": "description",
+          "type": "dispo",
+          "contentID": 3
+        }
+      ]
+    },
   ]
 }
