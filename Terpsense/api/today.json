@@ -92,32 +92,6 @@
           "contentID": 1
         }
       ]
-    },
-    {
-      "title": "Most Popular Dispensaries",
-      "description": "description",
-      "type": "scroll",
-      "contentType": "dispo",
-      "content": [
-        {
-          "title": "title1",
-          "description": "description",
-          "type": "dispo",
-          "contentID": 1
-        },
-        {
-          "title": "title2",
-          "description": "description",
-          "type": "dispo",
-          "contentID": 2
-        },
-        {
-          "title": "title3",
-          "description": "description",
-          "type": "dispo",
-          "contentID": 3
-        }
-      ]
     }
   ]
 }
