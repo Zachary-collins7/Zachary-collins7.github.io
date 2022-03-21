@@ -22,3 +22,4 @@ cd $directory &&
 
 echo -e "\033[0;32mCleaning up...\033[0m"
 git worktree remove $directory
+git worktree prune
