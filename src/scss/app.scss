@@ -1,98 +1,28 @@
-// /* By Athlon Front-End Team */
+/* Core variables */
+@import 'base/vars';
 
-// /* Core variables */
-// @import 'base/vars';
+/* CSS Reset */
+@import 'base/reset';
 
-// /* CSS Reset */
-// @import 'base/reset';
+/* CSS print */
+@import 'base/print';
 
-// /* CSS print */
-// @import 'base/print';
+/* Fonts */
+@import 'base/fonts';
 
-// /* Fonts */
-// @import 'base/fonts';
+/* Mixins, helpers and functions */
+@import 'base/mixins';
 
-// /* Mixins, helpers and functions */
-// @import 'base/mixins';
+/* Vendor */
 
-// /* Vendor */
+/* Bootstrap */
+// @import "custom";
+@import "~bootstrap/scss/bootstrap";
 
-// /* Components */
+/* Components */
 
-// /* Browser specific styles */
-// @import 'dirty/hacks';
+/* Browser specific styles */
+@import 'dirty/hacks';
 
-// /* Demo Page styles */
-// @import 'demo';
-
-html {
-    /* font-family: sans-serif | serif | monospace | cursive | fantasy; */
-    /* font: 62.5%/1.5  "Lucida Grande", "Lucida Sans", Tahoma, Verdana, sans-serif;  */
-    font-size: 100%;
-    box-sizing: border-box; /*content-box */
-}
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    box-sizing: inherit; /* See line 22 */
-}
-
-body {
-    /* font-family: "Font Stack", sans-serif | serif | monospace | cursive | fantasy; */
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-table {
-    border-spacing: 0;
-    border-collapse: collapse;
-}
-
-td {
-    text-align: left;
-    font-weight: normal;
-}
-
-img {
-    /* For responsive images that adjust & adapt */
-    height: auto;
-    max-width: 100%;
-
-    /* Remove image select */
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-}
-
-button {
-    color: inherit; /* By default, buttons don't inherit the font colour, this is a useful default to override */
-}
-
-a,
-button {
-    touch-action: manipulation; /* Element doesn't want double-tap on mobile to zoom */
-}
-
-svg {
-    /* Make the SVGs fit the parent container by default */
-    height: 100%;
-    width: 100%;
-
-    /* Optional - make the SVG's fill be the same as the inherited color */
-    fill: currentColor;
-
-    /* Prevent the SVG from altering cursor interaction */
-    pointer-events: none;
-}
-
-iframe {
-    /* Make the iframes fit the parent container by default */
-    height: 100%;
-    width: 100%;
-}
-
+/* Demo Page styles */
+@import 'demo';
