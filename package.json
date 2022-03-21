@@ -1,33 +1,60 @@
 {
-  "name": "zachary-collins7.github.io",
+  "author": "zacharycollins",
   "version": "1.0.0",
   "description": "",
-  "private": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config config/webpack.dev.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Zachary-collins7/Zachary-collins7.github.io.git"
-  },
-  "author": "zacharycollins",
-  "license": "MIT",
+  "homepage": "https://zachary-collins7.github.io",
+  "browserslist": [
+    "last 2 versions",
+    "> 5%"
+  ],
   "bugs": {
-    "url": "https://github.com/Zachary-collins7/Zachary-collins7.github.io/issues"
-  },
-  "homepage": "https://github.com/Zachary-collins7/Zachary-collins7.github.io/index.html",
-  "dependencies": {
-    "babel-loader": "^8.2.3",
-    "bootstrap": "^5.1.3",
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^10.2.4",
-    "css-minimizer-webpack-plugin": "^3.4.1",
-    "jquery": "^3.6.0",
-    "mini-css-extract-plugin": "^2.6.0",
-    "webpack": "^5.70.0"
+    "url": "https://zachary-collins7.github.io/issues",
+    "email": "plamen@athlonsofia.com"
   },
   "devDependencies": {
-    "webpack-cli": "^4.9.2"
-  }
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "autoprefixer": "^10.4.0",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^10.2.3",
+    "css-loader": "^6.5.1",
+    "css-minimizer-webpack-plugin": "^3.1.1",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.4.4",
+    "npm-force-resolutions": "^0.0.10",
+    "postcss": "^8.3.11",
+    "postcss-loader": "^6.2.0",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.3.0",
+    "terser-webpack-plugin": "^5.2.5",
+    "webpack": "^5.68.0",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.4.0",
+    "webpack-merge": "^5.8.0"
+  },
+  "resolutions": { "https-proxy-agent": "^3.0.0" },
+  "keywords": [
+    "webpack",
+    "boilerplate",
+    "template",
+    "setup"
+  ],
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Zachary-collins7/Zachary-collins7.github.io.git"
+  },
+  "scripts": {
+    "build": "webpack --config configuration/webpack.dev.config.js --mode=development",
+    "watch": "webpack --config configuration/webpack.dev.config.js --mode=development --watch",
+    "bundle": "npm install && npm run watch",
+    "dev": "webpack serve --config configuration/webpack.dev.config.js --mode=development",
+    "production": "webpack --config configuration/webpack.prod.config.js --mode=production",
+    "stats": "webpack --config configuration/webpack.prod.config.js --mode=production --json > dist/stats.json && webpack-bundle-analyzer dist/stats.json",
+    "deploy": "npm run build & git subtree push --prefix dist origin gh-pages"
+  },
+  "target": "web"
 }
