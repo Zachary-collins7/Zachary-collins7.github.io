@@ -2,7 +2,7 @@
 directory=dist
 branch=gh-pages
 build_command() {
-  jekyll build
+  npm run production
 }
 
 echo -e "\033[0;32mDeleting old content...\033[0m"

@@ -54,7 +54,7 @@
     "dev": "webpack serve --config configuration/webpack.dev.config.js --mode=development",
     "production": "webpack --config configuration/webpack.prod.config.js --mode=production",
     "stats": "webpack --config configuration/webpack.prod.config.js --mode=production --json > dist/stats.json && webpack-bundle-analyzer dist/stats.json",
-    "deploy": "npm run production & git subtree push --prefix dist origin gh-pages"
+    "deploy": "./deploy.sh"
   },
   "target": "web"
 }
