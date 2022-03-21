@@ -1,17 +1,17 @@
 /* Core variables */
-@import 'base/vars';
+// @import 'base/vars';
 
 /* CSS Reset */
 @import 'base/reset';
 
 /* CSS print */
-@import 'base/print';
+// @import 'base/print';
 
 /* Fonts */
-@import 'base/fonts';
+// @import 'base/fonts';
 
 /* Mixins, helpers and functions */
-@import 'base/mixins';
+// @import 'base/mixins';
 
 /* Vendor */
 
@@ -24,5 +24,25 @@
 /* Browser specific styles */
 @import 'dirty/hacks';
 
-/* Demo Page styles */
-@import 'demo';
+
+.rborder {
+    border: 1px solid red !important;
+}
+.gborder {
+    border: 1px solid green !important;
+}
+.bborder {
+    border: 1px solid blue !important;
+}
+
+div.hero {
+    height: calc(100vh - 56px);
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);//linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+.gradient-text {
+    background: -webkit-linear-gradient(5deg, #8360c3, #2ebf91);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
