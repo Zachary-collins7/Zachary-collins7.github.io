@@ -158,13 +158,13 @@ $(function () {
 
         $.scrollify({
             section: ".full-page-section",
-            interstitialSection: ".scroll-section",
+            // interstitialSection: ".scroll-section",
             easing: "easeOutExpo",
             scrollSpeed: 1100,
             offset: 0,
             scrollbars: false,
-            standardScrollElements: ".scroll-section",
-            setHeights: false,
+            // standardScrollElements: ".scroll-section",
+            setHeights: true,
             overflowScroll: true,
             updateHash: true,
             touchScroll: true,
