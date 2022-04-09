@@ -46,3 +46,22 @@ div.hero {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+
+body {
+    position: relative;
+}
+
+.full-page-section {
+    &:nth-child(even) {
+        background-color: darkgray;
+    }
+    
+    &:nth-child(odd) {
+        background-color: lightgray;
+    }
+}
+
+.left {
+    float: left;
+}
