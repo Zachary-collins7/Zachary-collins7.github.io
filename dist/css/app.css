@@ -12690,13 +12690,22 @@ body {
   color: white;
 }
 
+.full-page-section {
+  height: 100vh;
+}
 .full-page-section:nth-child(even) {
   background-color: rgba(100, 100, 100, 0.2);
+}
+
+.full-page {
+  height: 100vh;
 }
 
 .full-page-section .container {
   position: relative;
   height: 70%;
+  overflow: hidden;
+  scroll-snap-align: start;
 }
 .full-page-section .container .about {
   position: absolute;
@@ -12709,6 +12718,12 @@ body {
     width: 50%;
   }
 }
+.full-page-section .container .about .btn {
+  color: white;
+  background-color: rgba(131, 96, 195, 0.3);
+  border-color: #8360c3;
+  border-radius: 2rem;
+}
 .full-page-section .container .image {
   display: block;
   position: relative;
@@ -12718,10 +12733,6 @@ body {
   margin-left: auto;
   z-index: -1;
   overflow: hidden;
-  background-size: cover;
-  background-color: gray;
-  background-blend-mode: multiply;
-  border: 1px solid red;
 }
 @media (max-width: 575.98px) {
   .full-page-section .container .image {
@@ -12731,11 +12742,47 @@ body {
     height: 75%;
   }
 }
+.full-page-section .container .image .c1 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-color: black;
+  z-index: 1;
+}
+.full-page-section .container .image .c2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #8360c3;
+  z-index: 1;
+}
 .full-page-section .container .hello__image {
   background: url("https://source.unsplash.com/801x500/?city,night") no-repeat center;
+  background-size: cover;
+  background-color: gray;
+  background-blend-mode: darken;
 }
 .full-page-section .container .about__image {
   background: url("https://source.unsplash.com/802x500/?city,night") no-repeat center;
+  background-size: cover;
+  background-color: gray;
+  background-blend-mode: darken;
+}
+.full-page-section .container .contact__image {
+  background: url("https://source.unsplash.com/803x500/?city,night") no-repeat center;
+  background-size: cover;
+  background-color: gray;
+  background-blend-mode: darken;
+}
+
+div[data-barba-namespace=about] .container {
+  height: 100%;
+  width: 100%;
+  margin-right: 0;
+  padding: 0;
+  position: unset;
 }
 
 span.divider {
@@ -12743,6 +12790,8 @@ span.divider {
   height: 2rem;
   position: relative;
   margin: 1rem 0;
+  -webkit-transform-origin: left;
+          transform-origin: left;
 }
 span.divider::before, span.divider::after {
   content: "";
@@ -12750,7 +12799,7 @@ span.divider::before, span.divider::after {
   width: 3rem;
   height: 0.2rem;
   border-radius: 0.1rem;
-  background-color: red;
+  background-color: #8360c3;
 }
 span.divider::before {
   top: 0.5rem;
@@ -12778,7 +12827,7 @@ span.divider::after {
 }
 .f-nav ul li {
   width: 100%;
-  height: 3px;
+  height: 4px;
   margin-bottom: 1.5rem;
 }
 .f-nav ul li:last-child {
@@ -12790,6 +12839,7 @@ span.divider::after {
   height: 100%;
   width: 50%;
   background-color: white;
+  border-radius: 2px;
   -webkit-transition: all 0.4s ease-in;
   transition: all 0.4s ease-in;
 }
@@ -12822,7 +12872,7 @@ span.divider::after {
         -ms-flex-align: end;
             align-items: flex-end;
     height: 100%;
-    width: 3px;
+    width: 4px;
     margin: 0 1rem;
   }
   .f-nav ul li a {
@@ -12832,4 +12882,8 @@ span.divider::after {
   .f-nav ul li a.active {
     height: 100%;
   }
+}
+
+.scroll-section {
+  height: 200vh;
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin="anonymous"
+        src="https://polyfill.io/v3/polyfill.min.js?features=default%2CArray.prototype.find%2CIntersectionObserver"></script>
+<link rel="icon" href="favicon.ico"><script defer src="js/app.js"></script><link href="css/app.css" rel="stylesheet"></head>
+
+<body data-barba="wrapper">
+
+    <!-- put here content that will not change
+  between your pages, like <header> or <nav> -->
+
+    <div data-barba="container" data-barba-namespace="about">
+
+        <div class="full-page full-page-section d-flex align-items-center" data-section-name="about">
+
+            <div class="container d-flex align-items-center flex-column-reverse flex-sm-row">
+                <div class="about">
+                    <div class="title display-1 fw-bold text-uppercase lh-1">
+                        About Me
+                    </div>
+                    <span class="divider"></span>
+                    <div class="desc mb-3">
+                        <h4>I'm a passionate self-taught developer and I enjoy solving unique
+                            and challenging problems.</h4>
+                        <h6 class="mt-3">I take great care in the
+                            experience, architecture, and code quality of the things I build.</h6>
+                    </div>
+                    <button type="button" class="btn">Show me more</button>
+                </div>
+        
+                <div class="image about__image"></div>
+            </div>
+        
+        </div>
+
+        <div class="scroll-section" data-section-name="WhoAmI">
+        
+            <div class="container">
+                <h1>Who am I</h1>
+            </div>
+        
+        </div>
+
+        <script>
+            if (window.localStorage) {
+                if (!localStorage.getItem('firstLoad')) {
+                    localStorage['firstLoad'] = true;
+                    window.location.reload();
+                }
+                else
+                    localStorage.removeItem('firstLoad');
+            }
+        </script>
+    </div>
+
+    <!-- put here content that will not change
+  between your pages, like <footer> -->
+</body>
+
+</html>

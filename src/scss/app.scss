@@ -55,14 +55,20 @@ body {
 }
 
 .full-page-section {
+    height: 100vh;
     &:nth-child(even) {
         background-color: rgb(100, 100, 100, 0.2);;
     }
 }
 
+.full-page {
+    height: 100vh;
+}
 .full-page-section .container {
     position: relative;
     height: 70%;
+    overflow: hidden;
+    scroll-snap-align: start;
 
     & .about {
         position: absolute;
@@ -74,6 +80,13 @@ body {
             @media (min-width: 576px) {
                 width: 50%;
             }
+        }
+
+        & .btn {
+            color: white;
+            background-color: rgba($color: #8360c3, $alpha: 0.3);
+            border-color: #8360c3;
+            border-radius: 2rem;
         }
     }
 
@@ -92,27 +105,59 @@ body {
         }
         z-index: -1;
         overflow: hidden;
-        background-size: cover;
-        background-color: gray;
-        background-blend-mode: multiply;
-        border: 1px solid red;
+
+        & .c1 {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            background-color: black;
+            z-index: 1;
+        }
+        & .c2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #8360c3;
+            z-index: 1;
+        }
     }
     
     & .hello__image {
         background: url("https://source.unsplash.com/801x500/?city,night") no-repeat center;
+        background-size: cover;
+        background-color: gray;
+        background-blend-mode: darken;
     }
     & .about__image {
         background: url("https://source.unsplash.com/802x500/?city,night") no-repeat center;
+        background-size: cover;
+        background-color: gray;
+        background-blend-mode: darken;
     }
-    
+    & .contact__image {
+        background: url("https://source.unsplash.com/803x500/?city,night") no-repeat center;
+        background-size: cover;
+        background-color: gray;
+        background-blend-mode: darken;
+    }
 }
 
+div[data-barba-namespace="about"] .container {
+    height: 100%;
+    width: 100%;
+    margin-right: 0;
+    padding: 0;
+    position: unset;
+}
 
 span.divider {
     display: block;
     height: 2rem;
     position: relative;
     margin: 1rem 0;
+    transform-origin: left;
 
     &::before, 
     &::after {
@@ -121,7 +166,7 @@ span.divider {
         width: 3rem;
         height: 0.2rem;
         border-radius: 0.1rem;
-        background-color: red;
+        background-color: #8360c3;
     }
 
     &::before {
@@ -152,7 +197,7 @@ span.divider {
 
         & li {
             width: 100%;
-            height: 3px;
+            height: 4px;
             margin-bottom: 1.5rem;
 
             &:last-child {
@@ -165,6 +210,7 @@ span.divider {
                 height: 100%;
                 width: 50%;
                 background-color: white;
+                border-radius: 2px;
                 transition: all 0.4s ease-in;
             }
 
@@ -191,7 +237,7 @@ span.divider {
                 display: flex;
                 align-items: flex-end;
                 height: 100%;
-                width: 3px;
+                width: 4px;
                 margin: 0 1rem;
 
                 & a {
@@ -204,4 +250,9 @@ span.divider {
             }
         }
     }
+}
+
+
+.scroll-section {
+    height: 200vh;
 }
