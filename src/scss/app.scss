@@ -11,7 +11,7 @@
 // @import 'base/fonts';
 
 /* Mixins, helpers and functions */
-// @import 'base/mixins';
+@import 'base/mixins';
 
 /* Vendor */
 
@@ -57,11 +57,95 @@ body {
         background-color: darkgray;
     }
     
-    &:nth-child(odd) {
-        background-color: lightgray;
+    // &:nth-child(odd) {
+    //     background-color: lightgray;
+    // }
+}
+
+.full-page-section .container {
+    position: relative;
+    height: 70%;
+
+    & .about {
+        position: relative;
+    }
+    & .about__image {
+        display: block;
+        position: relative;
+        height: 100%;
+        width: 60%;
+        margin: 0 8% 0 auto;
+        z-index: -1;
+        overflow: hidden;
+        background: url("https://source.unsplash.com/801x500/?city,night") no-repeat center;
+        background-size: cover;
+        background-color: red;
     }
 }
 
-.left {
-    float: left;
+
+
+span.divider {
+    display: block;
+    height: 2rem;
+    position: relative;
+    margin: 1rem 0;
+
+    &::before, 
+    &::after {
+        content: "";
+        position: absolute;
+        width: 3rem;
+        height: 0.2rem;
+        border-radius: 0.1rem;
+        background-color: red;
+    }
+
+    &::before {
+        top: 0.5rem;
+        left: 0;
+    }
+
+    &::after {
+        bottom: 0.5rem;
+        left: 1.5rem;
+    }
+}
+
+// floating nav
+.f-nav {
+    position: fixed;
+    top: 50%;
+    left: 3rem;
+    z-index: 100;
+    opacity: 1;
+    width: 3rem;
+    
+    & ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        & li {
+            height: 3px;
+            margin-bottom: 1.5rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            & a {
+                display: block;
+                cursor: pointer;
+                height: 100%;
+                width: 50%;
+                background-color: white;
+                transition: width 0.4s ease-in;
+            }
+
+            & a.active {
+                width: 100%;
+            }
+        }
+    }
 }
