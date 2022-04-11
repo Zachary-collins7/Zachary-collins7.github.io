@@ -16,8 +16,9 @@
 /* Vendor */
 
 /* Bootstrap */
-// @import "custom";
 @import "~bootstrap/scss/bootstrap";
+// @import "~bootstrap-icons/font/bootstrap-icons";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
 /* Components */
 
@@ -26,13 +27,13 @@
 
 
 .rborder {
-    border: 1px solid red !important;
+    border: 2px solid red !important;
 }
 .gborder {
-    border: 1px solid green !important;
+    border: 2px solid green !important;
 }
 .bborder {
-    border: 1px solid blue !important;
+    border: 2px solid blue !important;
 }
 
 div.hero {
@@ -54,10 +55,51 @@ body {
     color: white
 }
 
+span.divider {
+    display: block;
+    height: 2rem;
+    position: relative;
+    margin: 1rem 0;
+    transform-origin: left;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        width: 3rem;
+        height: 0.2rem;
+        border-radius: 0.1rem;
+        background-color: #8360c3;
+    }
+
+    &::before {
+        top: 0.5rem;
+        left: 0;
+    }
+
+    &::after {
+        bottom: 0.5rem;
+        left: 1.5rem;
+    }
+}
+
+
+
 .full-page-section {
     height: 100vh;
     &:nth-child(even) {
-        background-color: rgb(100, 100, 100, 0.2);;
+        background-color: rgb(100, 100, 100, 0.1);;
+    }
+
+    & .back {
+        position: fixed;//absolute;
+        display: block;
+        font-size: 4rem;
+        color: white;
+        text-decoration: none;
+        top: 0;
+        left: 0.5em;
+        z-index: 3;
     }
 }
 
@@ -71,7 +113,7 @@ body {
         position: absolute;
         left: 0;
         margin-left: 8%;
-        z-index: 1;
+        z-index: 2;
 
         & .desc {
             @media (min-width: 576px) {
@@ -100,7 +142,7 @@ body {
             width: 80%;
             height: 75%;
         }
-        z-index: -1;
+        z-index: 1;
         overflow: hidden;
 
         & .c1 {
@@ -141,39 +183,15 @@ body {
     }
 }
 
-div[data-barba-namespace="about"] .container {
+div .container.postAnimate {
     height: 100%;
     width: 100%;
     margin-right: 0;
     padding: 0;
     position: unset;
-}
 
-span.divider {
-    display: block;
-    height: 2rem;
-    position: relative;
-    margin: 1rem 0;
-    transform-origin: left;
-
-    &::before, 
-    &::after {
-        content: "";
-        position: absolute;
-        width: 3rem;
-        height: 0.2rem;
-        border-radius: 0.1rem;
-        background-color: #8360c3;
-    }
-
-    &::before {
-        top: 0.5rem;
-        left: 0;
-    }
-
-    &::after {
-        bottom: 0.5rem;
-        left: 1.5rem;
+    @media (max-width: 575.98px) {
+        margin-top: 20vw;
     }
 }
 
@@ -202,6 +220,7 @@ span.divider {
             }
 
             & a {
+                position: relative;
                 display: block;
                 cursor: pointer;
                 height: 100%;
@@ -213,6 +232,22 @@ span.divider {
 
             & a.active {
                 width: 100%;
+
+                // @media (min-width: 576px) {
+                //     &::after {
+                //         content: '';
+                //         position: absolute;
+                //         display: block;
+                //         width: 1rem;
+                //         height: 1rem;
+                //         top: calc(-0.5rem + 2px);
+                //         right: -1.3rem;
+                //         -moz-border-radius: 0.5rem;
+                //         -webkit-border-radius: 0.5rem;
+                //         border-radius: 0.5rem;
+                //         background-color: #8360c3;
+                //     }
+                // }
             }
         }
     }
@@ -251,5 +286,14 @@ span.divider {
 
 
 .scroll-section {
-    height: 200vh;
+    counter-reset: scroll-section;
+    
+    & .container {
+        padding: 3rem;
+    }
+    &:nth-child(even) {
+        color: rgb(38, 38, 38);
+        background-color: white;
+    }
 }
+
