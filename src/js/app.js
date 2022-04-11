@@ -180,6 +180,7 @@ function updateMenu() {
 }
 
 function scrollToHash(hash, time) {
+    if (hash === undefined) { return }
     $([document.documentElement, document.body]).animate({
         scrollTop: $(`div[data-section-name=${hash}]`).offset().top
     }, time);
@@ -255,7 +256,8 @@ function atHome() {
 function init(data) {
     removeFloatingNav();
     createFloatingNav();
-
+    // updateMenu();
+    
     var _ = $(".f-nav a").on("click", function () {
         scrollToHash($(this).attr("href").substring(1), 1000);
     });
