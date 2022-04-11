@@ -4,7 +4,6 @@ import 'bootstrap';
 import * as moment from "moment";
 import barba from '@barba/core';
 import anime from 'animejs/lib/anime.es.js';
-import { current } from 'jquery-scrollify';
 
 const demo = () => moment("20111031", "YYYYMMDD").fromNow();
 
