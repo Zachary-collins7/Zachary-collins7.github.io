@@ -22,7 +22,7 @@ barba.init({
     preventRunning: true,
     cacheIgnore: true,
     logLevel: 'debug',
-    // prevent: ({ el }) => !(el.classList && el.classList.contains('enable')),
+    prevent: ({ el }) => el.classList && el.classList.contains('disable-barba'),
     timeout: 5000,
     transitions: [
         {
@@ -289,7 +289,7 @@ async function init(data) {
     if (atHome()) {
         sectionAnimation($("div[data-section-name]").first());
         $("div[data-section-name]").each(function () {
-            if (!s.data("animated")) {
+            if (!$(this).data("animated")) {
                 prepSectionAnimation($(this))
             }
         })

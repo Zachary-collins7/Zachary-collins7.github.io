@@ -26,6 +26,11 @@
 @import 'dirty/hacks';
 
 
+$accent-color-500: #00c7a6;
+$primary-color-500: #8360c3;
+$nice-dark: #262626;
+
+
 .rborder {
     border: 2px solid red !important;
 }
@@ -49,6 +54,11 @@ div.hero {
 }
 
 
+.accentText {
+    color: $accent-color-500;
+    font-weight: bolder;
+}
+
 span.divider {
     display: block;
     height: 2rem;
@@ -63,7 +73,7 @@ span.divider {
         width: 3rem;
         height: 0.2rem;
         border-radius: 0.1rem;
-        background-color: #8360c3;
+        background-color: $primary-color-500;
     }
 
     &::before {
@@ -79,7 +89,7 @@ span.divider {
 
 head, body {
     position: relative;
-    background-color: rgb(38, 38, 38);
+    background-color: $nice-dark;
     color: white
 }
 
@@ -106,7 +116,7 @@ head, body {
     z-index: 10;
     width: 100vw;
     height: 100vh;
-    background-color: rgb(38, 38, 38);
+    background-color: $nice-dark;
 }
 
 .full-page-section {
@@ -129,7 +139,7 @@ head, body {
             &::after {
                 content: "Q";
                 font-size: 1.5rem;
-                color: #8360c3;
+                color: $primary-color-500;
                 position: absolute;
                 top: calc(50% - 0.85rem);
                 right: -1.1rem;
@@ -168,8 +178,8 @@ head, body {
 
         & .btn {
             color: white;
-            background-color: rgba($color: #8360c3, $alpha: 0.3);
-            border-color: #8360c3;
+            background-color: rgba($color: $primary-color-500, $alpha: 0.3);
+            border-color: $primary-color-500;
             border-radius: 2rem;
         }
     }
@@ -203,35 +213,38 @@ head, body {
             top: 0;
             left: 0;
             height: 100%;
-            background-color: #8360c3;
+            background-color: $primary-color-500;
             z-index: 1;
         }
     }
     
     & .hello__image {
-        background: url("https://source.unsplash.com/801x500/?city,night") no-repeat center;
-        background-size: cover;
-        background-color: gray;
-        background-blend-mode: darken;
+        background: url("https://source.unsplash.com/801x500/?ruin,urban,dramatic"),
+        linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 114, 95, 1) 32%, rgba(0, 175, 146, 1) 63%, rgba(0, 199, 166, 1) 100%);
     }
     & .about__image {
-        background: url("https://source.unsplash.com/802x500/?city,night") no-repeat center;
-        background-size: cover;
-        background-color: gray;
-        background-blend-mode: darken;
+        background: url("https://source.unsplash.com/802x500/?code,computer,data,coding"),
+        linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 114, 95, 1) 32%, rgba(0, 175, 146, 1) 63%, rgba(0, 199, 166, 1) 100%);
     }
     & .contact__image {
-        background: url("https://source.unsplash.com/803x500/?city,night") no-repeat center;
+        background: url("https://source.unsplash.com/803x500/?patterns,technology,data"),
+        linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 114, 95, 1) 32%, rgba(0, 175, 146, 1) 63%, rgba(0, 199, 166, 1) 100%);
+    }
+    & .hello__image,
+    & .about__image,
+    & .contact__image {
         background-size: cover;
-        background-color: gray;
-        background-blend-mode: darken;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-blend-mode: multiply;
+        backdrop-filter: blur(3px);
     }
 }
 
 // floating nav
 .f-nav {
     position: fixed;
-    top: 50%;
+    top: calc(50% - 4rem);
     left: 3rem;
     z-index: 100;
     opacity: 1;
@@ -269,7 +282,7 @@ head, body {
         }
     }
 
-    @media (max-width: 575.98px) {
+    @media (max-width: 576px) {
         top: unset;
         bottom: 1rem;
         left: 0;
@@ -301,6 +314,20 @@ head, body {
     }
 }
 
+//navbar styles
+.navbar .navbar-nav,
+.navbar .offcanvas {
+    background-color: $nice-dark;
+}
+.navbar-toggler,
+.navbar-toggler:focus {
+    box-shadow: none !important;
+}
+@media (max-width: 576px) {
+    .navbar {
+        background-color: $nice-dark;
+    }
+}
 
 .scroll-section {
     counter-reset: scroll-section;
@@ -311,8 +338,10 @@ head, body {
     }
 
     &:nth-child(even) {
-        color: rgb(38, 38, 38);
+        color: $nice-dark;
         background-color: white;
     }
 }
+
+
 
