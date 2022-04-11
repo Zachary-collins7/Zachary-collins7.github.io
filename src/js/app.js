@@ -255,8 +255,7 @@ function atHome() {
 function init(data) {
     removeFloatingNav();
     createFloatingNav();
-    // updateMenu();
-    
+
     var _ = $(".f-nav a").on("click", function () {
         scrollToHash($(this).attr("href").substring(1), 1000);
     });
