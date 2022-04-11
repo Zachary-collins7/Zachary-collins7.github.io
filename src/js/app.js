@@ -201,7 +201,7 @@ function scrollToHash(hash, time) {
 }
 
 function getShownSections() {
-    let triggerConst = 0.5 //trigger animations when % of section shows
+    let triggerConst = 0.5 // trigger animations when % of section shows
     return $(`div[data-section-name]`).map(function () {
         var top = $(this).offset().top - $(document).scrollTop();
         var bottom = top + $(this).height();
@@ -304,7 +304,7 @@ $(function () {
             var sBottom = sTop + $(this).height();
             var sectionColor = $(this).css("color");
             if ($("#f-nav")) {
-                $("#f-nav a").each(function() {
+                $("#f-nav a", "a.back").each(function() {
                     var midPos = $(this).offset().top - $(document).scrollTop() + $(this).height() / 2;
                     if (midPos >= sTop && midPos <= sBottom) { // if in section
                         $(this).css("background-color", sectionColor);
