@@ -76,7 +76,9 @@ barba.init({
                 return tl.finished;
             },
             enter(data) {
-                window.scrollTo(0, 0);
+                document.documentElement.style.scrollBehavior = 'auto';
+                setTimeout(() => window.scrollTo(0, 0), 5);
+                setTimeout(() => document.documentElement.style.scrollBehavior = 'smooth', 5);
             }
         },
         {
@@ -119,7 +121,9 @@ barba.init({
             },
             after(data) {
                 $(`div[data-section-name=${data.current.namespace}]`).data("animated", true);
-                scrollToHash(data.current.namespace, 0);
+                document.documentElement.style.scrollBehavior = 'auto';
+                setTimeout(() => scrollToHash(data.current.namespace, 0), 5);
+                setTimeout(() => document.documentElement.style.scrollBehavior = 'smooth', 5);
             }
         },
     ]
