@@ -93,13 +93,22 @@ span.divider {
 
     & .back {
         position: fixed;//absolute;
-        display: block;
-        font-size: 4rem;
         color: white;
+        font-size: 3.5rem;
         text-decoration: none;
+        
         top: 0;
-        left: 0.5em;
+        left: 2rem;
         z-index: 3;
+
+        &::after {
+            content: "Q";
+            font-size: 1.5rem;
+            color:#8360c3;
+            position: absolute;
+            top: calc(50% - 0.85rem);
+            right: -1.1rem;
+        }
     }
 }
 
@@ -114,6 +123,7 @@ span.divider {
         left: 0;
         margin-left: 8%;
         z-index: 2;
+        padding-bottom: 2rem;
 
         & .desc {
             @media (min-width: 576px) {
@@ -190,9 +200,7 @@ div .container.postAnimate {
     padding: 0;
     position: unset;
 
-    @media (max-width: 575.98px) {
-        margin-top: 20vw;
-    }
+    
 }
 
 // floating nav
@@ -287,10 +295,12 @@ div .container.postAnimate {
 
 .scroll-section {
     counter-reset: scroll-section;
+    height: 100vh;
     
     & .container {
         padding: 3rem;
     }
+
     &:nth-child(even) {
         color: rgb(38, 38, 38);
         background-color: white;

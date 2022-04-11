@@ -29,8 +29,9 @@ function barbaScrollTimer(s) {
 }
 
 barba.init({
-    timeout: 5000,
-    cacheIgnore: true,
+    debug: true,
+    logLevel: 'debug',
+    // timeout: 5000,
     // views: [{
     //     namespace: "index",
     //     leave(data) {
@@ -104,8 +105,8 @@ barba.init({
                 })
 
                 s.find(".container")
-                    .css('position','relative'
-                    ).css('overflow', 'hidden')
+                    .css('position','relative')
+                    .css('overflow', 'hidden')
                     .removeClass('postAnimate');
                 var offset = $(window).width() * 0.08
 
@@ -125,12 +126,6 @@ barba.init({
             }
         },
     ]
-
-//     height: 100 %;
-//     width: 100 %;
-//     margin- right: 0;
-// padding: 0;
-// position: unset;
 });
 
 function removeFloatingNav() {
@@ -148,7 +143,7 @@ function removeFloatingNav() {
 
 function createFloatingNav() {
     var ul = $("<ul>").append(
-        $(".full-page-section").map(function () {
+        $("div[data-section-name]").map(function () {
             return $("<li>").append(
                 $("<a>", {
                     href: "#" + $(this).attr("data-section-name")
@@ -213,7 +208,6 @@ function prepSectionAnimation(s) {
 }
 
 function sectionAnimation(s) {
-    console.log(s.data("animated"));
     if (s.data("animated") === undefined || s.data("animated") === false) {
         s.data("animated", true);
         var sharedEasing = "easeInOutCubic";
@@ -254,6 +248,10 @@ function sectionAnimation(s) {
     }
 }
 
+function atHome() {
+    return window.location.pathname == "/" || window.location.pathname.includes("index")
+}
+
 //called on every page load
 function init(data) {
     if (data) {
@@ -275,7 +273,7 @@ $(function () {
     init()
 
     //home 
-    if (window.location.pathname == "/" || window.location.pathname.includes("index")) {
+    if (atHome()) {
         sectionAnimation($("div[data-section-name]").first());
         $("div[data-section-name]").each(function () {
             prepSectionAnimation($(this))
@@ -286,11 +284,31 @@ $(function () {
     $(window).scroll(function () {
         updateMenu();
 
+        //updates 
+        $("div[data-section-name]").each(function() {
+            var sTop = $(this).offset().top - $(document).scrollTop();
+            var sBottom = sTop + $(this).height();
+            var sectionColor = $(this).css("color");
+            if ($("#f-nav")) {
+                $("#f-nav a").each(function() {
+                    var midPos = $(this).offset().top - $(document).scrollTop() + $(this).height() / 2;
+                    if (midPos >= sTop && midPos <= sBottom) { // if in section
+                        $(this).css("background-color", sectionColor);
+                    }
+                })
+            }
+        })
         //home
-        if (window.location.pathname == "/" || window.location.pathname.includes("index")) {
+        if (atHome()) {
             sectionAnimation(getShownSections().last());
         }
     });
+
+    $(document).on('keydown', function (e) {
+        if (e.key == 'q' && !atHome()) {
+            barba.go('/')
+        }
+    })
 });
 
 
