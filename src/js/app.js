@@ -27,6 +27,7 @@ barba.init({
     debug: true,
     sync: true,
     preventRunning: true,
+    cacheIgnore: true,
     logLevel: 'debug',
     // timeout: 5000,
     // views: [{
@@ -53,27 +54,7 @@ barba.init({
             },
             beforeLeave(data) {
                 var s = $(data.trigger).parentsUntil(".full-page-section").parent();
-                var tl = anime.timeline({
-                    easing: "easeInOutCubic",
-                    duration: 1000,
-                    begin: function() {
-                        s.find(".container").css('overflow', 'visible').css('position', 'unset');
-                    }
-                })
-
-                var offset = s.find(".container .about").position().left - $(window).width() * 0.08
-                
-                tl.add({
-                    targets: [s.find(".container")[0]],
-                    height: ['70%', '100%'],
-                    padding: 0,
-                    marginRight: 0
-                }, 0)
-                .add({
-                    targets: [s.find(".container .about")[0]],
-                    translateX: [-offset, 0]
-                }, 0);
-                return tl.finished;
+                return leaveAnimation(s);
             },
             enter(data) {
                 document.documentElement.style.scrollBehavior = 'auto';
@@ -97,27 +78,7 @@ barba.init({
             },
             beforeLeave(data) {
                 var s = $(".full-page-section").first();
-
-                var tl = anime.timeline({
-                    easing: "easeInOutCubic",
-                    duration: 1000,
-                })
-
-                s.find(".container")
-                    .css('position','relative')
-                    .css('overflow', 'hidden')
-                    .removeClass('postAnimate');
-                var offset = $(window).width() * 0.08
-
-                tl.add({
-                    targets: [s.find(".container")[0]],
-                    height: ['100%', '70%']
-                }, 0)
-                    .add({
-                        targets: [s.find(".container .about")[0]],
-                        translateX: [-offset, 0]
-                    }, 0);
-                return tl.finished;
+                returnAnimation(s);
             },
             after(data) {
                 $(`div[data-section-name=${data.current.namespace}]`).data("animated", true);
@@ -128,6 +89,53 @@ barba.init({
         },
     ]
 });
+
+function leaveAnimation(s) {
+    var tl = anime.timeline({
+        easing: "easeInOutCubic",
+        duration: 1000,
+        begin: function () {
+            s.find(".container").css('overflow', 'visible').css('position', 'unset');
+        }
+    })
+
+    var offset = s.find(".container .about").position().left - $(window).width() * 0.08
+
+    tl.add({
+        targets: [s.find(".container")[0]],
+        height: ['70%', '100%'],
+        padding: 0,
+        marginRight: 0
+    }, 0)
+        .add({
+            targets: [s.find(".container .about")[0]],
+            translateX: [-offset, 0]
+        }, 0);
+    return tl.finished;
+}
+
+function returnAnimation(s) {
+    var tl = anime.timeline({
+        easing: "easeInOutCubic",
+        duration: 1000,
+    })
+
+    s.find(".container")
+        .css('position', 'relative')
+        .css('overflow', 'hidden')
+        .removeClass('postAnimate');
+    var offset = $(window).width() * 0.08
+
+    tl.add({
+        targets: [s.find(".container")[0]],
+        height: ['100%', '70%']
+    }, 0)
+        .add({
+            targets: [s.find(".container .about")[0]],
+            translateX: [-offset, 0]
+        }, 0);
+    return tl.finished;
+}
 
 function removeFloatingNav() {
     if ($("#f-nav").length) {
@@ -185,9 +193,11 @@ function updateMenu() {
 
 function scrollToHash(hash, time) {
     if (hash === undefined) { return }
-    $([document.documentElement, document.body]).animate({
-        scrollTop: $(`div[data-section-name=${hash}]`).offset().top
-    }, time);
+    if ($(`div[data-section-name=${hash}]`).length) {
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $(`div[data-section-name=${hash}]`).offset().top
+        }, time);
+    }
 }
 
 function getShownSections() {
