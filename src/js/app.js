@@ -4,6 +4,7 @@ import 'bootstrap';
 import * as moment from "moment";
 import barba from '@barba/core';
 import anime from 'animejs/lib/anime.es.js';
+import gsap from "gsap";
 
 const demo = () => moment("20111031", "YYYYMMDD").fromNow();
 
@@ -16,28 +17,13 @@ barba.hooks.after((data) => {
     init()
 });
 
-function barbaScrollTimer(s) {
-    return Math.max(
-        Math.abs(s.offset().top - $(document).scrollTop()) / 300 * 1000,
-        200
-    )
-}
-
 barba.init({
     debug: true,
-    sync: true,
     preventRunning: true,
     cacheIgnore: true,
     logLevel: 'debug',
-    // timeout: 5000,
-    // views: [{
-    //     namespace: "index",
-    //     leave(data) {
-
-    //     }
-    // }, {
-    //     namespace: "about"
-    // }],
+    // prevent: ({ el }) => !(el.classList && el.classList.contains('enable')),
+    timeout: 5000,
     transitions: [
         {
             name: 'from-index',
@@ -46,20 +32,11 @@ barba.init({
                     'index'
                 ]
             },
-            before(data) {
-                var s = $(data.trigger).parentsUntil(".full-page-section").parent();
-                return $([document.documentElement, document.body]).animate({
-                    scrollTop: s.offset().top
-                }, barbaScrollTimer(s)).promise();
+            leave: ({ next }) => {
+                return leaveAnimation(next);
             },
-            beforeLeave(data) {
-                var s = $(data.trigger).parentsUntil(".full-page-section").parent();
-                return leaveAnimation(s);
-            },
-            enter(data) {
-                document.documentElement.style.scrollBehavior = 'auto';
-                setTimeout(() => window.scrollTo(0, 0), 5);
-                setTimeout(() => document.documentElement.style.scrollBehavior = 'smooth', 5);
+            enter: ({ next }) => {
+                return leaveHelper(next);
             }
         },
         {
@@ -70,74 +47,107 @@ barba.init({
                     'contact'
                 ]
             },
-            before(data) {
-                var s = $(".full-page-section").first();
-                return $([document.documentElement, document.body]).animate({
-                    scrollTop: s.offset().top
-                }, barbaScrollTimer(s)).promise();
+            leave: ({ data }) => {
+                return returnAnimation(data);
             },
-            beforeLeave(data) {
-                var s = $(".full-page-section").first();
-                returnAnimation(s);
-            },
-            after(data) {
-                $(`div[data-section-name=${data.current.namespace}]`).data("animated", true);
-                document.documentElement.style.scrollBehavior = 'auto';
-                setTimeout(() => scrollToHash(data.current.namespace, 0), 5);
-                setTimeout(() => document.documentElement.style.scrollBehavior = 'smooth', 5);
+            enter(data) {
+                return returnHelper(data)
             }
         },
     ]
 });
 
-function leaveAnimation(s) {
-    var tl = anime.timeline({
-        easing: "easeInOutCubic",
-        duration: 1000,
-        begin: function () {
-            s.find(".container").css('overflow', 'visible').css('position', 'unset');
-        }
-    })
-
-    var offset = s.find(".container .about").position().left - $(window).width() * 0.08
-
-    tl.add({
-        targets: [s.find(".container")[0]],
-        height: ['70%', '100%'],
-        padding: 0,
-        marginRight: 0
-    }, 0)
-        .add({
-            targets: [s.find(".container .about")[0]],
-            translateX: [-offset, 0]
-        }, 0);
-    return tl.finished;
+function barbaScrollTimer(offset) {
+    return Math.max(
+        Math.abs(offset) / 300 * 1000,
+        300
+    )
 }
 
-function returnAnimation(s) {
-    var tl = anime.timeline({
-        easing: "easeInOutCubic",
-        duration: 1000,
-    })
+async function _helperGetNextUrlPath(next) {
+    return next.url.path.split('/')[1].split('.')[0];
+}
 
+function getOffset(s) {
+    return $(s).position().left - $(window).width() * 0.08
+}
+
+async function leaveHelper(next) {
+    window.scrollTo(0, 0);
+}
+
+async function leaveAnimation(next) {
+    var hash = await _helperGetNextUrlPath(next);
+    var ss = document.querySelector(`div[data-section-name=${hash}]`);
+    var offset = getOffset(ss);
+
+    var c = $(ss.querySelector(".container"));
+    $(c).css({
+        overflow: 'visible',
+        position: 'unset',
+    })
+    var marginOffset = $(window).width() - (c.position().left + c.width())
+    // ss.parentElement.classList.add("lockFullScreen");
+    
+    // var scrollOffset = $(ss).offset().top - $(document).scrollTop();
+    // var scrollTime = barbaScrollTimer(scrollOffset);
+
+    return gsap.timeline({
+        duration: 1
+    }).add(
+        gsap.to(ss.querySelector(".container"), {
+            height: "100%",
+            padding: 0,
+            marginRight: 0
+        }), 0
+    )
+    .add(
+        gsap.fromTo(ss.querySelector(".container .about"), {
+            translateX: -offset
+        }, {
+            translateX: 0
+        }), 0
+    )
+}
+
+async function returnHelper(data) {
+    var section = $(`div[data-section-name=${data.current.namespace}]`)
+    var sTop = section.offset().top;
+    var offset = $('.main').first().height();
+    var dist = sTop - offset;
+    section.data("animated", true);
+    window.scrollTo(0, dist);
+}
+
+async function returnAnimation(data) {
+    var s = $(".full-page-section").first();
     s.find(".container")
         .css('position', 'relative')
-        .css('overflow', 'hidden')
+        .css('overflow', 'visible')
         .removeClass('postAnimate');
     var offset = $(window).width() * 0.08
+    var imgOffset = $(window).width() - (s.find(".image").offset().left + s.find(".image").width())
 
-    tl.add({
-        targets: [s.find(".container")[0]],
-        height: ['100%', '70%']
-    }, 0)
-        .add({
-            targets: [s.find(".container .about")[0]],
-            translateX: [-offset, 0]
-        }, 0);
-    return tl.finished;
+    return gsap.timeline({
+        duration: 1
+    }).add(
+        gsap.fromTo(s.find(".container")[0], {
+            height: "100%",
+            translateX: imgOffset
+        }, {
+            height: "70%",
+            translateX: 0
+        }), 0
+    ).add(
+        gsap.fromTo(s.find(".container .about")[0], {
+            translateX: -offset - imgOffset
+        }, {
+            translateX: 0
+        }), 0
+    )
 }
 
-function removeFloatingNav() {
+async function removeFloatingNav() {
     if ($("#f-nav").length) {
         $("#f-nav").first().attr('id', 'f-nav-old');
         anime({
@@ -152,7 +162,7 @@ function removeFloatingNav() {
     
 }
 
-function createFloatingNav() {
+async function createFloatingNav() {
     var ul = $("<ul>").append(
         $("div[data-section-name]").map(function () {
             return $("<li>").append(
@@ -212,7 +222,7 @@ function getShownSections() {
     });
 }
 
-function prepSectionAnimation(s) {
+async function prepSectionAnimation(s) {
     s.find(".image .c1").css('width', '100%');
     s.find(".image .c2").css('width', '0%').css('left', '0%');
     s.find(".title").css('transform', `translateX(${-600}px)`);
@@ -267,7 +277,7 @@ function atHome() {
     return window.location.pathname == "/" || window.location.pathname.includes("index")
 }
 
-function init(data) {
+async function init(data) {
     removeFloatingNav();
     createFloatingNav();
     // updateMenu();
@@ -275,6 +285,16 @@ function init(data) {
     var _ = $(".f-nav a").on("click", function () {
         scrollToHash($(this).attr("href").substring(1), 1000);
     });
+
+    if (atHome()) {
+        sectionAnimation($("div[data-section-name]").first());
+        $("div[data-section-name]").each(function () {
+            if (!s.data("animated")) {
+                prepSectionAnimation($(this))
+            }
+        })
+    }
+    
     return true;
 }
 
@@ -286,14 +306,6 @@ $(function () {
     }
     init()
 
-    //home 
-    if (atHome()) {
-        sectionAnimation($("div[data-section-name]").first());
-        $("div[data-section-name]").each(function () {
-            prepSectionAnimation($(this))
-        })
-    }
-
     //binding
     $(window).scroll(function () {
         updateMenu();
@@ -304,13 +316,19 @@ $(function () {
             var sBottom = sTop + $(this).height();
             var sectionColor = $(this).css("color");
             if ($("#f-nav")) {
-                $("#f-nav a", "a.back").each(function() {
+                $("#f-nav a").each(function() {
                     var midPos = $(this).offset().top - $(document).scrollTop() + $(this).height() / 2;
                     if (midPos >= sTop && midPos <= sBottom) { // if in section
                         $(this).css("background-color", sectionColor);
                     }
                 })
             }
+            $(".back").each(function () {
+                var midPos = $(this).offset().top - $(document).scrollTop() + $(this).height() / 2;
+                if (midPos >= sTop && midPos <= sBottom) { // if in section
+                    $(this).css("color", sectionColor);
+                }
+            })
         })
         //home
         if (atHome()) {

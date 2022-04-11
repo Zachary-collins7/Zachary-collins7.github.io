@@ -49,12 +49,6 @@ div.hero {
 }
 
 
-body {
-    position: relative;
-    background-color: rgb(38, 38, 38);
-    color: white
-}
-
 span.divider {
     display: block;
     height: 2rem;
@@ -83,7 +77,37 @@ span.divider {
     }
 }
 
+head, body {
+    position: relative;
+    background-color: rgb(38, 38, 38);
+    color: white
+}
 
+.main {
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    /* Other transform properties here */
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    /* Other transform properties here */
+}
+
+.lockFullScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(38, 38, 38);
+}
 
 .full-page-section {
     height: 100vh;
@@ -119,6 +143,15 @@ span.divider {
     height: 70%;
     overflow: hidden;
     scroll-snap-align: start;
+    
+
+    &.postAnimate {
+        height: 100%;
+        width: 100%;
+        margin-right: 0;
+        padding: 0;
+        position: unset;
+    }
 
     & .about {
         position: absolute;
@@ -193,16 +226,6 @@ span.divider {
         background-color: gray;
         background-blend-mode: darken;
     }
-}
-
-div .container.postAnimate {
-    height: 100%;
-    width: 100%;
-    margin-right: 0;
-    padding: 0;
-    position: unset;
-
-    
 }
 
 // floating nav
