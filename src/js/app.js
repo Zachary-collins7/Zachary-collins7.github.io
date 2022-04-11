@@ -13,11 +13,7 @@ if (history.scrollRestoration) {
 }
 
 barba.hooks.after((data) => {
-    init(data)
-});
-
-barba.hooks.leave((data) => {
-    removeFloatingNav()
+    init()
 });
 
 function barbaScrollTimer(s) {
@@ -29,6 +25,8 @@ function barbaScrollTimer(s) {
 
 barba.init({
     debug: true,
+    sync: true,
+    preventRunning: true,
     logLevel: 'debug',
     // timeout: 5000,
     // views: [{
@@ -47,13 +45,13 @@ barba.init({
                     'index'
                 ]
             },
-            beforeLeave(data) {
+            before(data) {
                 var s = $(data.trigger).parentsUntil(".full-page-section").parent();
                 return $([document.documentElement, document.body]).animate({
                     scrollTop: s.offset().top
                 }, barbaScrollTimer(s)).promise();
             },
-            leave(data) {
+            beforeLeave(data) {
                 var s = $(data.trigger).parentsUntil(".full-page-section").parent();
                 var tl = anime.timeline({
                     easing: "easeInOutCubic",
@@ -89,13 +87,13 @@ barba.init({
                     'contact'
                 ]
             },
-            beforeLeave(data) {
+            before(data) {
                 var s = $(".full-page-section").first();
                 return $([document.documentElement, document.body]).animate({
                     scrollTop: s.offset().top
                 }, barbaScrollTimer(s)).promise();
             },
-            leave(data) {
+            beforeLeave(data) {
                 var s = $(".full-page-section").first();
 
                 var tl = anime.timeline({
@@ -128,16 +126,18 @@ barba.init({
 });
 
 function removeFloatingNav() {
-    $("#f-nav").first().attr('id', 'f-nav-old');
-    anime({
-        targets: '#f-nav-old',
-        opacity: 0,
-        duration: 300,
-        delay: 400,
-        complete: function () {
-            $("#f-nav-old").remove();
-        }
-    })
+    if ($("#f-nav").length) {
+        $("#f-nav").first().attr('id', 'f-nav-old');
+        anime({
+            targets: '#f-nav-old',
+            opacity: 0,
+            duration: 300,
+            complete: function () {
+                $("#f-nav-old").remove();
+            }
+        })
+    }
+    
 }
 
 function createFloatingNav() {
@@ -170,12 +170,13 @@ function createFloatingNav() {
 
 function updateMenu() {
     //update hash
-    var sectionTag = getShownSections().last().data("section-name")
-    window.location.hash = sectionTag
+    var sectionTag = getShownSections().last().data("section-name");
+    window.location.hash = sectionTag;
     $(".f-nav ul li a").each(function() {
         $(this).removeClass("active");
     });
-    $(`.f-nav ul li a[href$=${sectionTag}]`).addClass("active")
+
+    $(`.f-nav ul li a[href$=${sectionTag}]`).addClass("active");
 }
 
 function scrollToHash(hash, time) {
@@ -251,16 +252,14 @@ function atHome() {
     return window.location.pathname == "/" || window.location.pathname.includes("index")
 }
 
-//called on every page load
 function init(data) {
-    if (data) {
-        console.log(data.current.namespace);
-    }
+    removeFloatingNav();
     createFloatingNav();
-    updateMenu();
-    $(".f-nav a").on("click", function () {
+    // updateMenu();
+    var _ = $(".f-nav a").on("click", function () {
         scrollToHash($(this).attr("href").substring(1), 1000);
-    })
+    });
+    return true;
 }
 
 $(function () {
