@@ -125,6 +125,14 @@ module.exports = {
             ignore: ['*.DS_Store', 'Thumbs.db'],
           },
         },
+        {
+          from: path.resolve(environment.paths.source, 'images', 'root'),
+          to: path.resolve(environment.paths.output),
+          toType: 'dir',
+          globOptions: {
+            ignore: ['*.DS_Store', 'Thumbs.db'],
+          },
+        },
       ],
     }),
   ].concat(htmlPluginEntries),
