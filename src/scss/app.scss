@@ -443,7 +443,7 @@ head, body {
 
 .dSection {
     display: flex;
-    flex-direction: column  ;
+    flex-direction: column;
     width: 100%;
     position: relative;
     z-index: 10;
@@ -462,7 +462,10 @@ head, body {
             top: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column;
+            
+            @media (max-width: 575.98px) {
+                flex-direction: column;
+            }
 
             & .c {
                 flex: 1 1;
