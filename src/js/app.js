@@ -362,7 +362,7 @@ class flip_book {
         this.el.css({
             height: `${this.frames * 5}vh`
         })
-        
+
         this.canvas = $("<canvas>", {
             css: {
                 position: "sticky",
@@ -407,7 +407,7 @@ class flip_book {
         this.context.drawImage(this.img, 0, 0, this.img.width, this.img.height, 0, 0, this.canvas.width, this.canvas.height);
     }
 
-    preloadImages() {
+    async preloadImages() {
         for (let i = 1; i < this.frames; i++) {
             const img = new Image();
             img.src = this.currentFrame(i);

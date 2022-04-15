@@ -501,19 +501,21 @@ head, body {
     width: 100%;
     height: 100%;
 
-    & .strike {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
+    @media (min-width: 576px) {
+        & .strike {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
 
-        &:before,
-        &:after {
-            content: "";
-            flex: 1 1;
-            border-bottom: 1px solid white;
-            margin: auto;
-            margin-right: 2rem;
-            margin-left: 2rem;
+            &:before,
+            &:after {
+                content: "";
+                flex: 1 1;
+                border-bottom: 1px solid white;
+                margin: auto;
+                margin-right: 2rem;
+                margin-left: 2rem;
+            }
         }
     }
 }
