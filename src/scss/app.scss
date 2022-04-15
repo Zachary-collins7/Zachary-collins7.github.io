@@ -444,7 +444,7 @@ head, body {
 .dSection {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: min(100%, 100vw);
     position: relative;
     z-index: 10;
 
