@@ -7,75 +7,32 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="flip-book" data-frames="60">
-        asd
-        <canvas></canvas>
-    </div>
-
-
-    <style>
-        canvas {
-            position: sticky;
-            left: 50%;
-            top: 50%;
-            max-height: 100vh;
-            max-width: 100vw;
-            transform: translate(-50%, -50%);
-        }
-
-    </style>
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script>
-        $(".flip-book").each(function() {
-            var frames = $(this).data("frames")
-            var vh = $(window).height() / 100;
-            $(this).height(frames * 10 * vh);
-        })
-
-
-        const html = document.documentElement;
-            const canvas = document.getElementById("hero-lightpass");
-            const context = canvas.getContext("2d");
-
-            const frameCount = 60;
-            const currentFrame = index => (
-                `https://zachary-collins7.github.io/images/blender/${index.toString().padStart(4, '0')}.jpg`
-            )
-
-            const preloadImages = () => {
-                for (let i = 1; i < frameCount; i++) {
-                    const img = new Image();
-                    img.src = currentFrame(i);
-                }
-            };
-
-            const img = new Image()
-            img.src = currentFrame(1);
-            canvas.width = 1158;
-            canvas.height = 770;
-            img.onload = function () {
-                context.drawImage(img, 0, 0);
-            }
-
-            const updateImage = index => {
-                img.src = currentFrame(index);
-                context.drawImage(img, 0, 0);
-            }
-
-            window.addEventListener('scroll', () => {
-                const scrollTop = html.scrollTop;
-                const maxScrollTop = html.scrollHeight - window.innerHeight;
-                const scrollFraction = scrollTop / maxScrollTop;
-                const frameIndex = Math.min(
-                    frameCount - 1,
-                    Math.ceil(scrollFraction * frameCount)
-                );
-
-                requestAnimationFrame(() => updateImage(frameIndex + 1))
-            });
-
-            preloadImages()
     
-    </script>
+    <div class="dSection">
+        <div class="flip_book" data-frames="60" data-file-type="png"
+            data-url="https://zachary-collins7.github.io/images/blender/"></div>
+
+        <div class="row">
+            <div class="row-inner">
+                <div class="c">
+                    Hello
+                </div>
+                <div class="c">
+                    Bruh
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="row-inner">
+                <div class="c">
+                    Bye
+                </div>
+                <div class="c">
+                    Lmao
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

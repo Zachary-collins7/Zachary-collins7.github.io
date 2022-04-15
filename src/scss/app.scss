@@ -303,107 +303,113 @@ head, body {
 
 
 
-
 // floating nav
-.f-nav {
-    position: fixed;
-    top: calc(50% - 4rem);
-    left: 3rem;
-    z-index: 100;
-    opacity: 1;
-    width: 3rem;
-    transition: all 0.4s ease-in;
-
-
-    @media (min-width: 576px) {
-        &::before,
-        &::after {
-            display: block;
-            position: fixed;
-            left: 2rem;
-        
-            color: white;
-            text-transform: uppercase;
-            writing-mode: vertical-lr;
-        }
-        
-        &::before {
-            content: "scroll";
-            bottom: 3.8rem;
-            font-size: 0.8rem;
-            text-orientation: upright;
-        }
-        
-        &::after {
-            content: " \27F6"; //\2193";
-            color: $accent-color-500;
-            bottom: 2rem;
-            font-size: 1.3rem;
-        }
-    }
+[data-barba-namespace="index"],
+[data-barba-namespace="about"],
+[data-barba-namespace="contact"] {
+    & .f-nav {
+        position: fixed;
+        top: calc(50% - 4rem);
+        left: 3rem;
+        z-index: 100;
+        opacity: 1;
+        width: 3rem;
+        transition: all 0.4s ease-in;
     
-    & ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-
-        & li {
-            width: 100%;
-            height: 4px;
-            margin-bottom: 1.5rem;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-
-            & a {
-                position: relative;
+    
+        @media (min-width: 576px) {
+    
+            &::before,
+            &::after {
                 display: block;
-                cursor: pointer;
-                height: 100%;
-                width: 50%;
-                background-color: white;
-                border-radius: 2px;
-                transition: all 0.4s ease-in;
+                position: fixed;
+                left: 2rem;
+    
+                color: white;
+                text-transform: uppercase;
+                writing-mode: vertical-lr;
             }
-
-            & a.active {
-                width: 100%;
+    
+            &::before {
+                content: "scroll";
+                bottom: 3.8rem;
+                font-size: 0.8rem;
+                text-orientation: upright;
+            }
+    
+            &::after {
+                content: " \27F6"; //\2193";
+                color: $accent-color-500;
+                bottom: 2rem;
+                font-size: 1.3rem;
             }
         }
-    }
-
-    @media (max-width: 576px) {
-        top: unset;
-        bottom: 1rem;
-        left: 0;
-        right: 0;
-        width: unset;
-        height: 2.5rem;
-        display: none; //flex;
-
+    
         & ul {
-            display: flex;
-            margin: 0 auto 0 auto;
-
+            margin: 0;
+            padding: 0;
+            list-style: none;
+    
             & li {
-                display: flex;
-                align-items: flex-end;
-                height: 100%;
-                width: 4px;
-                margin: 0 1rem;
-
-                & a {
-                    width: 100%;
-                    height: 50%;
+                width: 100%;
+                height: 4px;
+                margin-bottom: 1.5rem;
+    
+                &:last-child {
+                    margin-bottom: 0;
                 }
-                & a.active { 
+    
+                & a {
+                    position: relative;
+                    display: block;
+                    cursor: pointer;
                     height: 100%;
+                    width: 50%;
+                    background-color: white;
+                    border-radius: 2px;
+                    transition: all 0.4s ease-in;
+                }
+    
+                & a.active {
+                    width: 100%;
+                }
+            }
+        }
+    
+        @media (max-width: 576px) {
+            top: unset;
+            bottom: 1rem;
+            left: 0;
+            right: 0;
+            width: unset;
+            height: 2.5rem;
+            display: none; //flex;
+    
+            & ul {
+                display: flex;
+                margin: 0 auto 0 auto;
+    
+                & li {
+                    display: flex;
+                    align-items: flex-end;
+                    height: 100%;
+                    width: 4px;
+                    margin: 0 1rem;
+    
+                    & a {
+                        width: 100%;
+                        height: 50%;
+                    }
+    
+                    & a.active {
+                        height: 100%;
+                    }
                 }
             }
         }
     }
 }
+
 
 //navbar styles
 .navbar .navbar-nav,
@@ -419,8 +425,6 @@ head, body {
         background-color: $nice-dark;
     }
 }
-
-
 
 
 .scroll-section {
@@ -446,26 +450,42 @@ head, body {
 
     & .row {
         position: relative;
-        height: 130vh; //content stays fullscreen for 20vh scroll dist
+        height: 100vh;
         background-color: $nice-dark;
+
+        @media (min-width: 576px) {
+            height: 130vh; //content stays fullscreen for height - 100vh scroll dist
+        }
 
         & .row-inner {
             position: sticky;
             top: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column;
 
             & .c {
-                flex: 1 1 auto;
+                flex: 1 1;
             }
         }        
     }
+    
 
-    &:not(.no-pattern) {
-        & .row:nth-child(odd) .c:nth-child(odd),
-        & .row:nth-child(even) .c:nth-child(even) {
-            color: black;
-            background-color: white;
+    @media (min-width: 576px) {
+        &:not(.no-pattern) {
+            & .row:nth-child(odd) .c:nth-child(odd),
+            & .row:nth-child(even) .c:nth-child(even) {
+                color: black;
+                background-color: white;
+            }
+        }
+    }
+    @media (max-width: 575.98px) {
+        &:not(.no-pattern) {
+            & .c:nth-child(odd) {
+                color: black;
+                background-color: white;
+            }
         }
     }
 }
