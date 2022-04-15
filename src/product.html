@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="flip-book" data-frames="60">
+        asd
+        <canvas></canvas>
+    </div>
+
+
+    <style>
+        canvas {
+            position: sticky;
+            left: 50%;
+            top: 50%;
+            max-height: 100vh;
+            max-width: 100vw;
+            transform: translate(-50%, -50%);
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script>
+        $(".flip-book").each(function() {
+            var frames = $(this).data("frames")
+            var vh = $(window).height() / 100;
+            $(this).height(frames * 10 * vh);
+        })  
+    
+    </script>
+</body>
+</html>

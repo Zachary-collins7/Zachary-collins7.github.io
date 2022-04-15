@@ -119,19 +119,61 @@ head, body {
     background-color: $nice-dark;
 }
 
-.full-page-section {
+
+.full-page-section-wrapper {
+    position: relative;
+    width: 100%;
     height: 100vh;
-    &:nth-child(even) {
-        background-color: rgb(100, 100, 100, 0.1);;
+
+    @media (min-width: 576px) {
+        &:not(.no-scroll-padding) {
+            height: 120vh;
+        }
     }
 
+    & .full-page-section {
+        box-shadow: inset 0 0.5rem 0.5rem -0.5rem adjust-color($color: $accent-color-500, $alpha: 0.5);
+    }
+
+    &:first-child .full-page-section {
+        box-shadow: none;
+    }
+}
+
+[data-barba-namespace="index"] {
+    counter-reset: sectionCounter;
+
+    & .full-page-section {
+        &::after {
+            content: counter(sectionCounter);
+            counter-increment: sectionCounter;
+            position: absolute;
+            display: inline-block;
+            bottom: 10%;
+            right: 10vw;
+        
+            color: white;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 15rem;
+            line-height: 10rem;
+            z-index: 10;    
+        }
+    }
+}
+
+.full-page-section {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 100;
+
     & .back {
-        position: fixed;//absolute;
+        position: fixed; //absolute;
         color: white;
         font-size: 3.5rem;
         text-decoration: none;
-        
-        top: 0;
+
+        top: 2rem;
         left: 2rem;
         z-index: 3;
 
@@ -146,100 +188,121 @@ head, body {
             }
         }
     }
-}
 
-.full-page-section .container {
-    position: relative;
-    height: 70%;
-    overflow: hidden;
-    scroll-snap-align: start;
-    
+    & .container {
+        position: relative;
+        height: 70%;
+        overflow: hidden;
 
-    &.postAnimate {
-        height: 100%;
-        width: 100%;
-        margin-right: 0;
-        padding: 0;
-        position: unset;
-    }
+        &.postAnimate {
+            height: 100%;
+            width: 100%;
+            margin-right: 0;
+            padding: 0;
+            position: unset;
+        }
 
-    & .about {
-        position: absolute;
-        left: 0;
-        margin-left: 8%;
-        z-index: 2;
-        padding-bottom: 2rem;
+        & .about {
+            position: absolute;
+            left: 0;
+            margin-left: 8%;
+            z-index: 2;
+            padding-bottom: 2rem;
+            text-shadow: 0 0 0.4rem $nice-dark;
 
-        & .desc {
+            
             @media (min-width: 576px) {
-                width: 50%;
+                padding-right: 30vw;
+            }
+
+            & .desc {
+                & h4 {
+                    color: rgba($color: #fff, $alpha: 0.8);
+                }
+                & h6 { 
+                    color: rgba($color: #fff, $alpha: 0.6);
+                }
+            }
+
+            & .btn {
+                color: white;
+                background-color: rgba($color: $primary-color-500, $alpha: 0.3);
+                border-color: $primary-color-500;
+                border-radius: 2rem;
             }
         }
 
-        & .btn {
-            color: white;
-            background-color: rgba($color: $primary-color-500, $alpha: 0.3);
-            border-color: $primary-color-500;
-            border-radius: 2rem;
-        }
-    }
-
-    & .image {
-        display: block;
-        position: relative;
-        height: 100%;
-        width: 70%;
-        margin-bottom: auto;
-        margin-left: auto;
-        @media (max-width: 575.98px) {
+        & .image {
+            display: block;
+            position: relative;
+            height: 100%;
+            width: 70%;
             margin-bottom: auto;
-            margin-right: auto;
-            width: 80%;
-            height: 75%;
-        }
-        z-index: 1;
-        overflow: hidden;
+            margin-left: auto;
 
-        & .c1 {
-            position: absolute;
-            top: 0;
-            right: 0;
-            height: 100%;
-            background-color: black;
+            @media (max-width: 575.98px) {
+                margin-bottom: auto;
+                margin-right: auto;
+                width: 80%;
+                height: 75%;
+            }
+
             z-index: 1;
+            overflow: hidden;
+
+            & .c1 {
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                background-color: black;
+                z-index: 1;
+            }
+
+            & .c2 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                background-color: $primary-color-500;
+                z-index: 1;
+            }
         }
-        & .c2 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background-color: $primary-color-500;
-            z-index: 1;
+
+        & .hello__image {
+            background: url("https://source.unsplash.com/801x500/?ruin,urban,dramatic"),
+                linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 114, 95, 1) 32%, rgba(0, 175, 146, 1) 63%, rgba(0, 199, 166, 1) 100%);
         }
-    }
-    
-    & .hello__image {
-        background: url("https://source.unsplash.com/801x500/?ruin,urban,dramatic"),
-        linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 114, 95, 1) 32%, rgba(0, 175, 146, 1) 63%, rgba(0, 199, 166, 1) 100%);
-    }
-    & .about__image {
-        background: url("https://source.unsplash.com/802x500/?code,computer,data,coding"),
-        linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 114, 95, 1) 32%, rgba(0, 175, 146, 1) 63%, rgba(0, 199, 166, 1) 100%);
-    }
-    & .contact__image {
-        background: url("https://source.unsplash.com/803x500/?patterns,technology,data"),
-        linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 114, 95, 1) 32%, rgba(0, 175, 146, 1) 63%, rgba(0, 199, 166, 1) 100%);
-    }
-    & .hello__image,
-    & .about__image,
-    & .contact__image {
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-blend-mode: multiply;
-        backdrop-filter: blur(3px);
+
+        & .about__image {
+            background: url("https://source.unsplash.com/802x500/?code,computer,data,coding"),
+                linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 114, 95, 1) 32%, rgba(0, 175, 146, 1) 63%, rgba(0, 199, 166, 1) 100%);
+        }
+
+        & .contact__image {
+            background: url("https://source.unsplash.com/803x500/?patterns,technology,data"),
+                linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 114, 95, 1) 32%, rgba(0, 175, 146, 1) 63%, rgba(0, 199, 166, 1) 100%);
+        }
+        & .none__image {
+            background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 114, 95, 1) 32%, rgba(0, 175, 146, 1) 63%, rgba(0, 199, 166, 1) 100%);
+        }
+
+        & .hello__image,
+        & .about__image,
+        & .contact__image,
+        & .none__image {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-blend-mode: multiply;
+            backdrop-filter: blur(1px);
+        }
     }
 }
+
+
+
+
 
 // floating nav
 .f-nav {
@@ -250,6 +313,34 @@ head, body {
     opacity: 1;
     width: 3rem;
     transition: all 0.4s ease-in;
+
+
+    @media (min-width: 576px) {
+        &::before,
+        &::after {
+            display: block;
+            position: fixed;
+            left: 2rem;
+        
+            color: white;
+            text-transform: uppercase;
+            writing-mode: vertical-lr;
+        }
+        
+        &::before {
+            content: "scroll";
+            bottom: 3.8rem;
+            font-size: 0.8rem;
+            text-orientation: upright;
+        }
+        
+        &::after {
+            content: " \27F6"; //\2193";
+            color: $accent-color-500;
+            bottom: 2rem;
+            font-size: 1.3rem;
+        }
+    }
     
     & ul {
         margin: 0;
@@ -289,7 +380,7 @@ head, body {
         right: 0;
         width: unset;
         height: 2.5rem;
-        display: flex;
+        display: none; //flex;
 
         & ul {
             display: flex;
@@ -329,6 +420,9 @@ head, body {
     }
 }
 
+
+
+
 .scroll-section {
     counter-reset: scroll-section;
     height: 100vh;
@@ -343,5 +437,35 @@ head, body {
     }
 }
 
+.dSection {
+    display: flex;
+    flex-direction: column  ;
+    width: 100%;
+    position: relative;
+    z-index: 10;
 
+    & .row {
+        position: relative;
+        height: 130vh; //content stays fullscreen for 20vh scroll dist
+        background-color: $nice-dark;
 
+        & .row-inner {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+
+            & .c {
+                flex: 1 1 auto;
+            }
+        }        
+    }
+
+    &:not(.no-pattern) {
+        & .row:nth-child(odd) .c:nth-child(odd),
+        & .row:nth-child(even) .c:nth-child(even) {
+            color: black;
+            background-color: white;
+        }
+    }
+}

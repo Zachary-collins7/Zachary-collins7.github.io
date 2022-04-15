@@ -304,14 +304,14 @@ $(function () {
         var hash = window.location.hash.substring(1);
         scrollToHash(hash, 0);
     }
-    init()
+    init();
 
     //binding
     $(window).scroll(function () {
         updateMenu();
 
         //updates 
-        $("div[data-section-name]").each(function() {
+        $("div[data-section-name]:not(.dSection), .dSection div[data-section-name] .c:first-child").each(function() {
             var sTop = $(this).offset().top - $(document).scrollTop();
             var sBottom = sTop + $(this).height();
             var sectionColor = $(this).css("color");
@@ -335,6 +335,12 @@ $(function () {
             sectionAnimation(getShownSections().last());
         }
     });
+    
+    $("#moreButton").on("click", function() {
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $(".full-page-section-wrapper:nth-child(2)").offset().top
+        }, 1000);
+    })
 
     $(document).on('keydown', function (e) {
         if (e.key == 'q' && !atHome()) {
