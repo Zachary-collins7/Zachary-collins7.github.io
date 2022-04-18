@@ -3,10 +3,13 @@ import * as $ from 'jquery';
 import 'bootstrap';
 import * as moment from "moment";
 import barba from '@barba/core';
-import anime from 'animejs/lib/anime.es.js';
 import gsap from "gsap";
+import Parallax from 'parallax-js'
+import { FlipBook } from "./flipbook";
 
 const demo = () => moment("20111031", "YYYYMMDD").fromNow();
+
+var MAX_SCROLL_HEIGHT = 0;
 
 //fix scroll
 if (history.scrollRestoration) {
@@ -14,10 +17,17 @@ if (history.scrollRestoration) {
 }
 
 barba.hooks.after((data) => {
-    init()
+    init();
 });
 
-if (atHome()) {
+function atBarbaNamespace() {
+    return window.location.pathname == "/"
+        || window.location.href.indexOf("index") > -1
+        || window.location.href.indexOf("about") > -1
+        || window.location.href.indexOf("contact") > -1;
+}
+
+if (screen.width > 1000 && atBarbaNamespace()) {
     barba.init({
         debug: true,
         preventRunning: true,
@@ -34,10 +44,10 @@ if (atHome()) {
                     ]
                 },
                 leave: ({ next }) => {
-                    return leaveAnimation(next);
+                    return leaveHomeAnimation(next);
                 },
                 enter: ({ next }) => {
-                    return leaveHelper(next);
+                    return leaveHomeHelper(next);
                 }
             },
             {
@@ -49,21 +59,14 @@ if (atHome()) {
                     ]
                 },
                 leave: ({ data }) => {
-                    return returnAnimation(data);
+                    return returnHomeAnimation(data);
                 },
                 enter(data) {
-                    return returnHelper(data)
+                    return returnHomeHelper(data)
                 }
             },
         ]
     });
-}
-
-function barbaScrollTimer(offset) {
-    return Math.max(
-        Math.abs(offset) / 300 * 1000,
-        300
-    )
 }
 
 async function _helperGetNextUrlPath(next) {
@@ -74,13 +77,14 @@ function getOffset(s) {
     return $(s).position().left - $(window).width() * 0.08
 }
 
-async function leaveHelper(next) {
+async function leaveHomeHelper(next) {
     window.scrollTo(0, 0);
 }
 
-async function leaveAnimation(next) {
+async function leaveHomeAnimation(next) {
     var hash = await _helperGetNextUrlPath(next);
     var ss = document.querySelector(`div[data-section-name=${hash}]`);
+    var ssBackground = ss.parentElement.querySelector(".background");
     var offset = getOffset(ss);
 
     var c = $(ss.querySelector(".container"));
@@ -88,19 +92,26 @@ async function leaveAnimation(next) {
         overflow: 'visible',
         position: 'unset',
     })
-    var marginOffset = $(window).width() - (c.position().left + c.width())
-    // ss.parentElement.classList.add("lockFullScreen");
+    // var marginOffset = $(window).width() - (c.position().left + c.width())
     
-    // var scrollOffset = $(ss).offset().top - $(document).scrollTop();
-    // var scrollTime = barbaScrollTimer(scrollOffset);
+    var scrollOffset = $(ss).offset().top - $(document).scrollTop();
 
     return gsap.timeline({
-        duration: 1
+        duration: 2
     }).add(
+        gsap.to(ssBackground, {
+            width: "100%",
+            duration: 1
+        }), 0
+    ).add(
+        gsap.to(document.querySelector(".main"), {
+            translateY: -scrollOffset
+        }), 0
+    ).add(
         gsap.to(ss.querySelector(".container"), {
             height: "100%",
             padding: 0,
-            marginRight: 0
+            marginRight: 0,
         }), 0
     )
     .add(
@@ -112,27 +123,45 @@ async function leaveAnimation(next) {
     )
 }
 
-async function returnHelper(data) {
+async function returnHomeHelper(data) {
+    
     var section = $(`div[data-section-name=${data.current.namespace}]`)
-    var sTop = section.offset().top;
-    var offset = $('.main').first().height();
-    var dist = sTop - offset;
-    section.data("animated", true);
-    window.scrollTo(0, dist);
+    section.first().each(function() {
+        var sTop = $(this).offset().top;
+        var offset = $('.main').first().height();
+        var dist = sTop - offset;
+        $(this).data("animated", true);
+        window.scrollTo(0, dist);
+    });
 }
 
-async function returnAnimation(data) {
+async function returnHomeAnimation(data) {
+
     var s = $(".full-page-section").first();
+    var ssBackground = s[0].parentElement.querySelector(".background");
     s.find(".container")
-        .css('position', 'relative')
-        .css('overflow', 'visible')
-        .removeClass('postAnimate');
+        .css({
+            position: "relative",
+            overflow: "visible"
+        })
+        .removeClass("postAnimate");
+
+    $("#scene").css("display", "block");
+    
     var offset = $(window).width() * 0.08
     var imgOffset = $(window).width() - (s.find(".image").offset().left + s.find(".image").width())
 
+
+    var scrollOffset = s.offset().top - $(document).scrollTop();
+
     return gsap.timeline({
-        duration: 1
+        duration: 2
     }).add(
+        gsap.to(ssBackground, {
+            width: "0%",
+            duration: 0.5
+        }), 0
+    ).add(
         gsap.fromTo(s.find(".container")[0], {
             height: "100%",
             translateX: imgOffset
@@ -146,22 +175,25 @@ async function returnAnimation(data) {
         }, {
             translateX: 0
         }), 0
+    ).add(
+        gsap.to(document.querySelector(".main"), {
+            translateY: -scrollOffset
+        }), 0
     )
 }
 
 async function removeFloatingNav() {
     if ($("#f-nav").length) {
         $("#f-nav").first().attr('id', 'f-nav-old');
-        anime({
-            targets: '#f-nav-old',
+        gsap.to("#f-nav-old", {
+            ease: "sine.out",
             opacity: 0,
-            duration: 300,
-            complete: function () {
+            duration: 0.5,
+            onComplete: function() {
                 $("#f-nav-old").remove();
             }
-        })
-    }
-    
+        });
+    }   
 }
 
 async function createFloatingNav() {
@@ -176,31 +208,51 @@ async function createFloatingNav() {
     )
     $("<div>", {
         id: "f-nav",
-        class: "f-nav",
+        class: "f-nav scroll",
         css: {
             "opacity" : 0
         }
     }).append(ul).appendTo("body");
 
-    anime({
-        targets: '#f-nav',
-        opacity: [0, 1],
-        easing: "easeInSine",
-        duration: 300,
-        delay: 200
-    })
+    gsap.fromTo("#f-nav", {
+        ease: "sine.out",
+        opacity: 0
+    }, {
+        opacity: 1,
+        duration: 0.5,
+        delay: 0.5
+    });
 }
 
+function removeHash() {
+    history.pushState("", document.title, window.location.pathname
+        + window.location.search);
+}
 
 function updateMenu() {
     //update hash
     var sectionTag = getShownSections().last().data("section-name");
-    window.location.hash = sectionTag;
-    $(".f-nav ul li a").each(function() {
+    if (sectionTag != undefined) {
+        if (sectionTag === "hello" && window.location.hash) {
+            removeHash();
+        }
+        else {
+            window.location.hash = sectionTag;
+        }
+    }
+    
+    $("#f-nav ul li a").each(function() {
         $(this).removeClass("active");
     });
 
-    $(`.f-nav ul li a[href$=${sectionTag}]`).addClass("active");
+    $(`#f-nav ul li a[href$=${sectionTag}]`).addClass("active");
+
+    if (sectionTag != "hello") {
+        $("#f-nav").removeClass("scroll");
+    }
+    else {
+        $("#f-nav").addClass("scroll");
+    }
 }
 
 function scrollToHash(hash, time) {
@@ -238,39 +290,33 @@ function sectionAnimation(s) {
     if (s.data("animated") === undefined || s.data("animated") === false) {
         s.data("animated", true);
         var sharedEasing = "easeInOutCubic";
-        anime({
-            easing: sharedEasing,
-            duration: 1200,
-            targets: [s.find(".image .c1")[0]],
-            width: ['100%', '0%'],
-        })
-        anime({
-            easing: sharedEasing,
-            duration: 1200,
-            targets: [s.find(".image .c2")[0]],
-            width: ['0%', '100%'],
-            left: ['0%', '100%'],
+
+        gsap.to(s.find(".image .c1")[0], {
+            width: "0%",
+            duration: 1
         })
 
-        anime({
-            targets: [
-                s.find(".title")[0],
-                s.find(".divider")[0],
-                s.find(".desc")[0],
-                s.find(".btn")[0]
-            ],
-            easing: sharedEasing,
-            duration: 1200,
-            delay: anime.stagger(100),
-            translateX: [-600, 0]
+        gsap.to(s.find(".image .c2")[0], {
+            width: "100%",
+            left: "100%",
+            duration: 1
         })
 
-        anime({
-            targets: [s.find(".image")[0]],
-            easing: sharedEasing,
-            scale: [0.9, 1],
-            duration: 1000,
-            delay: 700
+        gsap.to([
+            s.find(".title")[0],
+            s.find(".divider")[0],
+            s.find(".desc")[0],
+            s.find(".btn")[0]
+        ], {
+            translateX: 0,
+            stagger: 0.1,
+            duration: 1
+        })
+
+        gsap.to(s.find(".image")[0], {
+            scale: 1,
+            delay: 0.7,
+            duration: 0.8
         })
     }
 }
@@ -284,28 +330,71 @@ async function init(data) {
     createFloatingNav();
     // updateMenu();
     
-    var _ = $(".f-nav a").on("click", function () {
+    $(".f-nav a").on("click", function () {
         scrollToHash($(this).attr("href").substring(1), 1000);
     });
 
+
     if (atHome()) {
-        sectionAnimation($("div[data-section-name]").first());
+        //parallax effect
+        $(".scene-layer").each(function () {
+            var layer = new Parallax($(this).get(0), {
+                // invertX: true,
+                // invertY: true,
+                // calibrateX: true,
+                // calibrateY: true,
+                // scalarX: 10.0,
+                // scalarY: 10.0,
+                relativeInput: false
+            });
+            layer.origin(0, 0);
+        });
+
+        
+        //play animation for hash or current section
+        const hash = window.location.hash.substring(1);
+        if (window.location.hash && $(`div[data-section-name=${hash}]`).length) {
+            $(`div[data-section-name=${hash}]`).each(function () {
+                sectionAnimation($(this));
+            })
+        }
+        else {
+            sectionAnimation($("div[data-section-name]").first());
+        }
+
+        //prep all other sections
         $("div[data-section-name]").each(function () {
             if (!$(this).data("animated")) {
-                prepSectionAnimation($(this))
+                prepSectionAnimation($(this));
             }
+        });
+
+        //button
+        $("#moreButton").on("click", function () {
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#moreDestination").offset().top
+            }, 1000);
+        });
+
+        $(function () {
+            $(".flip_book").each(function () {
+                new FlipBook($(this));
+            })
         })
     }
-    
+
     return true;
 }
 
 $(function () {
-    //on first load
     if (window.location.hash) {
-        var hash = window.location.hash.substring(1);
-        scrollToHash(hash, 0);
+        $(`div[data-section-name=${window.location.hash.replace("#", "")}]`).first().each(function () {
+            window.scrollTo(0, $(this).offset().top);
+            console.log($(this).offset().top)
+        })
     }
+    
+    //on first load
     init();
 
     //binding
@@ -313,111 +402,28 @@ $(function () {
         updateMenu();
 
         //updates 
+
+        //update color
         $("div[data-section-name]:not(.dSection), .dSection div[data-section-name] .c:first-child").each(function() {
-            var sTop = $(this).offset().top - $(document).scrollTop();
-            var sBottom = sTop + $(this).height();
-            var sectionColor = $(this).css("color");
+            const sTop = $(this).offset().top - $(document).scrollTop();
+            const sBottom = sTop + $(this).height();
+            const sLeft = $(this).offset().left;
+            const sRight = sLeft + $(this).width();
+            const sectionColor = $(this).css("color");
             if ($("#f-nav")) {
                 $("#f-nav a").each(function() {
-                    var midPos = $(this).offset().top - $(document).scrollTop() + $(this).height() / 2;
-                    if (midPos >= sTop && midPos <= sBottom) { // if in section
+                    const midYPos = $(this).offset().top - $(document).scrollTop() + $(this).height() / 2;
+                    const midXPos = $(this).offset().left + $(this).width() / 2;
+                    if (midYPos >= sTop && midYPos <= sBottom && midXPos >= sLeft && midXPos <= sRight) { // if in section
                         $(this).css("background-color", sectionColor);
                     }
                 })
             }
-            $(".back").each(function () {
-                var midPos = $(this).offset().top - $(document).scrollTop() + $(this).height() / 2;
-                if (midPos >= sTop && midPos <= sBottom) { // if in section
-                    $(this).css("color", sectionColor);
-                }
-            })
         })
         //home
         if (atHome()) {
             sectionAnimation(getShownSections().last());
         }
     });
-    
-    $("#moreButton").on("click", function() {
-        $([document.documentElement, document.body]).animate({
-            scrollTop: $(".full-page-section-wrapper:nth-child(2)").offset().top
-        }, 1000);
-    })
-
-    $(document).on('keydown', function (e) {
-        if (e.key == 'q' && !atHome()) {
-            barba.go('/')
-        }
-    })
 });
 
-
-class flip_book {
-    constructor(el) {
-        this.el = el;
-        this.frames = this.el.data("frames");
-        this.url = this.el.data("url");
-        this.filetype = this.el.data("data-file-type") || "png";
-        
-        this.el.css({
-            height: `${this.frames * 5}vh`
-        })
-
-        this.canvas = $("<canvas>", {
-            css: {
-                position: "sticky",
-                width: "100%",
-                height: "100vh",
-                top: "0",
-                left: "0",
-                "background-color": "black",
-            }
-        }).appendTo(this.el).get(0);
-        this.context = this.canvas.getContext("2d");
-        
-        this.img = new Image();
-        this.img.src = this.currentFrame(1);
-
-        this.img.onload = function () {
-            console.log(this.img)
-            this.canvas.width = this.img.width;
-            this.canvas.height = this.img.height;
-            this.context.drawImage(this.img, 0, 0, this.img.width, this.img.height, 0, 0, this.canvas.width, this.canvas.height);
-        }.bind(this)
-
-        window.addEventListener('scroll', () => {
-            var dTop = this.el.offset().top - $(document).scrollTop(); //0 when at top, height when at bottom
-            const scrollFraction = -(dTop) / this.el.height();
-            const frameIndex = Math.max(Math.min(
-                this.frames - 1,
-                Math.ceil(scrollFraction * this.frames)
-            ), 1);
-            requestAnimationFrame(() => this.updateImage(frameIndex + 1))
-        });
-
-        this.preloadImages();
-    }
-
-    currentFrame(index) {
-        var testUrl = `${this.url}${index.toString().padStart(4, '0')}.${this.filetype}`;
-        return testUrl;
-    }
-    updateImage(index) {
-        this.img.src = this.currentFrame(index);
-        this.context.drawImage(this.img, 0, 0, this.img.width, this.img.height, 0, 0, this.canvas.width, this.canvas.height);
-    }
-
-    async preloadImages() {
-        for (let i = 1; i < this.frames; i++) {
-            const img = new Image();
-            img.src = this.currentFrame(i);
-        }
-    }
-}
-
-
-$(function() {
-    $(".flip_book").each(function () {
-        var a = new flip_book($(this));
-    })
-})
