@@ -345,38 +345,38 @@ async function init(data) {
     });
 
     if (atHome()) {
+        
+        // $("#scene").each(function() {
+        //     const starsPerLayer = 200;
+        //     const layers = 3;
+
+        //     for (let i = 0; i < layers; i++) {
+        //         var depth = $(this).find(".scene-layer").first()?.data("depth") ?? 0.1
+        //         var scene = $("<div>", {
+        //             class: "scene-layer stars"
+        //         })
+        //         var layer = $("<div>", {
+        //             "data-depth": depth * 0.7
+        //         })
+
+        //         for (let j = 0; j < starsPerLayer; j++) {
+        //             layer.append($("<div>", {
+        //                 class: "star"
+        //             }))
+        //         }
+        //         scene.append(layer);
+        //         $(this).prepend(scene);
+        //     }  
+        // });
+
+        // gsap.fromTo(".stars", {
+        //     opacity: 0
+        // }, {
+        //     opacity: 1,
+        //     duration: 1,
+        //     delay: 1
+        // });
         //parallax effect
-        $("#scene").each(function() {
-            const starsPerLayer = 200;
-            const layers = 3;
-
-            for (let i = 0; i < layers; i++) {
-                var depth = $(this).find(".scene-layer").first()?.data("depth") ?? 0.1
-                var scene = $("<div>", {
-                    class: "scene-layer stars"
-                })
-                var layer = $("<div>", {
-                    "data-depth": depth * 0.7
-                })
-
-                for (let j = 0; j < starsPerLayer; j++) {
-                    layer.append($("<div>", {
-                        class: "star"
-                    }))
-                }
-                scene.append(layer);
-                $(this).prepend(scene);
-            }  
-        });
-
-        gsap.fromTo(".stars", {
-            opacity: 0
-        }, {
-            opacity: 1,
-            duration: 1,
-            delay: 1
-        });
-
         $(".scene-layer").each(function () {
             var layer = new Parallax($(this).get(0), {
                 // invertX: true,

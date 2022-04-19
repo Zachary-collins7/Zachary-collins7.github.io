@@ -100,6 +100,20 @@ head, body {
     color: white
 }
 
+.main {
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    /* Other transform properties here */
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    // -webkit-perspective: 1000;
+    // perspective: 1000;  
+    /* Other transform properties here */
+}
+
+
 .lockFullScreen {
     position: fixed;
     top: 0;
@@ -623,22 +637,22 @@ head, body {
             scale: 1.01;
         }
     }
-    & .star {
-        position: relative;
-        background-color: white;
-    }
+    // & .star {
+    //     position: relative;
+    //     background-color: white;
+    // }
     
-    @for $l from 1 through 3 {
-        @for $i from 1 through 200 {
-            & .stars:nth-of-type(#{$l}) .star:nth-of-type(#{$i}) {
-                $star-size: random(2 + $l) + 1px;
-                top: random(101) - 1 +vh;
-                left: random(101) - 1 +vw;
-                width: $star-size;
-                height: $star-size;
-                opacity: calc(random(50) / 100) + calc($l * 0.1);
-            }
-        }
-    }
+    // @for $l from 1 through 3 {
+    //     @for $i from 1 through 200 {
+    //         & .stars:nth-of-type(#{$l}) .star:nth-of-type(#{$i}) {
+    //             $star-size: random(2 + $l) + 1px;
+    //             top: random(101) - 1 +vh;
+    //             left: random(101) - 1 +vw;
+    //             width: $star-size;
+    //             height: $star-size;
+    //             opacity: calc(random(50) / 100) + calc($l * 0.1);
+    //         }
+    //     }
+    // }
 }
 
