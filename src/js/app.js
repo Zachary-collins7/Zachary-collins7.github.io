@@ -29,10 +29,10 @@ function atBarbaNamespace() {
 
 if (screen.width > 1000 && atBarbaNamespace()) {
     barba.init({
-        debug: true,
+        // debug: true,
         preventRunning: true,
-        cacheIgnore: true,
-        logLevel: 'debug',
+        // cacheIgnore: true,
+        // logLevel: 'debug',
         prevent: ({ el }) => el.classList && el.classList.contains('disable-barba'),
         timeout: 5000,
         transitions: [
@@ -100,25 +100,29 @@ async function leaveHomeAnimation(next) {
         duration: 2
     }).add(
         gsap.to(ssBackground, {
+            ease: "power1.out",
             width: "100%",
             duration: 1
         }), 0
     ).add(
         gsap.to(document.querySelector(".main"), {
-            translateY: -scrollOffset
+            translateY: -scrollOffset,
+            ease: "power1.inOut",
         }), 0
     ).add(
         gsap.to(ss.querySelector(".container"), {
             height: "100%",
             padding: 0,
             marginRight: 0,
+            duration: 1
         }), 0
     )
     .add(
         gsap.fromTo(ss.querySelector(".container .about"), {
             translateX: -offset
         }, {
-            translateX: 0
+            translateX: 0,
+            duration: 1
         }), 0
     )
 }
@@ -158,27 +162,31 @@ async function returnHomeAnimation(data) {
         duration: 2
     }).add(
         gsap.to(ssBackground, {
+            ease: "power1.out",
             width: "0%",
-            duration: 0.5
+            duration: 1
         }), 0
     ).add(
         gsap.fromTo(s.find(".container")[0], {
             height: "100%",
-            translateX: imgOffset
+            translateX: imgOffset,
         }, {
             height: "70%",
-            translateX: 0
+            translateX: 0,
+            duration: 1
         }), 0
     ).add(
         gsap.fromTo(s.find(".container .about")[0], {
             translateX: -offset - imgOffset
         }, {
-            translateX: 0
+            translateX: 0,
+            duration: 1
         }), 0
     ).add(
         gsap.to(document.querySelector(".main"), {
+            ease: "power1.inOut",
             translateY: -scrollOffset
-        }), 0
+        }), 0   
     )
 }
 
@@ -290,17 +298,25 @@ function sectionAnimation(s) {
     if (s.data("animated") === undefined || s.data("animated") === false) {
         s.data("animated", true);
         var sharedEasing = "easeInOutCubic";
+        
+        if (s.find(".image").length) {
+            gsap.to(s.find(".image .c1")[0], {
+                width: "0%",
+                duration: 1
+            })
 
-        gsap.to(s.find(".image .c1")[0], {
-            width: "0%",
-            duration: 1
-        })
+            gsap.to(s.find(".image .c2")[0], {
+                width: "100%",
+                left: "100%",
+                duration: 1
+            })
 
-        gsap.to(s.find(".image .c2")[0], {
-            width: "100%",
-            left: "100%",
-            duration: 1
-        })
+            gsap.to(s.find(".image")[0], {
+                scale: 1,
+                delay: 0.7,
+                duration: 0.8
+            })
+        }
 
         gsap.to([
             s.find(".title")[0],
@@ -311,13 +327,7 @@ function sectionAnimation(s) {
             translateX: 0,
             stagger: 0.1,
             duration: 1
-        })
-
-        gsap.to(s.find(".image")[0], {
-            scale: 1,
-            delay: 0.7,
-            duration: 0.8
-        })
+        })        
     }
 }
 
@@ -334,9 +344,39 @@ async function init(data) {
         scrollToHash($(this).attr("href").substring(1), 1000);
     });
 
-
     if (atHome()) {
         //parallax effect
+        $("#scene").each(function() {
+            const starsPerLayer = 200;
+            const layers = 3;
+
+            for (let i = 0; i < layers; i++) {
+                var depth = $(this).find(".scene-layer").first()?.data("depth") ?? 0.1
+                var scene = $("<div>", {
+                    class: "scene-layer stars"
+                })
+                var layer = $("<div>", {
+                    "data-depth": depth * 0.7
+                })
+
+                for (let j = 0; j < starsPerLayer; j++) {
+                    layer.append($("<div>", {
+                        class: "star"
+                    }))
+                }
+                scene.append(layer);
+                $(this).prepend(scene);
+            }  
+        });
+
+        gsap.fromTo(".stars", {
+            opacity: 0
+        }, {
+            opacity: 1,
+            duration: 1,
+            delay: 1
+        });
+
         $(".scene-layer").each(function () {
             var layer = new Parallax($(this).get(0), {
                 // invertX: true,
@@ -382,15 +422,12 @@ async function init(data) {
             })
         })
     }
-
-    return true;
 }
 
 $(function () {
     if (window.location.hash) {
         $(`div[data-section-name=${window.location.hash.replace("#", "")}]`).first().each(function () {
             window.scrollTo(0, $(this).offset().top);
-            console.log($(this).offset().top)
         })
     }
     
@@ -411,11 +448,16 @@ $(function () {
             const sRight = sLeft + $(this).width();
             const sectionColor = $(this).css("color");
             if ($("#f-nav")) {
-                $("#f-nav a").each(function() {
+                $("#f-nav a, a.back i, nav.navbar .navbar-brand").each(function() {
                     const midYPos = $(this).offset().top - $(document).scrollTop() + $(this).height() / 2;
                     const midXPos = $(this).offset().left + $(this).width() / 2;
                     if (midYPos >= sTop && midYPos <= sBottom && midXPos >= sLeft && midXPos <= sRight) { // if in section
-                        $(this).css("background-color", sectionColor);
+                        if ($(this).is("i, span")) {
+                            $(this).css("color", sectionColor);
+                        }
+                        else {
+                            $(this).css("background-color", sectionColor);
+                        }
                     }
                 })
             }

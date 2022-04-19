@@ -91,22 +91,14 @@ span.divider {
 
 head, body {
     position: relative;
-    background-color: adjust-color($color: $nice-dark, $lightness: 10%, $alpha: 1.0);
+    background: linear-gradient(
+        to bottom right,
+        adjust-color($color: $nice-dark, $lightness: 5%),
+        adjust-color($color: $nice-dark, $lightness: 18%)
+    );
+    // background-color: adjust-color($color: $nice-dark, $lightness: 10%, $alpha: 1.0);
     color: white
 }
-
-// .main {
-//     -webkit-transform: translateZ(0);
-//     -ms-transform: translateZ(0);
-//     transform: translateZ(0);
-//     /* Other transform properties here */
-
-//     -webkit-backface-visibility: hidden;
-//     backface-visibility: hidden;
-//     -webkit-perspective: 1000;
-//     perspective: 1000;
-//     /* Other transform properties here */
-// }
 
 .lockFullScreen {
     position: fixed;
@@ -135,10 +127,6 @@ head, body {
         }
     }
 
-    & .full-page-section {
-        // box-shadow: inset 0 0.5rem 0.5rem -0.5rem adjust-color($color: $accent-color-500, $alpha: 0.5);
-    }
-
     &:first-child .full-page-section {
         box-shadow: none;
     }
@@ -164,23 +152,27 @@ head, body {
     }
 }
 
+.back {
+    position: fixed; //absolute;
+    color: white;
+    font-size: 3.5rem;
+    text-decoration: none;
+
+    top: 2rem;
+    left: 2rem;
+    z-index: 100;
+    
+    & i {
+        transition: color 0.4s ease-in;
+    }
+}
+
 .full-page-section {
     position: sticky;
     top: 0;
     height: 100vh;
     z-index: 10;
     background: none;
-
-    & .back {
-        position: fixed; //absolute;
-        color: white;
-        font-size: 3.5rem;
-        text-decoration: none;
-
-        top: 2rem;
-        left: 2rem;
-        z-index: 3;
-    }
 
     & .container {
         position: relative;
@@ -204,8 +196,8 @@ head, body {
             text-shadow: 0 0 0.4rem $nice-dark;
 
             
-            @media (min-width: 576px) {
-                padding-right: 30vw;
+            @media (min-width: 1200px) {
+                width: 30vw;
             }
 
             & .desc {
@@ -219,9 +211,15 @@ head, body {
 
             & .btn {
                 color: white;
-                background-color: rgba($color: $primary-color-500, $alpha: 0.3);
+                background-color: rgba($color: $primary-color-500, $alpha: 0.7);
                 border-color: $primary-color-500;
                 border-radius: 2rem;
+                transition: all 0.3s ease-out;
+
+                &:hover {
+                    background-color: $primary-color-500;
+                    scale: 1.1;
+                }
             }
         }
 
@@ -273,7 +271,6 @@ head, body {
             background: $accent-color-500;
         }
 
-        & .hello__image,
         & .about__image,
         & .contact__image,
         & .none__image {
@@ -288,8 +285,7 @@ head, body {
 
 [data-barba-namespace="index"] {
     counter-reset: sectionCounter;
-
-    & .full-page-section {
+    & .full-page-section:not([data-section-name="hello"]){
         @media (min-width: 576px) {
             &::after {
                 content: counter(sectionCounter);
@@ -297,7 +293,7 @@ head, body {
                 position: absolute;
                 display: inline-block;
                 bottom: 10%;
-                right: 10vw;
+                right: 12vw;
 
                 color: white;
                 font-family: "Times New Roman", Times, serif;
@@ -384,9 +380,18 @@ head, body {
                 cursor: pointer;
                 height: 100%;
                 width: 50%;
+
                 background-color: white;
+
                 border-radius: 2px;
-                transition: all 0.4s ease-in;
+
+                transition: all 0.4s ease-out;
+                transform-origin: left;
+                
+                &:not(.active):hover {
+                    transform: scale(1.5);
+                    background-color: $primary-color-500 !important;
+                }
             }
 
             & a.active {
@@ -433,6 +438,9 @@ head, body {
 .navbar .navbar-nav,
 .navbar .offcanvas {
     background-color: $nice-dark;
+}
+.navbar .navbar-brand {
+    transition: color 0.4s ease-in;
 }
 .navbar-toggler,
 .navbar-toggler:focus {
@@ -539,39 +547,26 @@ head, body {
     }
 }
 
-
-// .sceneWrapper {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     z-index: 2;
-//     background-color: #262626;
-//     width: 100vw;
-//     height: 100vh;
-
-//     & 
-// }
-
-
 #scene {
     position: fixed;
     width: 100vw;
     height: 100vh;
     left: 0;
     top: 0;
-    // background-color: rgb(30, 30, 30);
-    // left: 50% !important;
-    // top: 50% !important;
     
-    & .scene-layer {
+    & .scene-layer:not(.stars) {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) !important;
 
+        & div {
+            filter: hue-rotate(60deg);
+        }
 
-        &:nth-child(1) {
-            left: 70%;
+        
+        &:nth-last-child(1) {
+            left: 30%;
             & div {
                 font-size: 80vmin;
                 width: 1em;
@@ -582,9 +577,9 @@ head, body {
             }
         }
 
-        &:nth-child(2) {
+        &:nth-last-child(2) {
             top: 70%;
-            left: 20%;
+            left: 80%;
             & div {
                 font-size: 60vmin;
                 width: 1em;
@@ -594,9 +589,9 @@ head, body {
                 background-color: adjust-hue($color: $primary-color-500, $degrees: 30);
             }
         }
-        &:nth-child(3) {
+        &:nth-last-child(3) {
             top: 20%;
-            left: 30%;
+            left: 70%;
             & div {
                 font-size: 40vmin;
                 width: 1em;
@@ -628,4 +623,22 @@ head, body {
             scale: 1.01;
         }
     }
+    & .star {
+        position: relative;
+        background-color: white;
+    }
+    
+    @for $l from 1 through 3 {
+        @for $i from 1 through 200 {
+            & .stars:nth-of-type(#{$l}) .star:nth-of-type(#{$i}) {
+                $star-size: random(2 + $l) + 1px;
+                top: random(101) - 1 +vh;
+                left: random(101) - 1 +vw;
+                width: $star-size;
+                height: $star-size;
+                opacity: calc(random(50) / 100) + calc($l * 0.1);
+            }
+        }
+    }
 }
+
