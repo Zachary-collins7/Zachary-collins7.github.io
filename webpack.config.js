@@ -133,6 +133,14 @@ module.exports = {
             ignore: ['*.DS_Store', 'Thumbs.db'],
           },
         },
+        {
+          from: path.resolve(environment.paths.source, '..', 'Terpsense'),
+          to: path.resolve(environment.paths.output, 'Terpsense'),
+          toType: 'dir',
+          globOptions: {
+            ignore: ['*.DS_Store', 'Thumbs.db', '*.py'],
+          },
+        },
       ],
     }),
   ].concat(htmlPluginEntries),

@@ -2,24 +2,11 @@
 class FlipBook {
     constructor(el) {
         this.el = el;
-        this.frames = this.el.data("frames");
-        this.url = this.el.data("url");
-        this.filetype = this.el.data("data-file-type") || "png";
+        this.frames = this.el.getAttribute("data-frames");
+        this.url = this.el.getAttribute("data-url");
+        this.filetype = this.el.getAttribute("data-file-type") || "png";
 
-        this.el.css({
-            height: `${this.frames * 5}vh`
-        })
-
-        // this.canvas = $("<canvas>", {
-        //     css: {
-        //         position: "sticky",
-        //         width: "100%",
-        //         height: "100vh",
-        //         top: "0",
-        //         left: "0",
-        //         "background-color": "black",
-        //     }
-        // }).appendTo(this.el).get(0);
+        this.el.style.height = `${100 + this.frames * 1}vh`;
 
         this.canvas = document.createElement("canvas")
         this.canvas.style.position = "sticky";
@@ -28,7 +15,7 @@ class FlipBook {
         this.canvas.style.top = 0;
         this.canvas.style.left = 0;
         this.canvas.style.backgroundColor = "black";
-        this.el[0].appendChild(this.canvas);
+        this.el.appendChild(this.canvas);
 
         this.context = this.canvas.getContext("2d");
 
@@ -42,8 +29,8 @@ class FlipBook {
         }.bind(this)
 
         window.addEventListener('scroll', () => {
-            var dTop = this.el.offset().top - window.scrollY; //0 when at top, height when at bottom
-            const scrollFraction = -(dTop) / this.el.height();
+            var dTop = this.el.getBoundingClientRect().top + el.ownerDocument.defaultView.pageYOffset - window.scrollY; //0 when at top, height when at bottom
+            const scrollFraction = -(dTop) / this.el.getBoundingClientRect().height;
             const frameIndex = Math.max(Math.min(
                 this.frames - 1,
                 Math.ceil(scrollFraction * this.frames)

@@ -100,19 +100,6 @@ head, body {
     color: white
 }
 
-.main {
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
-    /* Other transform properties here */
-
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    // -webkit-perspective: 1000;
-    // perspective: 1000;  
-    /* Other transform properties here */
-}
-
 
 .lockFullScreen {
     position: fixed;
@@ -135,11 +122,11 @@ head, body {
     width: 100%;
     height: 100vh;
 
-    @media (min-width: 576px) {
-        &:not(.no-scroll-padding) {
-            height: 120vh;
-        }
-    }
+    // @media (min-width: 576px) {
+    //     &:not(.no-scroll-padding) {
+    //         height: 120vh;
+    //     }
+    // }
 
     &:first-child .full-page-section {
         box-shadow: none;
@@ -637,22 +624,43 @@ head, body {
             scale: 1.01;
         }
     }
-    // & .star {
-    //     position: relative;
-    //     background-color: white;
-    // }
+    & .star {
+        position: relative;
+        background-color: lightblue;
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+
+        &::before, 
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background-color: aliceblue;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+        }
+        &::before {
+            width: 0.15em;
+            height: 1.6em;
+        }
+        &::after {
+            width: 1.6em;
+            height: 0.15em;
+        }
+    }
     
-    // @for $l from 1 through 3 {
-    //     @for $i from 1 through 200 {
-    //         & .stars:nth-of-type(#{$l}) .star:nth-of-type(#{$i}) {
-    //             $star-size: random(2 + $l) + 1px;
-    //             top: random(101) - 1 +vh;
-    //             left: random(101) - 1 +vw;
-    //             width: $star-size;
-    //             height: $star-size;
-    //             opacity: calc(random(50) / 100) + calc($l * 0.1);
-    //         }
-    //     }
-    // }
+    @for $l from 1 through 3 {
+        @for $i from 1 through 100 {
+            & .stars:nth-of-type(#{$l}) .star:nth-of-type(#{$i}) {
+                $star-size: random(2 + $l) + 1px;
+                top: random(101) - 1 +vh;
+                left: random(101) - 1 +vw;
+                font-size: $star-size;
+                opacity: calc(random(50) / 100) + calc($l * 0.1);
+            }
+        }
+    }
 }
 
