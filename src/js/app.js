@@ -27,6 +27,7 @@ function atBarbaNamespace() {
     return window.location.pathname == "/"
         || window.location.href.indexOf("index") > -1
         || window.location.href.indexOf("about") > -1
+        || window.location.href.indexOf("projects") > -1
         || window.location.href.indexOf("contact") > -1;
 }
 
@@ -58,6 +59,7 @@ if (screen.width > 1000 && atBarbaNamespace()) {
                 from: {
                     namespace: [
                         'about',
+                        'projects',
                         'contact'
                     ]
                 },
@@ -109,11 +111,12 @@ async function leaveHomeAnimation(next) {
         }), 0
     ).add(
         gsap.to(document.querySelector(".main"), {
-            translateY: -scrollOffset,
             ease: "power1.inOut",
+            translateY: -scrollOffset
         }), 0
     ).add(
         gsap.to(ss.querySelector(".container"), {
+            ease: "power1.out",
             height: "100%",
             padding: 0,
             marginRight: 0,
@@ -122,6 +125,7 @@ async function leaveHomeAnimation(next) {
     )
     .add(
         gsap.fromTo(ss.querySelector(".container .about"), {
+            ease: "power1.inOut",
             translateX: -offset
         }, {
             translateX: 0,
@@ -387,7 +391,7 @@ async function init(data) {
     // updateMenu();
     
     $(".f-nav a").on("click", function () {
-        scrollToHash($(this).attr("href").substring(1), 1000);
+        scrollToHash($(this).attr("href").substring(1), 2000);
     });
 
     if (atHome()) {
@@ -455,11 +459,86 @@ async function init(data) {
             }, 1000);
         });
     }
+    else {
+        $("#scene").css("display", "none");
+    }
 
     $(function () {
         $(".flip_book").each(function () {
             new FlipBook($(this)[0]);
         })
+    })
+
+    $(".project-wrapper").each(function () {
+        let pt = gsap.timeline({
+            ease: "power1.out",
+            scrollTrigger: {
+                trigger: $(this)[0],
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1
+            },
+        })
+
+        
+        pt.fromTo($(this).find(".subtitle"), {
+            translateY: "3rem",
+            opacity: 0
+        }, {
+            translateY: 0,
+            opacity: 1
+        }, 0)
+        
+        pt.fromTo($(this).find(".details-label"), {
+            translateY: "1.1rem"
+        }, {
+            ease: "none",
+            duration: 0.1,
+            translateY: 0,
+            opacity: 1
+        }, ">")
+        .fromTo($(this).find(".detail"), {
+            translateY: "1.1rem"
+        }, {
+            ease: "none",
+            duration: 0.1,
+            stagger: 0.1,
+            translateY: 0,
+            opacity: 1
+        }, ">-0.1")
+        .to($(this).find(".detail"), {
+            ease: "none",
+            delay: 0.1,
+            duration: 0.1,
+            stagger: 0.1,
+            translateY: "-1.1rem",
+            opacity: 0
+        }, "<")
+        .to($(this).find(".details-label"), {
+            ease: "none",
+            duration: 0.1,
+            translateY: "-1.1rem",
+            opacity: 0
+        }, ">-0.1")
+        
+        pt.fromTo($(this).find(".header"), {
+            top: "50%",
+        }, {
+            top: "3rem",
+            transform: "none"
+        }, ">")
+        .to($(this).find(".container"), {
+            scale: 1
+        }, "<0.05")
+        
+        //animation space
+        .to($(this).find(".container"), {
+            scale: 1
+        }, ">")
+        // .to($(this).find(".container"), {
+        //     scale: 1
+        // }, ">")
+
     })
 }
 

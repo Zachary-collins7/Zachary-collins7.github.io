@@ -15,7 +15,15 @@
 
 /* Vendor */
 
+
+$accent-color-500: #00c7a6;
+$primary-color-500: #8360c3;
+$nice-dark: #262626;
+
+
+
 /* Bootstrap */
+$primary: $primary-color-500;
 @import "~bootstrap/scss/bootstrap";
 // @import "~bootstrap-icons/font/bootstrap-icons";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
@@ -24,11 +32,6 @@
 
 /* Browser specific styles */
 @import 'dirty/hacks';
-
-
-$accent-color-500: #00c7a6;
-$primary-color-500: #8360c3;
-$nice-dark: #262626;
 
 .rborder {
     border: 2px solid red !important;
@@ -55,7 +58,11 @@ div.hero {
 
 .accentText {
     color: $accent-color-500;
-    font-weight: bolder;
+    // font-weight: bolder;
+}
+
+.primaryText {
+    color: $primary-color-500;
 }
 
 span.divider {
@@ -97,7 +104,8 @@ head, body {
         adjust-color($color: $nice-dark, $lightness: 18%)
     );
     // background-color: adjust-color($color: $nice-dark, $lightness: 10%, $alpha: 1.0);
-    color: white
+    color: white;
+    overscroll-behavior-y: none;
 }
 
 
@@ -115,25 +123,139 @@ head, body {
 }
 
 
+#scene {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
 
+    & .scene-layer:not(.stars) {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
+
+        & div {
+            filter: hue-rotate(60deg);
+        }
+
+
+        &:nth-last-child(1) {
+            left: 30%;
+
+            & div {
+                font-size: 80vmin;
+                width: 1em;
+                height: 1em;
+                border-radius: 50%;
+                border: 0.1em solid $nice-dark;
+                background-color: adjust-hue($color: $nice-dark, $degrees: 30);
+            }
+        }
+
+        &:nth-last-child(2) {
+            top: 70%;
+            left: 80%;
+
+            & div {
+                font-size: 60vmin;
+                width: 1em;
+                height: 1em;
+                border-radius: 50%;
+                border: 0.1em solid $primary-color-500;
+                background-color: adjust-hue($color: $primary-color-500, $degrees: 30);
+            }
+        }
+
+        &:nth-last-child(3) {
+            top: 20%;
+            left: 70%;
+
+            & div {
+                font-size: 40vmin;
+                width: 1em;
+                height: 1em;
+                border-radius: 50%;
+                border: 0.1em solid $accent-color-500;
+                background-color: adjust-hue($color: $accent-color-500, $degrees: 30);
+            }
+        }
+
+        & div::before,
+        & div::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        & div::before {
+            width: 0.5em;
+            height: 0.5em;
+            border: 0.025em solid black;
+        }
+
+        & div::after {
+            width: 0.8em;
+            height: 0.8em;
+            border: 0.1em solid black;
+            border-radius: 50%;
+            scale: 1.01;
+        }
+    }
+
+    & .star {
+        position: relative;
+        background-color: lightblue;
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background-color: aliceblue;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+        }
+
+        &::before {
+            width: 0.15em;
+            height: 1.6em;
+        }
+
+        &::after {
+            width: 1.6em;
+            height: 0.15em;
+        }
+    }
+
+    @for $l from 1 through 3 {
+        @for $i from 1 through 100 {
+            & .stars:nth-of-type(#{$l}) .star:nth-of-type(#{$i}) {
+                $star-size: random(2 + $l) + 1px;
+                top: random(101) - 1 +vh;
+                left: random(101) - 1 +vw;
+                font-size: $star-size;
+                opacity: calc(random(50) / 100) + calc($l * 0.1);
+            }
+        }
+    }
+}
 
 .full-page-section-wrapper {
     position: relative;
     width: 100%;
     height: 100vh;
 
-    // @media (min-width: 576px) {
-    //     &:not(.no-scroll-padding) {
-    //         height: 120vh;
-    //     }
-    // }
-
-    &:first-child .full-page-section {
-        box-shadow: none;
-    }
-
     & .background {
         position: absolute;
+        z-index: 5;
         top: 0;
         left: 0;
         width: 0%;
@@ -143,13 +265,10 @@ head, body {
 }
 
 [data-barba-namespace="about"],
+[data-barba-namespace="projects"],
 [data-barba-namespace="contact"] {
     & .background {
         width: 100%;
-    }
-
-    & #scene {
-        display: none;
     }
 }
 
@@ -262,9 +381,12 @@ head, body {
         }
 
         & .about__image {
-            background: url("https://source.unsplash.com/502x500/?code,computer,data,coding"), $accent-color-500;
+            background: url("https://source.unsplash.com/501x500/?code,computer,data,coding"), $accent-color-500;
         }
-
+        & .projects__image {
+            background: url("https://source.unsplash.com/502x500/?programming,project"),
+            $accent-color-500;
+        }
         & .contact__image {
             background: url("https://source.unsplash.com/503x500/?patterns,technology,data"), $accent-color-500;
         }
@@ -273,6 +395,7 @@ head, body {
         }
 
         & .about__image,
+        & .projects__image,
         & .contact__image,
         & .none__image {
             background-size: cover;
@@ -389,9 +512,13 @@ head, body {
                 transition: all 0.4s ease-out;
                 transform-origin: left;
                 
+                
+                &:hover {
+                    background-color: $primary-color-500 !important;
+                    transform: scaleY(1.5);
+                }
                 &:not(.active):hover {
                     transform: scale(1.5);
-                    background-color: $primary-color-500 !important;
                 }
             }
 
@@ -455,18 +582,64 @@ head, body {
 
 
 
-.scroll-section {
-    counter-reset: scroll-section;
-    height: 100vh;
-    
-    & .container {
-        padding: 3rem;
-    }
+.z-section {
+    position: relative;
+    min-height: 100vh;
 
     &:nth-child(even) {
         color: $nice-dark;
         background-color: white;
     }
+
+    & ul {
+        & li {
+            &::before {
+                content: "•";
+                font-weight: bold;
+                font-size: 1.5rem;
+                color: $primary-color-500;
+                display: inline-block;
+                width: 1em;
+                margin-left: -1em
+            }
+        }
+    }
+
+    @media (max-width: 576px) {
+        // padding: 2rem;
+
+        & .row .p-desc h6 {
+            font-weight: bolder;
+        }
+
+        & p {
+            margin-bottom: 1.2rem;
+        }
+    }
+
+    @media (min-width: 576px) {
+        & .row {
+            & .p-desc {
+                border-left: 2px solid $primary-color-500;
+
+                & h6 {
+                    display: inline-flex;
+
+                    &::before {
+                        content: "";
+                        position: relative;
+                        width: 1em;
+                        height: 2px;
+                        margin-top: auto;
+                        margin-bottom: auto;
+                        background-color: $primary-color-500;
+                        transform: translateX(-0.8rem);
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 .dSection {
@@ -521,146 +694,160 @@ head, body {
     }
 }
 
-.center-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+.socials {
+    
+    & a {
+        text-decoration: none;
+        color: inherit;
+        width: 7rem;
 
-    @media (min-width: 576px) {
-        & .strike {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
+        & i {
+            font-size: 2.5rem;
+            transition: all 0.3s ease-in;
+        }
 
-            &:before,
-            &:after {
+        & span {
+            position: relative;
+            transition: all 0.3s ease-in;
+
+            &::after {
                 content: "";
-                flex: 1 1;
-                border-bottom: 1px solid white;
-                margin: auto;
-                margin-right: 2rem;
-                margin-left: 2rem;
+                position: absolute;
+                height: 0.1em;
+                width: 100%;
+                left: 0;
+                bottom: 0;
+                background-color: $accent-color-500;
+            
+                transform-origin: left;
+                transform: scaleX(0);
+                transition: inherit;
+            }
+        }
+
+        &:hover {
+            & i {
+                color: $accent-color-500;
+            }
+
+            & span {
+                color: $accent-color-500;
+                
+                &::after {
+                    transform: scaleX(1);
+                }
             }
         }
     }
 }
 
-#scene {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    left: 0;
-    top: 0;
+.project-wrapper {
+    position: relative;
+    height: 200vh;
+
+    & .project {
+        position: sticky;
+        top: 0;
+        min-height: 100vh;
+        width: 100%;
     
-    & .scene-layer:not(.stars) {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) !important;
-
-        & div {
-            filter: hue-rotate(60deg);
-        }
-
-        
-        &:nth-last-child(1) {
-            left: 30%;
-            & div {
-                font-size: 80vmin;
-                width: 1em;
-                height: 1em;
-                border-radius: 50%;
-                border: 0.1em solid $nice-dark;
-                background-color: adjust-hue($color: $nice-dark, $degrees: 30);
-            }
-        }
-
-        &:nth-last-child(2) {
-            top: 70%;
-            left: 80%;
-            & div {
-                font-size: 60vmin;
-                width: 1em;
-                height: 1em;
-                border-radius: 50%;
-                border: 0.1em solid $primary-color-500;
-                background-color: adjust-hue($color: $primary-color-500, $degrees: 30);
-            }
-        }
-        &:nth-last-child(3) {
-            top: 20%;
-            left: 70%;
-            & div {
-                font-size: 40vmin;
-                width: 1em;
-                height: 1em;
-                border-radius: 50%;
-                border: 0.1em solid $accent-color-500;
-                background-color: adjust-hue($color: $accent-color-500, $degrees: 30);
-            }
-        }
-
-        & div::before,
-        & div::after {
-            content: "";
+        & .header {
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);   
-        }
-        & div::before {
-            width: 0.5em;
-            height: 0.5em;
-            border: 0.025em solid black;
-        }
-        & div::after {
-            width: 0.8em;
-            height: 0.8em;
-            border: 0.1em solid black;
-            border-radius: 50%;
-            scale: 1.01;
-        }
-    }
-    & .star {
-        position: relative;
-        background-color: lightblue;
-        width: 1em;
-        height: 1em;
-        border-radius: 50%;
+            left: 0;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            height: 10rem;
+            transform: translateY(-50%);
 
-        &::before, 
-        &::after {
-            content: "";
+            @media (max-width: 576px) {
+                margin-top: 1rem;
+            }
+
+            & .details {
+                position: relative;
+                width: 100%;
+                font-size: 1.2rem;
+
+                & .details-label {
+                    position: absolute;
+                    top: 0;
+                    right: 50%;
+                    padding-right: 0.2rem;
+                    opacity: 0;
+                }
+
+                & .detail {
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    opacity: 0;
+                    text-shadow: 0 0 0.1em rgba($color: #000, $alpha: 0.1);
+
+                    @for $i from 1 through 10 {
+                        &:nth-of-type(#{$i}) {
+                            color: hsl(255 / 5 * $i, 80%, 50%);
+                        }
+                    }
+                }
+            }
+
+            & .subtitle {
+                opacity: 0;
+                margin-bottom: 1rem;
+            }
+        }
+
+        & .content {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            background-color: aliceblue;
-            z-index: 1;
-            transform: translate(-50%, -50%);
-        }
-        &::before {
-            width: 0.15em;
-            height: 1.6em;
-        }
-        &::after {
-            width: 1.6em;
-            height: 0.15em;
-        }
-    }
-    
-    @for $l from 1 through 3 {
-        @for $i from 1 through 100 {
-            & .stars:nth-of-type(#{$l}) .star:nth-of-type(#{$i}) {
-                $star-size: random(2 + $l) + 1px;
-                top: random(101) - 1 +vh;
-                left: random(101) - 1 +vw;
-                font-size: $star-size;
-                opacity: calc(random(50) / 100) + calc($l * 0.1);
+            top: 0;
+            left: 0;
+            min-height: 100%;
+            width: 100%;
+            display: flex;
+
+            & .container {
+                min-height: 0;
+                color: white;
+                background-color: $nice-dark;
+                margin: 12.5rem auto 4rem auto;
+                padding: 2rem;
+
+                transform: scale(0);
+
+                @media (max-width: 576px) {
+                    margin-top: 12rem;
+                    margin-bottom: 0;
+                }
+                @media (max-width: 576px) {
+                    & .col-12 {
+                        margin-bottom: 1rem;
+                    }
+                }
+
+                & img {
+                    z-index: 5;
+                    transition: all 0.3s ease-out;
+                    border-radius: 1%;
+                    box-shadow: 0 0 0.3rem $accent-color-500;
+
+                    &:focus,
+                    &:hover {
+                        scale: 1.3;
+                        z-index: 10;
+                        box-shadow: 0 0 1rem $accent-color-500;
+                    }
+                }
+
+                & .tech-col {
+                    & h5,
+                    & ul {
+                        color: rgba($color: #fff, $alpha: 0.7);
+                    }
+                }
+                
             }
         }
     }
 }
-
