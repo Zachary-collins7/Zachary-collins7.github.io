@@ -12,8 +12,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 // const demo = () => moment("20111031", "YYYYMMDD").fromNow();
 
-var MAX_SCROLL_HEIGHT = 0;
-
 //fix scroll
 if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
@@ -82,8 +80,11 @@ function getOffset(s) {
     return $(s).position().left - $(window).width() * 0.08
 }
 
+
 async function leaveHomeHelper(next) {
     window.scrollTo(0, 0);
+    $(".scene").css("display", "none");
+    $(".scene .stars").remove();
 }
 
 async function leaveHomeAnimation(next) {
@@ -97,6 +98,7 @@ async function leaveHomeAnimation(next) {
         overflow: 'visible',
         position: 'unset',
     })
+
     // var marginOffset = $(window).width() - (c.position().left + c.width())
     
     var scrollOffset = $(ss).offset().top - $(document).scrollTop();
@@ -157,7 +159,7 @@ async function returnHomeAnimation(data) {
         })
         .removeClass("postAnimate");
 
-    $("#scene").css("display", "block");
+    $(".scene").css("display", "block");
     
     var offset = $(window).width() * 0.08
     var imgOffset = $(window).width() - (s.find(".image").offset().left + s.find(".image").width())
@@ -172,7 +174,7 @@ async function returnHomeAnimation(data) {
             ease: "power1.out",
             width: "0%",
             duration: 1
-        }), 0
+        }), scrollOffset > $(window).height() ? scrollOffset / $(window).height() : 0.25
     ).add(
         gsap.fromTo(s.find(".container")[0], {
             height: "100%",
@@ -181,25 +183,28 @@ async function returnHomeAnimation(data) {
             height: "70%",
             translateX: 0,
             duration: 1
-        }), 0
+        }), scrollOffset > $(window).height() ? scrollOffset / $(window).height() : 0.25
     ).add(
         gsap.fromTo(s.find(".container .about")[0], {
             translateX: -offset - imgOffset
         }, {
             translateX: 0,
             duration: 1
-        }), 0
+        }), scrollOffset > $(window).height() ? scrollOffset / $(window).height() : 0.25
     ).add(
         gsap.to(document.querySelector(".main"), {
             ease: "power1.inOut",
-            translateY: -scrollOffset
+            translateY: -scrollOffset,
+            duration: scrollOffset > $(window).height() ? scrollOffset / $(window).height() : 0.5
         }), 0   
     )
 }
 
 
+
+
 async function createStars(starsPerLayer, layers) {
-    $("#scene").each(function () {
+    $(".scene").each(function () {
         for (let i = 0; i < layers; i++) {
             var depth = $(this).find(".scene-layer").first()?.data("depth") ?? 0.1
             var scene = $("<div>", {
@@ -460,7 +465,7 @@ async function init(data) {
         });
     }
     else {
-        $("#scene").css("display", "none");
+        
     }
 
     $(function () {
