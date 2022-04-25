@@ -787,7 +787,7 @@ head, body {
 
                     @for $i from 1 through 10 {
                         &:nth-of-type(#{$i}) {
-                            color: hsl(255 / 5 * $i, 80%, 50%);
+                            color: hsl(calc(255 / 5) * $i, 80%, 50%);
                         }
                     }
                 }
