@@ -126,7 +126,7 @@ module.exports = {
           },
         },
         {
-          from: path.resolve(environment.paths.source, 'images', 'root'),
+          from: path.resolve(environment.paths.source, 'root'),
           to: path.resolve(environment.paths.output),
           toType: 'dir',
           globOptions: {

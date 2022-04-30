@@ -409,33 +409,26 @@ head, body {
     }
 }
 
-[data-barba-namespace="index"] {
-    counter-reset: sectionCounter;
-    & .full-page-section:not([data-section-name="hello"]){
-        @media (min-width: 576px) {
-            &::after {
-                content: counter(sectionCounter);
-                counter-increment: sectionCounter;
-                position: absolute;
-                display: inline-block;
-                bottom: 10%;
-                right: 12vw;
+// [data-barba-namespace="index"] {
+//     counter-reset: sectionCounter;
+//     & .full-page-section:not([data-section-name="hello"]){
+//         @media (min-width: 576px) {
+//             &::after {
+//                 content: counter(sectionCounter);
+//                 counter-increment: sectionCounter;
+//                 position: absolute;
+//                 display: inline-block;
+//                 bottom: 10%;
+//                 right: 12vw;
 
-                color: white;
-                font-family: "Times New Roman", Times, serif;
-                font-size: 15rem;
-                line-height: 10rem;
-                z-index: 10;
-            }
-        }
-    }
-}
-
-// floating nav
-// [data-barba-namespace="index"],
-// [data-barba-namespace="about"],
-// [data-barba-namespace="contact"] {
-    
+//                 color: white;
+//                 font-family: "Times New Roman", Times, serif;
+//                 font-size: 15rem;
+//                 line-height: 10rem;
+//                 z-index: 10;
+//             }
+//         }
+//     }
 // }
 
 #f-nav, #f-nav-old {
@@ -587,8 +580,10 @@ head, body {
 .z-section {
     position: relative;
     min-height: 100vh;
+    color: white;
+    background-color: $nice-dark;
 
-    &:nth-child(even) {
+    &:nth-child(odd) {
         color: $nice-dark;
         background-color: white;
     }
