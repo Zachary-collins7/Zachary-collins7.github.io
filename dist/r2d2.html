@@ -48,7 +48,7 @@
                         <div class="arm"></div>
                         <div class="arm"></div>
                     </div>
-                    <div class="console d-flex grow-2">
+                    <div class="console d-flex">
                         <div class="grow-1 d-flex flex-col">
                             <div class="panel grow-1"></div>
                             <div class="d-flex flex-col grow-2 bars">
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="grow-1 d-flex flex-col">
-                            <div class="panel grow-2"></div>
+                            <div class="center-panel grow-2"></div>
                         </div>
                         <div class="panel"></div>
                     </div>
@@ -163,11 +163,11 @@
         left: 50%;
         transform: translate(-50%, -50%);
 
-        width: 122%;
-        height: 122%;
+        width: 120%;
+        height: 120%;
         background-color:rgba(144, 210, 239, 0.5);
         border: 5vmin solid rgba(146, 214, 237, 0.4);
-        box-shadow: inset 0 0 1rem rebeccapurple;
+        box-shadow: inset 0 0 4rem rebeccapurple;
         border-radius: 50%;
     }
 
@@ -180,7 +180,7 @@
         text-align: center;
         bottom: 0;
         left: 50%;
-        transform: translate(-50%, 100%);
+        transform: translate(-50%, 130%);
         padding: 0 1rem;
         background-color: rgba(150, 125, 204, 1.0);
         border: 1rem solid rgba(0, 0, 0, 0.1);
@@ -279,7 +279,7 @@
         display: flex;
         width: 100%;
         height: 100%;
-        border: 1px solid;
+        border: 1px solid rgba(0, 0, 0, 0);
     }
 
     .details .left, .details .right {
@@ -300,12 +300,41 @@
         box-shadow: inset 0 0 0.15rem lightgray;
     }
 
+    .console {
+        flex-grow: 1.6;
+    }
+
     .console .bars {
         padding: 0.01em;
     }
 
     .details .center {
         flex-grow: 1;
+    }
+
+    .center-panel {
+        position: relative;
+        margin: 0.01em;
+    }
+
+    .center-panel::before,
+    .center-panel::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: lightgray;
+        width: 80%;
+        height: 40%;
+        border-radius: 0.013em;
+        margin: 0.009em 0;
+    }
+    .center-panel::before {
+        top: 0;
+    }
+
+    .center-panel::after {
+        bottom: 0;
     }
 
     .details .bar {
@@ -489,6 +518,7 @@
     .head .top,
     .eye,
     .redeye,
+    .center-panel,
     .crossKnob,
     .details .bar,
     .arms .arm,
