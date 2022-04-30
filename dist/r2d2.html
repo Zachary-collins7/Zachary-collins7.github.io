@@ -63,11 +63,19 @@
                                 <div class="bg-primary grow-1"></div>
                             </div>
                         </div>
+                        <div class="grow-1 d-flex flex-col">
+                            <div class="panel grow-2"></div>
+                        </div>
+                        <div class="panel"></div>
+                    </div>
+                    <div class="knobs d-flex minipanels">
+                        <div class="panel"></div>
                         <div class="panel"></div>
                         <div class="panel"></div>
                     </div>
                     <div class="knobs d-flex grow-1">
                         <div class="panel"></div>
+                        <div class="crossKnob"><div class="dot"></div></div>
                         <div class="panel"></div>
                     </div>
                 </div>
@@ -128,7 +136,6 @@
         position: relative;
     }
 
-
     body {
         display: flex;
         justify-content: center;
@@ -141,9 +148,13 @@
         position: relative;
         justify-content: center;
         align-items: center;
-        font-size: 50vmin;
-        width: 50vmin;
-        height: 50vmin;
+        font-size: 60vmin;
+        width: 60vmin;
+        height: 60vmin;
+        padding: 2vmin;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 255, 0.2);
+        box-shadow: inset 0 0 1rem rebeccapurple;
     }
     .main::before {
         content: "";
@@ -152,11 +163,28 @@
         left: 50%;
         transform: translate(-50%, -50%);
 
-        width: 120%;
-        height: 120%;
-        background-color:rgb(144, 210, 239);
-        border: 5vmin solid rgb(146, 214, 237);
+        width: 122%;
+        height: 122%;
+        background-color:rgba(144, 210, 239, 0.5);
+        border: 5vmin solid rgba(146, 214, 237, 0.4);
+        box-shadow: inset 0 0 1rem rebeccapurple;
         border-radius: 50%;
+    }
+
+    .main::after {
+        content: "R2D2 wip";
+        position: absolute;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        color: rgba(234, 234, 247, 1.0);
+        font-size: 2rem;
+        text-align: center;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        padding: 0 1rem;
+        background-color: rgba(150, 125, 204, 1.0);
+        border: 1rem solid rgba(0, 0, 0, 0.1);
+        border-radius: 1rem;
     }
 
     .head {
@@ -210,11 +238,12 @@
         content: "";
         position: absolute;
         left: 65%;
-        transform: translate(-50%, -10%);
-        width: 35%;
-        height: 30%;
-        clip-path: circle();
-        background-color: red;
+        transform: translate(-50%, 30%);
+        width: 30%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background-color: rgb(214, 24, 24);
+        box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.2);
     }
 
     .iris {
@@ -222,10 +251,11 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 70%;
+        aspect-ratio: 1;
         height: 70%;
-        clip-path: circle();
+        border-radius: 50%;
         background-color: rgb(72, 72, 72);
+        box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.2);
     }
 
     .body {
@@ -270,7 +300,6 @@
         box-shadow: inset 0 0 0.15rem lightgray;
     }
 
-
     .console .bars {
         padding: 0.01em;
     }
@@ -294,6 +323,64 @@
     }
     .arms .arm:last-of-type {
         transform: rotateY(180deg);
+    }
+
+    .arms .arm::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-shadow: inset 0 0 0.01em rgba(0, 0, 0, 0.2);
+    }
+
+    .minipanels {
+        flex-grow: 0.3 !important;
+        margin: -0.01em 0;
+    }
+
+    .crossKnob {
+        position: relative;
+        margin: 0.01em;
+        border-radius: 50%;
+        aspect-ratio: 1
+    }
+
+    .crossKnob::before, .crossKnob::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .crossKnob::before {
+        width: 80%;
+        height: 80%;
+        clip-path: circle();
+        background-color: lightgray;
+        box-shadow: inset 0 0 0.15rem darkgray;
+    }
+
+    .crossKnob::after {
+        width: 60%;
+        height: 60%;
+        background-color: rgb(139, 139, 139);
+        clip-path: polygon(
+            40% 40%, 40% 0%, 60% 0%, 60% 40%, 100% 40%, 100% 60%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0% 60%, 0% 40%
+        );
+    }
+
+    .crossKnob .dot {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 35%;
+        height: 35%;
+        border-radius: 50%;
+        border: 0.006em solid rgb(120, 120, 120);
+        background-color: rgb(139, 139, 139);
+        z-index: 2;
     }
 
     .left-leg, .right-leg {
@@ -366,6 +453,7 @@
         height: 0.07em;
         transform: translate(-50%, 100%);
         clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+        box-shadow: inset 0 0 0.6rem rgba(0, 0, 0, 0.1);
     }
     .left-foot {
         transform: translate(-45%, 100%);
@@ -401,6 +489,7 @@
     .head .top,
     .eye,
     .redeye,
+    .crossKnob,
     .details .bar,
     .arms .arm,
     .left-leg::after, 
