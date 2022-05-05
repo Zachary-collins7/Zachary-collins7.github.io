@@ -483,10 +483,6 @@
             padding: 0.5rem;
             box-shadow: 0 0 0.3rem rgba(70, 70, 70, 0.2);
         }
-
-        #education div:not(:last-child) {
-            padding-bottom: 0.5rem;
-        }   
     }
 
     @media screen {
@@ -537,8 +533,13 @@
         :not(.title) > span.important {
             color: var(--accent-color);
         }
+        
         .title>span.important {
             color: black;
+        }
+
+        #education div:not(:last-child) {
+            padding-bottom: 0.5rem;
         }
     }
 
