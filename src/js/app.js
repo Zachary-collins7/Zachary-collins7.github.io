@@ -372,6 +372,7 @@ async function registerSectionAnimation(s) {
     }
 
     s1.fromTo([
+        // s.querySelector(".title")
         s.find(".title")[0],
         s.find(".divider")[0],
         s.find(".desc")[0],
@@ -400,20 +401,20 @@ async function init(data) {
     });
 
     if (atHome()) {
-        createStars(100, 3);
+        // createStars(100, 3);
         // parallax effect
-        $(".scene-layer").each(function () {
-            var layer = new Parallax($(this).get(0), {
-                // invertX: true,
-                // invertY: true,
-                // calibrateX: true,
-                // calibrateY: true,
-                // scalarX: 10.0,
-                // scalarY: 10.0,
-                relativeInput: false
-            });
-            layer.origin(0, 0);
-        });
+        // $(".scene-layer").each(function () {
+        //     var layer = new Parallax($(this).get(0), {
+        //         // invertX: true,
+        //         // invertY: true,
+        //         // calibrateX: true,
+        //         // calibrateY: true,
+        //         // scalarX: 10.0,
+        //         // scalarY: 10.0,
+        //         relativeInput: false
+        //     });
+        //     layer.origin(0, 0);
+        // });
 
         $(".full-page-section-wrapper").last().each(function() {
             $(this).addClass("no-scroll-padding");
@@ -502,7 +503,7 @@ async function init(data) {
             translateY: 0,
             opacity: 1
         }, ">")
-        .fromTo($(this).find(".detail"), {
+        pt.fromTo($(this).find(".detail"), {
             translateY: "1.1rem"
         }, {
             ease: "none",
@@ -511,7 +512,7 @@ async function init(data) {
             translateY: 0,
             opacity: 1
         }, ">-0.1")
-        .to($(this).find(".detail"), {
+        pt.to($(this).find(".detail"), {
             ease: "none",
             delay: 0.1,
             duration: 0.1,
@@ -519,7 +520,7 @@ async function init(data) {
             translateY: "-1.1rem",
             opacity: 0
         }, "<")
-        .to($(this).find(".details-label"), {
+        pt.to($(this).find(".details-label"), {
             ease: "none",
             duration: 0.1,
             translateY: "-1.1rem",
@@ -532,12 +533,12 @@ async function init(data) {
             top: "3rem",
             transform: "none"
         }, ">")
-        .to($(this).find(".container"), {
+        pt.to($(this).find(".container"), {
             scale: 1
         }, "<0.05")
         
         //animation space
-        .to($(this).find(".container"), {
+        pt.to($(this).find(".container"), {
             scale: 1
         }, ">")
         // .to($(this).find(".container"), {
@@ -590,7 +591,7 @@ $(function () {
                     })
                 }
             });
-        } 
+        }
     });
 });
 
