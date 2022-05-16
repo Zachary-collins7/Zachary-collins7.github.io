@@ -59,3 +59,10 @@ class FlipBook {
 }
 
 export { FlipBook };
+
+// import { FlipBook } from "./flipbook";
+// $(function () {
+//     $(".flip_book").each(function () {
+//         new FlipBook($(this)[0]);
+//     })
+// })

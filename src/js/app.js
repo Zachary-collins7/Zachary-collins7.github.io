@@ -1,16 +1,12 @@
 import '../scss/app.scss';
 import * as $ from 'jquery';
 import 'bootstrap';
-import * as moment from "moment";
 import barba from '@barba/core';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Parallax from 'parallax-js'
-import { FlipBook } from "./flipbook";
 
 gsap.registerPlugin(ScrollTrigger);
-
-// const demo = () => moment("20111031", "YYYYMMDD").fromNow();
 
 //fix scroll
 if (history.scrollRestoration) {
@@ -20,6 +16,10 @@ if (history.scrollRestoration) {
 barba.hooks.after((data) => {
     init();
 });
+
+function atHome() {
+    return window.location.pathname == "/" || window.location.pathname.includes("index")
+}
 
 function atBarbaNamespace() {
     return window.location.pathname == "/"
@@ -76,11 +76,6 @@ async function _helperGetNextUrlPath(next) {
     return next.url.path.split('/')[1].split('.')[0];
 }
 
-function getOffset(s) {
-    return $(s).position().left - $(window).width() * 0.08
-}
-
-
 async function leaveHomeHelper(next) {
     window.scrollTo(0, 0);
     $(".scene").css("display", "none");
@@ -89,9 +84,9 @@ async function leaveHomeHelper(next) {
 
 async function leaveHomeAnimation(next) {
     var hash = await _helperGetNextUrlPath(next);
-    var ss = document.querySelector(`div[data-section-name=${hash}]`);
+    var ss = document.querySelector(`[data-section-name=${hash}]`);
     var ssBackground = ss.parentElement.querySelector(".background");
-    var offset = getOffset(ss);
+    var offset = $(ss).position().left - $(window).width() * 0.08;
 
     var c = $(ss.querySelector(".container"));
     $(c).css({
@@ -100,7 +95,6 @@ async function leaveHomeAnimation(next) {
     })
 
     // var marginOffset = $(window).width() - (c.position().left + c.width())
-    
     var scrollOffset = $(ss).offset().top - $(document).scrollTop();
 
     return gsap.timeline({
@@ -138,7 +132,7 @@ async function leaveHomeAnimation(next) {
 
 async function returnHomeHelper(data) {
     
-    var section = $(`div[data-section-name=${data.current.namespace}]`)
+    var section = $(`[data-section-name=${data.current.namespace}]`)
     section.first().each(function() {
         var sTop = $(this).offset().top;
         var offset = $('.main').first().height();
@@ -250,7 +244,7 @@ async function removeFloatingNav() {
 async function createFloatingNav() {
     removeFloatingNav()
     var ul = $("<ul>").append(
-        $("div[data-section-name]").map(function () {
+        $("[data-section-name]").map(function () {
             return $("<li>").append(
                 $("<a>", {
                     href: "#" + $(this).attr("data-section-name")
@@ -309,18 +303,42 @@ async function updateMenu() {
     }
 }
 
+async function updateColors() {
+    $("[data-section-name]:not(.dSection), .dSection [data-section-name] .c:first-child").each(function () {
+        const sTop = $(this).offset().top - $(document).scrollTop();
+        const sBottom = sTop + $(this).height();
+        const sLeft = $(this).offset().left;
+        const sRight = sLeft + $(this).width();
+        const sectionColor = $(this).css("color");
+        if ($("#f-nav")) {
+            $("#f-nav a, a.back i, nav.navbar .navbar-brand").each(function () {
+                const midYPos = $(this).offset().top - $(document).scrollTop() + $(this).height() / 2;
+                const midXPos = $(this).offset().left + $(this).width() / 2;
+                if (midYPos >= sTop && midYPos <= sBottom && midXPos >= sLeft && midXPos <= sRight) { // if in section
+                    if ($(this).is("i, span")) {
+                        $(this).css("color", sectionColor);
+                    }
+                    else {
+                        $(this).css("background-color", sectionColor);
+                    }
+                }
+            })
+        }
+    });
+}
+
 function scrollToHash(hash, time) {
     if (hash === undefined) { return }
-    if ($(`div[data-section-name=${hash}]`).length) {
+    if ($(`[data-section-name=${hash}]`).length) {
         $([document.documentElement, document.body]).animate({
-            scrollTop: $(`div[data-section-name=${hash}]`).offset().top
+            scrollTop: $(`[data-section-name=${hash}]`).offset().top
         }, time);
     }
 }
 
 function getShownSections() {
-    let triggerConst = 0.5 // trigger animations when % of section shows
-    return $(`div[data-section-name]`).map(function () {
+    let triggerConst = 0.5 // include when % of section shows
+    return $(`[data-section-name]`).map(function () {
         var top = $(this).offset().top - $(document).scrollTop();
         var bottom = top + $(this).height();
         var a = Math.max(top, bottom);
@@ -387,11 +405,6 @@ async function registerSectionAnimation(s) {
     }, 0);
 }
 
-
-function atHome() {
-    return window.location.pathname == "/" || window.location.pathname.includes("index")
-}
-
 async function init(data) {
     createFloatingNav();
     // updateMenu();
@@ -453,7 +466,7 @@ async function init(data) {
         }, 100)
         
 
-        $(`div[data-section-name]:not([data-section-name=${hash}])`).each(function () {
+        $(`[data-section-name]:not([data-section-name=${hash}])`).each(function () {
             console.log($(this).attr("data-section-name"))
             registerSectionAnimation($(this));
         });      
@@ -466,14 +479,10 @@ async function init(data) {
         });
     }
     else {
-        
+        //not at home
     }
 
-    $(function () {
-        $(".flip_book").each(function () {
-            new FlipBook($(this)[0]);
-        })
-    })
+    
 
     $(".project-wrapper").each(function () {
         let pt = gsap.timeline({
@@ -550,7 +559,7 @@ async function init(data) {
 
 $(function () {
     if (window.location.hash) {
-        $(`div[data-section-name=${window.location.hash.replace("#", "")}]`).first().each(function () {
+        $(`[data-section-name=${window.location.hash.replace("#", "")}]`).first().each(function () {
             window.scrollTo(0, $(this).offset().top);
         })
     }
@@ -564,33 +573,10 @@ $(function () {
     $(window).scroll(function () {
         if (last + dt <= Date.now()) {
             last = Date.now();
+
             //updates 
             updateMenu();
-
-
-
-            // update color
-            $("div[data-section-name]:not(.dSection), .dSection div[data-section-name] .c:first-child").each(function () {
-                const sTop = $(this).offset().top - $(document).scrollTop();
-                const sBottom = sTop + $(this).height();
-                const sLeft = $(this).offset().left;
-                const sRight = sLeft + $(this).width();
-                const sectionColor = $(this).css("color");
-                if ($("#f-nav")) {
-                    $("#f-nav a, a.back i, nav.navbar .navbar-brand").each(function () {
-                        const midYPos = $(this).offset().top - $(document).scrollTop() + $(this).height() / 2;
-                        const midXPos = $(this).offset().left + $(this).width() / 2;
-                        if (midYPos >= sTop && midYPos <= sBottom && midXPos >= sLeft && midXPos <= sRight) { // if in section
-                            if ($(this).is("i, span")) {
-                                $(this).css("color", sectionColor);
-                            }
-                            else {
-                                $(this).css("background-color", sectionColor);
-                            }
-                        }
-                    })
-                }
-            });
+            updateColors();
         }
     });
 });
