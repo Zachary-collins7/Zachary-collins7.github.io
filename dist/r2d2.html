@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R2D2</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css">
+</head>
+
+<body>
+    <div class="main d-flex flex-col">
+        <div class="head">
+            <div class="top"></div>
+            <div class="forhead d-flex">
+                <div class="grow-1 bg-primary"></div>
+                <div class="grow-1 bg-primary"></div>
+            </div>
+            <div class="eye">
+                <div class="iris"></div>
+            </div>
+            <div class="chin d-flex grow-1">
+                <div class="d-flex grow-1">
+                    <div class="grow-2 bg-primary"></div>
+                    <div class="grow-1 bg-primary mx-0"></div>
+                    <div class="grow-1 bg-primary"></div>
+                </div>
+                <div class="d-flex grow-1">
+                    <div class="redeye"></div>
+                </div>
+                <div class="d-flex grow-1">
+                    <div class="minieye grow-2">
+                        <div class="iris"></div>
+                    </div>
+                    <div class="grow-1 bg-primary mx-0"></div>
+                    <div class="grow-1 bg-primary"></div>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="details">
+                <div class="left flex-col">
+                    <div class="panel"></div>
+                </div>
+                <div class="center d-flex flex-col">
+                    <div class="bar"></div>
+                    <div class="arms d-flex flex-col grow-1">
+                        <div class="arm"></div>
+                        <div class="arm"></div>
+                    </div>
+                    <div class="console d-flex">
+                        <div class="grow-1 d-flex flex-col">
+                            <div class="panel grow-1"></div>
+                            <div class="d-flex flex-col grow-2 bars">
+                                <div class="bg-primary grow-1"></div>
+                                <div class="grow-1"></div>
+                                <div class="bg-primary grow-1"></div>
+                                <div class="grow-1"></div>
+                                <div class="bg-primary grow-1"></div>
+                                <div class="grow-1"></div>
+                                <div class="bg-primary grow-1"></div>
+                                <div class="grow-1"></div>
+                                <div class="bg-primary grow-1"></div>
+                            </div>
+                        </div>
+                        <div class="grow-1 d-flex flex-col">
+                            <div class="center-panel grow-2"></div>
+                        </div>
+                        <div class="panel"></div>
+                    </div>
+                    <div class="knobs d-flex minipanels">
+                        <div class="panel"></div>
+                        <div class="panel"></div>
+                        <div class="panel"></div>
+                    </div>
+                    <div class="knobs d-flex">
+                        <div class="panel"></div>
+                        <div class="crossKnob">
+                            <div class="dot"></div>
+                        </div>
+                        <div class="panel"></div>
+                    </div>
+                </div>
+                <div class="right flex-col">
+                    <div class="panel"></div>
+                </div>
+            </div>
+            <div class="left-leg">
+                <div class="left-foot">
+
+                </div>
+            </div>
+
+            <div class="center-leg">
+                <div class="center-foot">
+
+                </div>
+            </div>
+
+            <div class="right-leg">
+                <div class="right-foot">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+<style>
+    .d-flex {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .flex-col {
+        flex-direction: column !important;
+    }
+
+    .grow-1 {
+        flex-grow: 1 !important;
+    }
+
+    .grow-2 {
+        flex-grow: 2 !important;
+    }
+
+    .m-1 {
+        margin: 0.5rem;
+    }
+
+    .mx-0 {
+        margin-left: 0.25rem;
+        margin-right: 0.25rem;
+    }
+
+    .p-relative {
+        position: relative;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .main {
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        font-size: 70vmin;
+        width: 70vmin;
+        height: 70vmin;
+        padding: 7vmin;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 255, 0.2);
+        box-shadow: inset 0 0 1rem rebeccapurple;
+    }
+
+    .main::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 120%;
+        height: 120%;
+        background-color: rgba(144, 210, 239, 0.5);
+        border: 5vmin solid rgba(146, 214, 237, 0.4);
+        box-shadow: inset 0 0 4rem rebeccapurple;
+        border-radius: 50%;
+    }
+
+    .main::after {
+        content: "R2D2 wip";
+        position: absolute;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        color: rgba(234, 234, 247, 1.0);
+        font-size: 2rem;
+        text-align: center;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 130%);
+        padding: 0 1rem;
+        background-color: rgba(150, 125, 204, 1.0);
+        border: 1rem solid rgba(0, 0, 0, 0.1);
+        border-radius: 1rem;
+    }
+
+    .head {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        height: 30%;
+        clip-path: circle();
+        transform: translateY(45%);
+    }
+
+    .head .top {
+        display: flex;
+        width: 100%;
+        height: 3%;
+    }
+
+    .forhead {
+        width: 100%;
+        height: 15%;
+    }
+
+    .forhead div {
+        margin: 0.005em 0.01em;
+    }
+
+    .forhead div:nth-child(1) {
+        margin-right: 0;
+    }
+
+
+    .eye {
+        position: relative;
+        margin: 0 auto;
+        width: 30%;
+        height: 20%;
+        border-radius: 00.01em;
+    }
+
+    .minieye {
+        position: relative;
+        margin-top: 0.01em;
+        height: 0.03em;
+    }
+
+    .redeye {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0.01em;
+    }
+
+    .redeye::after {
+        content: "";
+        position: absolute;
+        left: 65%;
+        transform: translate(-50%, 30%);
+        width: 30%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background-color: rgb(214, 24, 24);
+        box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.2);
+    }
+
+    .iris {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        aspect-ratio: 1;
+        height: 70%;
+        border-radius: 50%;
+        background-color: rgb(72, 72, 72);
+        box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.2);
+    }
+
+    .body {
+        position: relative;
+        width: 30%;
+        height: 36%;
+    }
+
+    .body::after {
+        content: "";
+        position: absolute;
+        width: 80%;
+        height: 10%;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
+    }
+
+    .details {
+        position: relative;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        border: 1px solid rgba(0, 0, 0, 0);
+    }
+
+    .details .left,
+    .details .right {
+        display: flex;
+        width: 15%;
+    }
+
+    .details .panel {
+        position: relative;
+        display: flex;
+        flex-grow: 1;
+        padding: 0.01em;
+    }
+
+    .details .panel::after {
+        content: "";
+        flex-grow: 1;
+        box-shadow: inset 0 0 0.15rem lightgray;
+    }
+
+    .console {
+        flex-grow: 1.6;
+    }
+
+    .console .bars {
+        padding: 0.01em;
+    }
+
+    .details .center {
+        flex-grow: 1;
+    }
+
+    .center-panel {
+        position: relative;
+        margin: 0.01em;
+    }
+
+    .center-panel::before,
+    .center-panel::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: lightgray;
+        width: 80%;
+        height: 40%;
+        border-radius: 0.013em;
+        margin: 0.009em 0;
+    }
+
+    .center-panel::before {
+        top: 0;
+    }
+
+    .center-panel::after {
+        bottom: 0;
+    }
+
+    .details .bar {
+        height: 5%;
+        width: 100%;
+    }
+
+    .arms .arm {
+        height: 30%;
+        width: 100%;
+        clip-path: polygon(0% 20%, 15% 0%, 20% 20%, 40% 20%, 40% 0%, 70% 0%, 90% 20%, 100% 20%,
+                100% 80%, 90% 80%, 70% 100%, 40% 100%, 40% 80%, 20% 80%, 15% 100%, 0% 80%);
+    }
+
+    .arms .arm:last-of-type {
+        transform: rotateY(180deg);
+    }
+
+    .arms .arm::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-shadow: inset 0 0 0.01em rgba(0, 0, 0, 0.2);
+    }
+
+    .minipanels {
+        flex-grow: 0.3 !important;
+        margin: -0.01em 0;
+    }
+
+    .crossKnob {
+        position: relative;
+        margin: 0.01em;
+        border-radius: 50%;
+        width: 0.05em;
+        height: 0.05em;
+        
+    }
+
+    .crossKnob::before,
+    .crossKnob::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .crossKnob::before {
+        width: 80%;
+        height: 80%;
+        clip-path: circle();
+        background-color: lightgray;
+        box-shadow: inset 0 0 0.15rem darkgray;
+    }
+
+    .crossKnob::after {
+        width: 60%;
+        height: 60%;
+        background-color: rgb(139, 139, 139);
+        clip-path: polygon(40% 40%, 40% 0%, 60% 0%, 60% 40%, 100% 40%, 100% 60%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0% 60%, 0% 40%);
+    }
+
+    .crossKnob .dot {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 35%;
+        height: 35%;
+        border-radius: 50%;
+        border: 0.006em solid rgb(120, 120, 120);
+        background-color: rgb(139, 139, 139);
+        z-index: 2;
+    }
+
+    .left-leg,
+    .right-leg {
+        position: absolute;
+        width: 20%;
+        height: 107%;
+        top: 0;
+    }
+
+    .left-leg {
+        right: calc(100% + 0.01em);
+        border-top-left-radius: 0.01em;
+    }
+
+    .right-leg {
+        left: calc(100% + 0.01em);
+        ;
+        border-top-right-radius: 0.01em;
+    }
+
+    .left-leg::before,
+    .right-leg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 0.01em;
+        height: 35%;
+    }
+
+    .left-leg::before {
+        left: 100%;
+    }
+
+    .right-leg::before {
+        right: 100%;
+    }
+
+    .left-leg::after,
+    .right-leg::after {
+        content: "";
+        position: absolute;
+        top: 35%;
+        width: 0.01em;
+        height: 50%;
+    }
+
+    .left-leg::after {
+        left: 0;
+    }
+
+    .right-leg::after {
+        right: 0;
+    }
+
+
+    .center-leg {
+        position: absolute;
+        width: 15%;
+        height: 17%;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+    }
+
+    .center-foot::after {
+        content: "";
+        position: absolute;
+        width: 10%;
+        height: 90%;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+    }
+
+    .left-foot,
+    .right-foot,
+    .center-foot {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0.12em;
+        height: 0.07em;
+        transform: translate(-50%, 100%);
+        clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+        box-shadow: inset 0 0 0.6rem rgba(0, 0, 0, 0.1);
+    }
+
+    .left-foot {
+        transform: translate(-45%, 100%);
+    }
+
+    .right-foot {
+        transform: translate(-55%, 100%);
+    }
+
+
+
+
+
+
+    .head,
+    .body::after,
+    .left-leg::before,
+    .right-leg::before,
+    .center-foot::after {
+        background-color: lightgray;
+    }
+
+    .body,
+    .left-leg,
+    .center-leg,
+    .right-leg,
+    .left-foot,
+    .right-foot,
+    .center-foot {
+        background-color: whitesmoke;
+    }
+
+    .bg-primary,
+    .head .top,
+    .eye,
+    .redeye,
+    .center-panel,
+    .crossKnob,
+    .details .bar,
+    .arms .arm,
+    .left-leg::after,
+    .right-leg::after {
+        background-color: rgb(148, 92, 203);
+    }
+</style>
+
+
+
+
+<script>
+
+</script>
+
+
+</html>

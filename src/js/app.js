@@ -406,12 +406,14 @@ async function registerSectionAnimation(s) {
 }
 
 async function init(data) {
-    createFloatingNav();
-    // updateMenu();
+    if (atBarbaNamespace()) {
+        createFloatingNav();
+        $(".f-nav a").on("click", function () {
+            scrollToHash($(this).attr("href").substring(1), 2000);
+        });
+    }
     
-    $(".f-nav a").on("click", function () {
-        scrollToHash($(this).attr("href").substring(1), 2000);
-    });
+    updateMenu();
 
     if (atHome()) {
         // createStars(100, 3);
