@@ -77,7 +77,11 @@ async function _helperGetNextUrlPath(next) {
 }
 
 async function leaveHomeHelper(next) {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "auto"
+    });
     $(".scene").css("display", "none");
     $(".scene .stars").remove();
 }
@@ -138,7 +142,12 @@ async function returnHomeHelper(data) {
         var offset = $('.main').first().height();
         var dist = sTop - offset;
         $(this).data("animated", true);
-        window.scrollTo(0, dist);
+        // window.scrollTo(0, dist);
+        window.scrollTo({
+            top: dist,
+            left: 0,
+            behavior: "auto"
+        });
     });
 }
 
@@ -412,7 +421,7 @@ async function init(data) {
             scrollToHash($(this).attr("href").substring(1), 2000);
         });
     }
-    
+
     updateMenu();
 
     if (atHome()) {

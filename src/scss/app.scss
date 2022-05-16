@@ -92,9 +92,9 @@ span.divider {
         left: 1.5rem;
     }
 }
-// :root {
-//     scroll-behavior: auto !important; //override reduced motion
-// }
+:root {
+    scroll-behavior: auto !important; //override reduced motion
+}
 
 head, body {
     position: relative;

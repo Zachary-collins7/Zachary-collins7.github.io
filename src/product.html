@@ -63,6 +63,15 @@
       </div>
     </div>
   </div>
+
+  <script src="/flipbook.js"></script>
+  <script>
+    $(function () {
+      $(".flip_book").each(function () {
+        new FlipBook($(this)[0]);
+      })
+    })
+  </script>
 </body>
 
 </html>
