@@ -20,7 +20,7 @@
         <div class="center-text">
           <div class="display-3 text-uppercase">Welcome to</div>
           <div class="strike">
-            <div class="display-1 text-uppercase fw-bold gradient-text">ram ranch</div>
+            <div class="display-1 text-uppercase fw-bold gradient-text">west</div>
           </div>
           <h4>Where your wildest dreams come true</h4>
         </div>
@@ -66,10 +66,8 @@
 
   <script src="/flipbook.js"></script>
   <script>
-    $(function () {
-      $(".flip_book").each(function () {
-        new FlipBook($(this)[0]);
-      })
+    document.querySelectorAll(".flip_book").forEach(function(el) {
+      new FlipBook(el)
     })
   </script>
 </body>
