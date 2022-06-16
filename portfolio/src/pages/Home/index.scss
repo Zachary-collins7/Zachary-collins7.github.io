@@ -1,0 +1,54 @@
+@import '../../styles/colors.scss';
+
+section {
+    position: relative;
+    background-color: $surface1;
+    min-height: 100vh;
+
+    @media screen and (min-width: 600px) {
+        padding: 3rem 0 0;
+        min-height: calc(100vh + 10vh);
+
+        &:not(:last-child) {
+            padding: 3rem;
+            .content {
+                padding-bottom: 10vw;
+            }
+        }
+
+        // &:first-of-type .title {
+        //     margin-top: calc(50vh + 1em);
+        // }
+    }
+
+    & .title {
+        position: relative;
+        font-size: 10vw;
+        position: sticky;
+        top: calc(50% - 0.5em);
+        text-align: center;
+        text-transform: capitalize;
+
+        @media screen and (max-width: 600px) {
+            margin: 0;
+            top: 3rem;
+            width: 100%;
+            background-color: $surface2;
+            padding: 0.2em;
+            z-index: 110;
+        }
+    }
+
+
+    & .content {
+        @media screen and (min-width: 600px) {
+            margin-top: calc(50vh - 0.5em);
+        }
+
+        &>* {
+            position: relative;
+            z-index: 100;
+            backdrop-filter: blur(); // for visual glitch on safari
+        }
+    }
+}
