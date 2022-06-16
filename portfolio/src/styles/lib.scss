@@ -1,0 +1,25 @@
+
+html,
+body {
+    // max-width: 100%;
+}
+
+:is(h1,h2,h3,h4,h5,h6).fancy {
+    &::before {content: "\A9C1";}
+    &::after {content: "\A9C2";}
+}
+
+a {
+    color: $brand-origin;
+    border-bottom: 1px solid transparent;
+    &:hover {
+        border-bottom: 2px solid $brand-origin;
+    }
+}
+
+img.cover {
+    all: unset;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

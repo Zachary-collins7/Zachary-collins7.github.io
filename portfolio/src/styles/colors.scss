@@ -1,0 +1,35 @@
+$brand-origin: #a72af4;
+
+$logo-fg: $brand-origin;
+$logo-bg: change-color($color: $brand-origin, $saturation: 20%, $lightness: 22%);
+
+$brand: scale-color($color: $brand-origin, $saturation: -25%, $lightness: -13.33%);
+$text1: change-color($color: $brand-origin, $saturation: 15%, $lightness: 85%);
+$text2: change-color($color: $brand-origin, $saturation: 5%, $lightness: 65%);
+$surface1: change-color($color: $brand-origin, $saturation: 10%, $lightness: 10%);
+$surface2: change-color($color: $brand-origin, $saturation: 10%, $lightness: 15%);
+$surface3: change-color($color: $brand-origin, $saturation: 5%, $lightness: 20%);
+$surface4: change-color($color: $brand-origin, $saturation: 5%, $lightness: 25%);
+$surface-shadow: hue($color: $brand) 50% 3%;
+$shadow-strength: .8;
+
+
+// html[data-theme='light'] {
+//     $logo-fg: scale-color($color: $brand-origin, $saturation: -10%, $lightness: -10%);
+//     $logo-bg: change-color($color: $brand-origin, $saturation: 10%, $lightness: 15%);
+
+//     $brand: $brand-origin;
+//     $text1: change-color($color: $brand-origin, $lightness: 10%);
+//     $text2: change-color($color: $brand-origin, $saturation: 30%, $lightness: 30%);
+//     $surface1: change-color($color: $brand-origin, $saturation: 25%, $lightness: 90%);
+//     $surface2: change-color($color: $brand-origin, $saturation: 20%, $lightness: 99%);
+//     $surface3: change-color($color: $brand-origin, $saturation: 20%, $lightness: 92%);
+//     $surface4: change-color($color: $brand-origin, $saturation: 20%, $lightness: 85%);
+//     $surface-shadow: hsl(hue($color: $brand-origin) 10% 20%);
+//     $shadow-strength: .02;
+// }
+
+html {
+    color: $text1;
+    background-color: $surface1;
+}
