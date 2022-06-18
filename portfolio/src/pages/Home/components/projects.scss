@@ -1,20 +1,22 @@
 @import '../../../styles/colors.scss';
 
 .articles {
-    // position: relative;
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 8rem;
+    padding: 2rem;
+    background: $surface2;
 
     @media screen and (max-width: 600px) {
         gap: 3rem;
-        padding: 3rem 0;
+        padding: 3rem 0.5rem;
     }
-    // margin-top: 100vh;
 
     article {
         display: flex;
-        background: $surface2;
+        flex-direction: column-reverse;
+        background: $surface3;
         clip-path: inset(0 0 0 0 round 1rem);
         overflow: hidden;
         width: 60vw;
@@ -26,7 +28,6 @@
         }
         
         &:nth-child(even) {
-            flex-direction: row-reverse;
             margin-left: auto;
         }
 

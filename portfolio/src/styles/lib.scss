@@ -1,3 +1,4 @@
+@import './colors.scss';
 
 html,
 body {
@@ -9,7 +10,7 @@ body {
     &::after {content: "\A9C2";}
 }
 
-a {
+a.link {
     color: $brand-origin;
     border-bottom: 1px solid transparent;
     &:hover {
@@ -22,4 +23,32 @@ img.cover {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+span.divider {
+    display: block;
+    height: 2rem;
+    position: relative;
+    margin: 1rem 0;
+    transform-origin: left;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        width: 3rem;
+        height: 0.2rem;
+        border-radius: 0.1rem;
+        background-color: $brand;
+    }
+
+    &::before {
+        top: 0.5rem;
+        left: 0;
+    }
+
+    &::after {
+        bottom: 0.5rem;
+        left: 1.5rem;
+    }
 }

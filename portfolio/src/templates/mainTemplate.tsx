@@ -1,6 +1,6 @@
 import * as React from 'react';
 import NavBar from '../components/navbar';
-import './mainTemplate.scss';
+import './sharedTemplate.scss';
 
 export interface IMainTemplateProps {
   children?: React.ReactNode

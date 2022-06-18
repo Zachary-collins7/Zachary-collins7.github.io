@@ -1,62 +1,72 @@
-import * as React from 'react';
 import MainTemplate from '../../templates/mainTemplate';
-import Hero from './components/hero';
 import About from './components/about';
+import Hero from './components/hero';
 import Projects from './components/projects';
-
+import Section from './components/section';
 import './index.scss';
-import ContactForm from './components/contact';
+
 
 export interface IHomeIndexProps {
 }
 
-const projectsData = [
+const projectData = [
     {
-        title: "Project1",
-        about: "About desc",
-        image: "https://source.unsplash.com/501x500/?code,computer,data,coding"
+        title: "Portforlio",
+        about: "about",
+        image: "/images/hero1.webp"
     },
     {
-        title: "Project2",
-        about: "About desc",
-        image: "https://source.unsplash.com/502x500/?code,computer,data,coding"
-    },
-    {
-        title: "Project3",
-        about: "About desc",
-        image: "https://source.unsplash.com/503x500/?code,computer,data,coding"
+        title: "Portforlio",
+        about: "about",
+        image: "/images/hero1.webp"
     }
 ]
+// const sectionData = [
+//     {
+//         title: "About Me",
+//         desc: "Self-taught",
+//         desc2: "I enjoy solving challenging problems",
+//         imageUrl: "https://source.unsplash.com/501x500/?code,computer,data,coding",
+//         id: "about",
+//         child: <>Below</>
+//     }
+// ]
 
 export default function HomeIndex(props: IHomeIndexProps) {
+
     return (
         <MainTemplate>
             <Hero />
 
-            <section>
-                <div className="title">About</div>
+            <Section
+                title={"About Me"}
+                desc={"Self-taught"}
+                desc2={"I enjoy solving challenging problems"}
+                imageUrl={"https://source.unsplash.com/501x500/?code,computer,data,coding"}
+                id="about"
+            >
+                below hero
+            </Section>
 
-                <div className="content">
-                    <About />
-                </div>
-            </section>
-            
-            <section>
-                <div className="title">Projects I Love</div>
+            <Section
+                title={"Projects"}
+                desc={"Made by Me"}
+                desc2={"Check them out"}
+                imageUrl={"https://source.unsplash.com/502x500/?code,computer,data,coding"}
+                id="projects"
+            >
+                <Projects projects={projectData}/>
+            </Section>
 
-                <div className="content">
-                    <Projects projects={projectsData} />
-                </div>
-            </section>
-            
-            <section>
-                <div className="title" id='contact'>Contact Me</div>
-
-                <div className="content">
-                    <ContactForm />
-                </div>
-            </section>
-            
+            <Section
+                title={"Contact"}
+                desc={"Let's get in touch"}
+                desc2={"Email me"}
+                imageUrl={"https://source.unsplash.com/503x500/?code,computer,data,coding"}
+                id="contact"
+            >
+                below hero
+            </Section>
         </MainTemplate>
     );
 }

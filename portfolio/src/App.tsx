@@ -9,7 +9,7 @@ import './App.scss';
 
 
 // pages
-const LazyHome = React.lazy(() => import('./pages/Home'));
+import Home from "./pages/Home";
 const LazyR2D2 = React.lazy(() => import('./pages/r2d2'));
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
         const id = hash.replace('#', '');
         const element = document.getElementById(id);
         if (element) {
-          element.scrollIntoView();
+          element.scrollIntoView(false);
         }
       }, 0);
     }
@@ -35,7 +35,7 @@ function App() {
   return (
     <Routes>
       <Route path="*" element={<div>404 Not Found</div>} />
-      <Route path='/' element={<LazyHome />} />
+      <Route path='/' element={<Home />} />
       <Route path='/art/r2d2' element={<LazyR2D2 />} />
     </Routes>
   );
