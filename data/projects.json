@@ -1,0 +1,57 @@
+{
+    "projects" : [
+        {
+                "title": "Portfolio",
+                "description": "Portfolio project built with <span class=\"highlight-text\">reactjs</span>, <span class=\"highlight-text\">typescript</span>, <span class=\"highlight-text\">scss</span>, and <span class=\"highlight-text\">npm</span>.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                "image": "/images/hero1.min.webp",
+                "hoverImage": "",
+                "featured": true,
+                "date": "2022-06-01",
+                "tags": [
+                "react",
+                "typescript",
+                "scss",
+                "npm"
+            ]
+        },
+        {
+                "title": "Portfolio2",
+                "description": "Portfolio project built with reactjs, typescript, scss, and npm",
+                "image": "/images/hero1.min.webp",
+                "hoverImage": "",
+                "featured": true,
+                "date": "2024-06-01",
+                "tags": [
+                "react",
+                "typescript",
+                "scss",
+                "npm"
+            ]
+        },
+        {
+                "title": "Portfolio3",
+                "description": "Portfolio project built with reactjs, typescript, scss, and npm",
+                "image": "/images/hero1.min.webp",
+                "hoverImage": "",
+                "featured": true,
+                "date": "2027-06-01",
+                "tags": [
+                "react",
+                "typescript",
+                "scss",
+                "npm"
+            ]
+        },
+        {
+            "title": "Other",
+            "description": "Portdea apidca pdichapidhcwapei ahvpivapidp apaihd paihd pai daspi dadpsa dad",
+            "image": "/images/hero1.min.webp",
+            "hoverImage": "",
+            "featured": false,
+            "date": "2025-06-01",
+            "tags": [
+                "none"
+            ]
+        }
+    ]
+}
