@@ -3,7 +3,7 @@ $brand-origin: #a72af4;
 $logo-fg: $brand-origin;
 $logo-bg: change-color($color: $brand-origin, $saturation: 20%, $lightness: 22%);
 
-$brand: scale-color($color: $brand-origin, $saturation: -25%, $lightness: -13.33%);
+$brand: scale-color($color: $brand-origin, $saturation: -25%, $lightness: -5%); //-13.33
 $text1: change-color($color: $brand-origin, $saturation: 15%, $lightness: 85%);
 $text2: change-color($color: $brand-origin, $saturation: 5%, $lightness: 65%);
 $surface1: change-color($color: $brand-origin, $saturation: 10%, $lightness: 10%);

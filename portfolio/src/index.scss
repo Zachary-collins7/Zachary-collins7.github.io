@@ -1,6 +1,5 @@
 @import "./styles/reset.scss";
 @import "./styles/colors.scss";
-@import "./styles/lib.scss";
 
 html {
     scroll-behavior: smooth;
@@ -22,9 +21,14 @@ body {
 
     width: 100vw;
     overflow-x: hidden !important;
+    user-select: none;
 }
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
+}
+
+span.highlight-text {
+    color: $brand;
 }

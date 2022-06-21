@@ -7,7 +7,7 @@ export interface IHeroProps {
 
 export default function Hero (props: IHeroProps) {
   return (
-      <div className="hero">
+      <div className="hero" id="mainHero">
           <img src="/images/hero1.min.webp" alt="Hero background" />
 
           <div className="background"></div>
@@ -20,7 +20,7 @@ export default function Hero (props: IHeroProps) {
           <div className="description">
               <div>Developer</div>
               <div>Maker</div>
-              <div>Student</div>
+              <div>3D Modeler</div>
           </div>
       </div>
   );

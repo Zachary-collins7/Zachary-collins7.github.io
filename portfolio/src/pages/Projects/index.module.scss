@@ -1,0 +1,137 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+    position: relative;
+    min-height: 100vh;
+    padding-top: 3rem;
+    user-select: none;
+}
+
+.searchWrapper {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%);
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+
+    gap: 0.5rem;
+}
+
+.searchBar {
+    position: relative;
+    background-color: whitesmoke;
+    clip-path: inset(0 0 0 0 round 0.5rem);
+    border-radius: 0.5rem;
+
+    input {
+        outline: none;
+        width: 100%;
+        border: none;
+        font-size: 2rem;
+        padding: 0.3em 0.5rem;
+        background-color: inherit;
+
+        &:not(:focus) ~ .searchSuggestions{
+            display: none;
+        }
+    }
+
+    .searchSuggestions {
+        display: flex;
+        flex-direction: column;
+
+        .searchSuggestion {
+            color: change-color($color: $brand, $saturation: 10%, $lightness: 40%);
+            padding: 0.3em 0.5rem;
+
+            &.selected {
+                color: $text1;
+                background: $brand;
+            }
+
+            &:nth-of-type(1) {
+                border-top: 2px solid $brand;
+                // padding-top: 0.6em;
+            }
+            &:nth-last-of-type(1) {
+                // padding-bottom: 0.6em;
+            }
+        }
+    }
+}
+
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+
+    .tag {
+        position: relative;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        line-height: 1em;
+        padding: 0.55em 0.75em 0.45em;
+        margin: 0 0.5rem;
+        border-radius: 1em;
+        user-select: none;
+        cursor: pointer;
+        background: $surface4;
+
+        transition: 0.3s box-shadow, 0.3s background;
+
+        &:hover,
+        &:focus,
+        &.focus {
+            background: $brand;
+            box-shadow: 0 0 0.75em change-color($color: $brand, $alpha: 0.5);
+        }
+    }
+}
+
+.toolTip {
+    margin: 0.5em 0;
+}
+
+
+$searchResultGap: 1rem;
+
+.searchResults {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $searchResultGap;
+}
+
+.searchResult {
+    position: relative;
+    width: calc(50% - calc($searchResultGap / 2));
+    clip-path: inset(0 0 0 0 round 0.5rem);
+
+    .imageWrapper {
+        aspect-ratio: 16/6;
+        clip-path: inset(0 0 0 0);
+    }
+
+    .title {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        font-size: 1.2em;
+        padding: 0.3em 1.1em;
+
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        background: $surface3;
+    }
+}
+
+.noResults {
+    width: 100%;
+    text-align: center;
+    padding: 1em;
+}

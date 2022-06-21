@@ -1,72 +1,38 @@
-import MainTemplate from '../../templates/mainTemplate';
-import About from './components/about';
+import { useEffect } from 'react';
+import FeaturedProjects from './components/featuredProjects';
 import Hero from './components/hero';
-import Projects from './components/projects';
 import Section from './components/section';
-import './index.scss';
-
+import AboutSkills from './components/aboutSkills';
+import styles from './index.module.scss';
 
 export interface IHomeIndexProps {
 }
 
-const projectData = [
-    {
-        title: "Portforlio",
-        about: "about",
-        image: "/images/hero1.webp"
-    },
-    {
-        title: "Portforlio",
-        about: "about",
-        image: "/images/hero1.webp"
-    }
-]
-// const sectionData = [
-//     {
-//         title: "About Me",
-//         desc: "Self-taught",
-//         desc2: "I enjoy solving challenging problems",
-//         imageUrl: "https://source.unsplash.com/501x500/?code,computer,data,coding",
-//         id: "about",
-//         child: <>Below</>
-//     }
-// ]
+const loudScrollTimer: () => NodeJS.Timer = () => {
+    return setInterval(() => {
+        if (window.scrollY === 0 || window.scrollY / window.innerHeight < 0.25) {
+            document.querySelector("#mainHero")?.classList.toggle("loud");
+        }
+    }, 7000);
+}
 
 export default function HomeIndex(props: IHomeIndexProps) {
+    useEffect(() => {
+        const timer = loudScrollTimer();
+        return () => clearInterval(timer);
+    }, [])
 
     return (
-        <MainTemplate>
+        <div className={styles.wrapper}>
             <Hero />
 
-            <Section
-                title={"About Me"}
-                desc={"Self-taught"}
-                desc2={"I enjoy solving challenging problems"}
-                imageUrl={"https://source.unsplash.com/501x500/?code,computer,data,coding"}
-                id="about"
-            >
-                below hero
+            <Section title="Projects I Love" id="projects">
+                <FeaturedProjects />
             </Section>
 
-            <Section
-                title={"Projects"}
-                desc={"Made by Me"}
-                desc2={"Check them out"}
-                imageUrl={"https://source.unsplash.com/502x500/?code,computer,data,coding"}
-                id="projects"
-            >
-                <Projects projects={projectData}/>
+            <Section title="About" id="about">
+                <AboutSkills />
             </Section>
-
-            <Section
-                title={"Contact"}
-                desc={"Let's get in touch"}
-                desc2={"Email me"}
-                imageUrl={"https://source.unsplash.com/503x500/?code,computer,data,coding"}
-                id="contact"
-            >
-                below hero
-            </Section>
-        </MainTemplate>
+        </div>
     );
 }

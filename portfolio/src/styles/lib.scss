@@ -1,5 +1,3 @@
-@import './colors.scss';
-
 html,
 body {
     // max-width: 100%;
@@ -10,13 +8,13 @@ body {
     &::after {content: "\A9C2";}
 }
 
-a.link {
-    color: $brand-origin;
-    border-bottom: 1px solid transparent;
-    &:hover {
-        border-bottom: 2px solid $brand-origin;
-    }
-}
+// a.link {
+//     color: var(--brand);
+//     border-bottom: 1px solid transparent;
+//     &:hover {
+//         border-bottom: 2px solid var(--brand);
+//     }
+// }
 
 img.cover {
     all: unset;
@@ -39,7 +37,7 @@ span.divider {
         width: 3rem;
         height: 0.2rem;
         border-radius: 0.1rem;
-        background-color: $brand;
+        background-color: var(--brand);
     }
 
     &::before {

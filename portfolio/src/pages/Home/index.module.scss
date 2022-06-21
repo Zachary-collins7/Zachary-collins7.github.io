@@ -1,0 +1,77 @@
+@import '../../styles/colors.scss';
+
+
+.wrapper {
+    user-select: none;
+}
+
+// max content width
+// $contentWidth: 900px;
+// $contentPadding: 3rem;
+
+// $projectCardGap: 2rem;
+// $projectCardCols: 3;
+// $projectCardImageAspectRatio: calc(16/9);
+// $projectCardBorderRadius: 0.5rem;
+
+// $cardFlexBreak: calc(
+//     // divided by columns
+//     calc(
+//         // minus card gap
+//         calc(
+//             // useable width
+//             $contentWidth - calc($contentPadding * 2)
+//         ) - calc(
+//                 $projectCardGap * calc($projectCardCols - 1)
+//             )
+//     ) / $projectCardCols
+// );
+
+// .cardWrapper {
+//     position: relative;
+//     margin: 0 auto;
+//     display: flex;
+//     flex-wrap: wrap;
+//     gap: $projectCardGap;
+//     padding: $contentPadding;
+//     // justify-content: center;
+//     // align-items: center;
+//     max-width: $contentWidth;
+// }
+
+// .card {
+//     flex: 1 1 $cardFlexBreak;
+//     display: flex;
+//     flex-direction: column;
+
+//     clip-path: inset(0 0 0 0 round $projectCardBorderRadius);
+
+//     background: change-color($color: $surface2, $alpha: 0.99);
+//     box-shadow: inset 0 0 2rem $surface2;
+
+//     @supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
+//         background-color: change-color($color: $surface2, $alpha: 0.75);
+//         backdrop-filter: blur(0.7rem);
+//     }
+// }
+
+// .cardImage {
+//     opacity: 0.25;
+//     aspect-ratio: $projectCardImageAspectRatio;
+//     filter: grayscale(1);
+//     transform: none;
+//     transition: filter 0.3s, transform 0.3s, opacity 0.3s;
+
+//     &:hover {
+//         opacity: 1;
+//         transform: scale(1.1);
+//         filter: none;
+//     }
+// }
+
+// .cardBottom {
+//     position: relative;
+//     z-index: 1;
+//     padding: 1rem;
+//     background-color: $surface3;
+// }

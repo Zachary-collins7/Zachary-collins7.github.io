@@ -1,4 +1,5 @@
 @import '../../../styles/colors.scss';
+
 .hero {
     display: flex;
     flex-direction: column;
@@ -8,18 +9,18 @@
     cursor: default;
     user-select: none;
 
-    // @media screen and (max-width: 600px) {
-    //   font-size: 15vw;
-    // }
-
     img {
         all: unset;
         position: absolute;
         height: 100%;
         width: 100%;
         object-fit: cover;
-        filter: hue-rotate(162deg + hue($brand)) saturate(1.3) brightness(0.8);
+        filter: hue-rotate(162deg + hue($brand-origin)) saturate(1.3) brightness(0.8);
         cursor: alias;
+    }
+
+    &.loud .greeting::after {
+        scale: 1.5 !important;
     }
 
     .greeting {
@@ -40,24 +41,24 @@
             from {
                 transform: none;
             }
+
             to {
-                transform: translateY(-5%);
+                transform: translateY(-12%);
             }
         }
 
         &::after {
-            content: "Scroll \3009"; //2304 //27E9
+            content: "\3009"; //2304 //27E9
             position: absolute;
             bottom: 0;
-            left: 0;
+            left: calc(50% - 0.5em);
             color: whitesmoke;
-            font-size: 1.8rem;
+            font-size: 3.8rem;
             line-height: 1em;
-            padding: 1em;
             writing-mode: vertical-lr;
-            animation: scrollIcon 0.9s ease infinite alternate;
-            // animation-direction: ;
-            // text-orientation:sideways-right;
+            transition: 1s scale ease-out;
+            animation-delay: 0.5s;
+            animation: scrollIcon 1s ease infinite alternate;
         }
     }
 
@@ -72,14 +73,17 @@
                 opacity: 0;
                 transform: translateY(10%);
             }
+
             8.25% {
                 opacity: 1;
                 transform: none;
             }
+
             16.5% {
                 opacity: 1;
                 transform: none;
             }
+
             24.75% {
                 opacity: 0;
             }
@@ -111,7 +115,7 @@
             &::before,
             &::after {
                 content: "<";
-                color: rgba($color: $text1, $alpha: 0.4);
+                color: rgba($color: var(--text1), $alpha: 0.4);
                 filter: saturate(1.75);
             }
 

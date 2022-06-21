@@ -1,43 +1,30 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from "react-router-dom";
+
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation
+  Outlet
 } from 'react-router-dom';
 import './App.scss';
+import NavBar from './components/navbar';
 
-
-// pages
-import Home from "./pages/Home";
-const LazyR2D2 = React.lazy(() => import('./pages/r2d2'));
+const navLinks = [
+  { title: "Home", url: "/" },
+  { title: "Projects", url: "/projects" },
+  { title: "About", url: "/about" },
+  { title: "Contact", url: "/contact" }
+]
 
 function App() {
-  const { pathname, hash, key } = useLocation();
-
-  useEffect(() => {
-    // if not a hash link, scroll to top
-    if (hash === '') {
-      window.scrollTo(0, 0);
-    }
-    // else scroll to id
-    else {
-      setTimeout(() => {
-        const id = hash.replace('#', '');
-        const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView(false);
-        }
-      }, 0);
-    }
-  }, [pathname, hash, key]);
-
+  // scroll to top on url change
+  const { pathname } = useLocation(); 
+  useEffect(() => window.scrollTo(0, 0), [pathname]);
+  
   return (
-    <Routes>
-      <Route path="*" element={<div>404 Not Found</div>} />
-      <Route path='/' element={<Home />} />
-      <Route path='/art/r2d2' element={<LazyR2D2 />} />
-    </Routes>
+    <div style={{ userSelect: "none" }}>
+      <NavBar animate links={navLinks} />
+      <Outlet />
+      <div style={{ textAlign: "center" }}>temp footer</div>
+    </div>
   );
 }
 

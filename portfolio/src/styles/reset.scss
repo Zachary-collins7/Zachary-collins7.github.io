@@ -146,6 +146,29 @@ input {
     line-height: normal; // 1
 }
 
+// Reset default style
+button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+code,
+input,
+blockquote,
+span,
+pre {
+    user-select: auto;
+}
+
 // 1. Addresses appearance set to searchfield in Safari 5, Chrome
 input[type='search'] {
     -webkit-appearance: textfield; // 1

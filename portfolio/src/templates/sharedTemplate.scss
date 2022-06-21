@@ -1,6 +1,4 @@
-@import '../styles/colors.scss';
-
 .template {
-    background-color: $surface1;
+    background-color: var(--surface1);
     min-height: 100vh;
 }
