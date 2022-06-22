@@ -3,18 +3,24 @@
 .wrapper {
     position: relative;
     min-height: 100vh;
-    padding-top: 3rem;
+    padding: 9rem 1rem 2rem;
     user-select: none;
+
+    display: flex;
+    justify-content: center;
+
+    
+
+    @media screen and (min-width: 600px) {
+        padding: 3rem;
+        align-items: center;
+    }
 }
 
 .searchWrapper {
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    transform: translate(-50%);
     display: flex;
     flex-direction: column;
-    width: 600px;
+    max-width: 600px;
 
     gap: 0.5rem;
 }
@@ -33,7 +39,7 @@
         padding: 0.3em 0.5rem;
         background-color: inherit;
 
-        &:not(:focus) ~ .searchSuggestions{
+        &:not(:focus)~.searchSuggestions {
             display: none;
         }
     }
@@ -55,6 +61,7 @@
                 border-top: 2px solid $brand;
                 // padding-top: 0.6em;
             }
+
             &:nth-last-of-type(1) {
                 // padding-bottom: 0.6em;
             }
@@ -106,8 +113,13 @@ $searchResultGap: 1rem;
 
 .searchResult {
     position: relative;
-    width: calc(50% - calc($searchResultGap / 2));
+    width: 100%;
     clip-path: inset(0 0 0 0 round 0.5rem);
+
+
+    @media screen and (min-width: 600px) { 
+        width: calc(50% - calc($searchResultGap / 2));
+    }
 
     .imageWrapper {
         aspect-ratio: 16/6;
