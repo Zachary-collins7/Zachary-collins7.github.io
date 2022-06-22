@@ -23,7 +23,7 @@ function App() {
     <div style={{ userSelect: "none" }}>
       <NavBar animate links={navLinks} />
       <Outlet />
-      <div style={{ textAlign: "center" }}>temp footer</div>
+      {/* <div style={{ textAlign: "center" }}>temp footer</div> */}
     </div>
   );
 }

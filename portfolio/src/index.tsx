@@ -5,11 +5,13 @@ import {
   Routes,
   BrowserRouter as Router
 } from 'react-router-dom';
+import './index.scss';
+
 import App from './App';
 import HomeIndex from './pages/Home';
-
-import './index.scss';
 import ProjectsIndex from './pages/Projects';
+import AboutIndex from './pages/About';
+import ContactIndex from './pages/Contact';
 
 
 const root = ReactDOM.createRoot(
@@ -27,7 +29,10 @@ root.render(
           <Route path="/" element={<App />}>
             <Route index element={<HomeIndex />} />
             <Route path="projects" element={<ProjectsIndex />} />
-            <Route path="test"  element={<div style={{ padding: "3rem" }}>test</div>}/>
+            <Route path="about" element={<AboutIndex />} />
+            <Route path="contact" element={<ContactIndex />} />
+
+            <Route path="test"  element={<div style={{ padding: "3rem" }}>test route</div>}/>
           </Route>
 
           <Route path="/test2" element={<div style={{ padding: "3rem" }}>no header / footer</div>} />

@@ -66,6 +66,7 @@
 .tags {
     display: flex;
     flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
 
     .tag {
         position: relative;
@@ -74,7 +75,6 @@
         text-transform: uppercase;
         line-height: 1em;
         padding: 0.55em 0.75em 0.45em;
-        margin: 0 0.5rem;
         border-radius: 1em;
         user-select: none;
         cursor: pointer;
@@ -112,6 +112,16 @@ $searchResultGap: 1rem;
     .imageWrapper {
         aspect-ratio: 16/6;
         clip-path: inset(0 0 0 0);
+
+        img {
+            filter: grayscale(1);
+            transition: 0.3s ease-out filter, 0.3s ease-out transform;
+
+            &:hover {
+                transform: scale(1.05);
+                filter: none;
+            }
+        }
     }
 
     .title {
@@ -119,6 +129,7 @@ $searchResultGap: 1rem;
         bottom: 0;
         width: 100%;
         font-size: 1.2em;
+        font-weight: 400;
         padding: 0.3em 1.1em;
 
         text-align: center;
