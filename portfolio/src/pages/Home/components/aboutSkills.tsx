@@ -24,11 +24,6 @@ type skillType = {
 const loadSkills = () => fetch("/data/skills.json")
     .then(res => res.json())
     .then(json => json.skills)
-    // .then(skills => {
-    //     console.log("raw ", skills);
-
-    //     return skills
-    // })
     .then(skills => skills.map((skill: any) => {
         skill.icon =
             skill.icon === "faCode" ? faCode

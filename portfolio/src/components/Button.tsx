@@ -4,7 +4,6 @@ import type { LinkProps, NavLinkProps } from 'react-router-dom';
 import styles from './Button.module.scss';
 
 // props shared with all
-// dev note: styleType is optional for buttons as "unstyled"
 type BaseProps = {
     children: React.ReactNode
     className?: string
@@ -44,26 +43,25 @@ export type ButtonProps =
     | ButtonAsNavLink
     | ButtonAsUnstyled
 
-export default function Button(props: ButtonProps): JSX.Element {
-    const { className, styleType, as: buttonType, noPadding, ...rest } = props;
-    const allClassNames = [
+export default function Button({ className, styleType, as: buttonType, noPadding, ...props }: ButtonProps): JSX.Element {
+    const allClassNames: string = [
         className,
-        noPadding ? styles.noPadding : null,
         styles.base,
+        noPadding ? styles.noPadding : null,
         styleType === "primary" ? styles.primary
             : styleType === "secondary" ? styles.secondary
                 : styleType === "tertiary" ? styles.tertiary
                     : styleType === "ghost" ? styles.ghost
                         : null
-    ].filter(n => n).join(" ")
+    ].filter(n => n).join(" ");
 
     switch (buttonType) {
         case "link": {
-            return <Link className={allClassNames} {...rest as LinkProps} />
+            return <Link className={allClassNames} {...props as LinkProps} />
         }
     
         case "navLink": {
-            return <NavLink className={allClassNames} {...rest as NavLinkProps} />
+            return <NavLink className={allClassNames} {...props as NavLinkProps} />
         }
         case "externalLink": {
             return (
@@ -71,17 +69,19 @@ export default function Button(props: ButtonProps): JSX.Element {
                     className={allClassNames}
                     target='_blank'
                     rel='noopener noreferrer'
-                    {...rest as React.AnchorHTMLAttributes<HTMLAnchorElement>}
+                    {...props as React.AnchorHTMLAttributes<HTMLAnchorElement>}
                 >
                     {props.children}
                 </a>
             )
         }   
         case "unstyled": {
-            return <button className={className} {...rest as React.ButtonHTMLAttributes<HTMLButtonElement>} />
+            return <button className={className} {...props as React.ButtonHTMLAttributes<HTMLButtonElement>} />
         }
         default: {
-            return <button className={allClassNames} {...rest as React.ButtonHTMLAttributes<HTMLButtonElement>} />
+            return <button className={allClassNames} {...props as React.ButtonHTMLAttributes<HTMLButtonElement>} />
         }
     }
 }
+
+

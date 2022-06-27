@@ -12,6 +12,7 @@ import HomeIndex from './pages/Home';
 import ProjectsIndex from './pages/Projects';
 import AboutIndex from './pages/About';
 import ContactIndex from './pages/Contact';
+import Sunset from './projects/art/pieces/sunset';
 
 
 const root = ReactDOM.createRoot(
@@ -35,6 +36,9 @@ root.render(
             <Route path="test"  element={<div style={{ padding: "3rem" }}>test route</div>}/>
           </Route>
 
+          <Route path="/art">
+            <Route path="sunset" element={<Sunset />} />
+          </Route>
           <Route path="/test2" element={<div style={{ padding: "3rem" }}>no header / footer</div>} />
           
         </Routes>
