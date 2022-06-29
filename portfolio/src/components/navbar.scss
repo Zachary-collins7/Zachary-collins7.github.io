@@ -77,30 +77,40 @@ $navbar-height: 3rem;
             }
         }
 
-
-        &.fixed {
+        @media (max-width: $mobile-nav-breakpoint) {
             position: fixed;
             top: 0;
             left: 0;
-            & nav.nav {
-                background-color: $surface2;
+            background-color: $surface2;
+        }
 
-                .nav-logo {
-                    background-color: $logo-bg;
-                }
-            }
+        @media (min-width: $mobile-nav-breakpoint) {
+            &.fixed {
+                position: fixed;
+                top: 0;
+                left: 0;
 
-            &.hide {
-                transform: translateY(-100%);
-            }
-            &.animate {
-                transition: transform 0.5s;
-                
-                &:not(.hide) {
-                    transform: none;
+                & nav.nav {
+                    background-color: $surface2;
+
+                    .nav-logo {
+                        background-color: $logo-bg;
+                    }
                 }
+
+                &.hide {
+                    transform: translateY(-100%);
+                }
+
+                &.animate {
+                    transition: transform 0.5s;
+
+                    &:not(.hide) {
+                        transform: none;
+                    }
+                }
+
             }
-            
         }
     }
 
@@ -112,20 +122,33 @@ $navbar-height: 3rem;
                 position: fixed;
                 top: $navbar-height;
                 left: 0;
+                right: 0;
+                bottom: 0;
                 width: 100vw;
-                height: unset !important;
                 border-top: 0.3rem solid $brand;
-                padding: 0.5rem 0;
                 box-sizing: border-box;
                 background-color: $surface2;
                 flex-direction: column;
+                justify-content: start !important;
+
+                overflow-y: scroll;
+                overflow-x: hidden;
 
                 li.nav-item {
-                    margin: 0.8rem 2rem;
-                    text-align: center;
+                    width: 100%;
+                    height: unset !important;
+                    padding: 0.4rem 0 !important;
 
                     a {
-                        margin: 0 !important;
+                        margin: auto !important;
+                    }
+                    
+                    &:nth-of-type(even) {
+                        background-color: change-color($color: $brand, $alpha: 0.025);
+                    }
+
+                    &:not(:nth-last-of-type(1)) {
+                        border-bottom: 0.1rem solid change-color($color: $brand, $alpha: 0.2);
                     }
                 }
 

@@ -34,7 +34,7 @@ const loadSkills = () => fetch("/data/skills.json")
     }
     ))
     .then(skills => skills as skillType[])
-    // .then((s: any) => console.log(s))
+    
 export default function AboutSkills(props: IaboutSkillsProps) {
     const [skills, setSkills] = useState<skillType[]>([]);
 
