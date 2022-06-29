@@ -17,7 +17,7 @@ Built with ReactJS, Typescript, and scss
 - Uses a data folder to hold mutable data - components and pages reference as needed
 
 
-## scripts
+## Scripts
 
 | script               | desc                                 |
 | -------------------- | :----------------------------------- |
@@ -26,8 +26,11 @@ Built with ReactJS, Typescript, and scss
 | ```npm run test```   | runs react tests                     |
 | ```npm run deploy``` | runs build and a deploy script       |
 
+## Other
+Features a 404.html to redirect back to root on refresh
+TODO: try to build with nextjs so that refreshes work on static hosting
 
-## dependencies
+## Dependencies
 - react
 - react-dom
 - react-router-dom
