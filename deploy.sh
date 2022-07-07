@@ -14,4 +14,10 @@ echo -ne "Moving\033[0;32m built application\033[0m to root dir "
 loader
 yes | \cp -rf portfolio/out/* ./
 
+
+echo -ne "\033[0;36minfo\033[0m  - "
+echo -ne "Creating \033[0;32m .nojekyll\033[0m file in _next folder "
+loader
+touch _next/.nojekyll;
+
 echo
