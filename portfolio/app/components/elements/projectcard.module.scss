@@ -1,0 +1,137 @@
+.cardWrapper {
+    position: relative;
+    display: grid;
+    grid-template-rows: 300px 1fr;
+    clip-path: inset(0 0 0 0 round 1rem);
+
+    .about {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        // align-items: center;
+        padding: 1.5em;
+
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+
+            .featured {
+                font-weight: 600;
+            }
+
+            .date {
+                &::before {
+                    content: 'Last Updated: ';
+                }
+
+            }
+        }
+
+
+        .content {
+            display: flex;
+            flex-direction: column;
+
+            p {
+                line-height: 1.3em;
+            }
+
+            .tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin: 0 !important;
+                list-style: none;
+
+                &::before {
+                    content: 'Tags: ';
+                }
+            }
+
+            margin-bottom: 1rem;
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+    }
+
+    .image {
+        position: relative;
+        clip-path: inset(0 0 0 0);
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+            @media (hover) {
+
+                filter: grayscale(1) brightness(0.5);
+
+                transition: 0.6s transform ease-out, 0.6s filter ease-out;
+
+                &:hover {
+                    filter: none;
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
+    @include themed() {
+        background-color: t('surface2');
+        color: t('text1');
+
+        .about {
+            .header {
+                .featured {
+                    color: t('brand');
+                }
+
+                .date {
+                    color: t('text2');
+                }
+            }
+
+            .content {
+                .tags {
+                    color: t('text2');
+                }
+            }
+        }
+
+        .image {
+            border-right: 2px solid t('surface3');
+        }
+    }
+
+    @include breakpoint('md') {
+        grid-template-rows: unset;
+        grid-template-columns: 2fr 2fr;
+    }
+
+    @include breakpoint('lg') {
+        grid-template-columns: 2fr 3fr;
+    }
+
+    @include breakpoint('xl') {
+        // .about {
+        //     .content {
+        //         gap: 3rem;
+        //         flex-direction: row;
+        //         .tags {
+        //             flex-direction: column;
+        //         }
+        //     }
+        // }
+    }
+}
