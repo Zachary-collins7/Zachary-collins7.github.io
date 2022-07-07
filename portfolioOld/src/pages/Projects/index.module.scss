@@ -1,0 +1,160 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+    position: relative;
+    min-height: 100vh;
+    padding: 9rem 1rem 2rem;
+    user-select: none;
+
+    display: flex;
+    justify-content: center;
+
+    
+
+    @media screen and (min-width: 600px) {
+        padding: 3rem;
+        align-items: center;
+    }
+}
+
+.searchWrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+
+    gap: 0.5rem;
+}
+
+.searchBar {
+    position: relative;
+    background-color: whitesmoke;
+    clip-path: inset(0 0 0 0 round 0.5rem);
+    border-radius: 0.5rem;
+
+    input {
+        outline: none;
+        width: 100%;
+        border: none;
+        font-size: 2rem;
+        padding: 0.3em 0.5rem;
+        background-color: inherit;
+
+        &:not(:focus)~.searchSuggestions {
+            display: none;
+        }
+    }
+
+    .searchSuggestions {
+        display: flex;
+        flex-direction: column;
+
+        .searchSuggestion {
+            color: change-color($color: $brand, $saturation: 10%, $lightness: 40%);
+            padding: 0.3em 0.5rem;
+
+            &.selected {
+                color: $text1;
+                background: $brand;
+            }
+
+            &:nth-of-type(1) {
+                border-top: 2px solid $brand;
+                // padding-top: 0.6em;
+            }
+
+            &:nth-last-of-type(1) {
+                // padding-bottom: 0.6em;
+            }
+        }
+    }
+}
+
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+
+    .tag {
+        position: relative;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        line-height: 1em;
+        padding: 0.55em 0.75em 0.45em;
+        border-radius: 1em;
+        user-select: none;
+        cursor: pointer;
+        background: $surface4;
+
+        transition: 0.3s box-shadow, 0.3s background;
+
+        &:hover,
+        &:focus,
+        &.focus {
+            background: $brand;
+            box-shadow: 0 0 0.75em change-color($color: $brand, $alpha: 0.5);
+        }
+    }
+}
+
+.toolTip {
+    margin: 0.5em 0;
+}
+
+
+$searchResultGap: 1rem;
+
+.searchResults {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $searchResultGap;
+}
+
+.searchResult {
+    position: relative;
+    width: 100%;
+    clip-path: inset(0 0 0 0 round 0.5rem);
+
+
+    @media screen and (min-width: 600px) { 
+        width: calc(50% - calc($searchResultGap / 2));
+    }
+
+    .imageWrapper {
+        aspect-ratio: 16/6;
+        clip-path: inset(0 0 0 0);
+
+        img {
+            filter: grayscale(1);
+            transition: 0.3s ease-out filter, 0.3s ease-out transform;
+
+            &:hover {
+                transform: scale(1.05);
+                filter: none;
+            }
+        }
+    }
+
+    .title {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        font-size: 1.2em;
+        font-weight: 400;
+        padding: 0.3em 1.1em;
+
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        background: $surface3;
+    }
+}
+
+.noResults {
+    width: 100%;
+    text-align: center;
+    padding: 1em;
+}

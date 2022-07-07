@@ -1,0 +1,235 @@
+$mobile-nav-breakpoint: 600px;
+$navbar-height: 3rem;
+
+.navToggle {
+    display: none;
+
+    &~.navLabel {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1010;
+
+
+        nav.nav {
+            position: relative;
+            display: flex;
+            font-size: 1rem;
+            font-weight: 500;
+            height: $navbar-height;
+            // background-color: $surface2;
+
+            .navLogo {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 2.4em;
+                width: 2.4em;
+                box-sizing: border-box;
+                border-radius: 50%;
+                margin: 0.3em;
+
+                &::after {
+                    content: 'Z';
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 1.8em;
+                    font-weight: 800;
+
+
+                }
+
+                @include themed() {
+                    background-color: t('surface1');
+
+                    &::after {
+                        color: t('brand');
+                    }
+                }
+            }
+
+            ul.navItems {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex: 1;
+                margin: 0;
+                height: 100%;
+                list-style: none;
+
+                li.navItem {
+                    display: flex;
+                    height: 100%;
+                    padding: 0 0.5rem;
+
+                    a {
+                        all: unset;
+                        text-decoration: none;
+                        vertical-align: middle;
+                        margin: auto 0;
+                        padding: 0.5rem;
+                        user-select: none;
+
+                        @include themed() {
+                            color: t('text1');
+                        }
+                    }
+
+                    &:hover a {
+                        color: #fff;
+                        cursor: pointer;
+                        text-shadow: 0 0 0.07em hsla(0, 0%, 100%, 0.75);
+                    }
+                }
+            }
+        }
+
+        @media (max-width: $mobile-nav-breakpoint) {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            @include themed() {
+                background-color: t('surface2');
+            }
+        }
+
+        @media (min-width: $mobile-nav-breakpoint) {
+            &.fixed {
+                position: fixed;
+                top: 0;
+                left: 0;
+
+                & nav.nav {
+                    @include themed() {
+                        background-color: t('surface2');
+                    }
+
+                    .nav-logo {
+                        background-color: red;
+                    }
+                }
+
+                &.hide {
+                    transform: translateY(-100%);
+                }
+
+                &.animate {
+                    transition: transform 0.5s;
+
+                    &:not(.hide) {
+                        transform: none;
+                    }
+                }
+
+            }
+        }
+    }
+
+
+    // mobile nav
+    @media (max-width: $mobile-nav-breakpoint) {
+        &~.navLabel {
+            ul.navItems {
+                position: fixed;
+                top: $navbar-height;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100vw;
+                box-sizing: border-box;
+                flex-direction: column;
+                justify-content: start !important;
+
+                overflow-y: scroll;
+                overflow-x: hidden;
+
+
+                li.navItem {
+                    font-size: 1.4rem;
+                    width: 100%;
+                    height: unset !important;
+                    padding: 0.4rem 0 !important;
+
+                    a {
+                        margin: auto !important;
+                        &::after {
+                            content: " \2192";
+                        }
+                    }
+                }
+
+                clip-path: inset(0 0 100% 0);
+                transition: clip-path 0.3s ease-out;
+            }
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                top: 1.5em;
+                right: 0;
+                transform: translate(-50%, -50%);
+                height: 0.3rem;
+                width: 2rem;
+                border-radius: 6% / 50%;
+                transition: transform 0.3s;
+                z-index: 1001;
+
+            }
+
+            &::after {
+                transform: translate(-50%, 50%);
+            }
+
+            &::before {
+                transform: translate(-50%, -150%);
+            }
+
+            &::before,
+            &::after {
+                background-color: grey;
+            }
+
+            @include themed() {
+                ul.navItems {
+                    background-color: t('surface2');
+                    border-top: 0.3rem solid t('brand');
+
+                    li.navItem {
+                        &:nth-of-type(even) {
+                            background-color: change-color($color: t('brand'), $alpha: 0.025);
+                        }
+
+                        &:not(:nth-last-of-type(1)) {
+                            border-bottom: 0.1rem solid change-color($color: t('brand'), $alpha: 0.2);
+                        }
+                    }
+                }
+
+                &::before,
+                &::after {
+                    background-color: t('text1');
+                }
+            }
+
+        }
+
+        &:checked~.navLabel {
+            &::after {
+                transform: translate(-50%, -50%) rotateZ(45deg);
+            }
+
+            &::before {
+                transform: translate(-50%, -50%) rotateZ(-45deg);
+            }
+
+            ul.navItems {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+    }
+}

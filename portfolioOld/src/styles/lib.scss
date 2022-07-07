@@ -1,0 +1,52 @@
+html,
+body {
+    // max-width: 100%;
+}
+
+:is(h1,h2,h3,h4,h5,h6).fancy {
+    &::before {content: "\A9C1";}
+    &::after {content: "\A9C2";}
+}
+
+// a.link {
+//     color: var(--brand);
+//     border-bottom: 1px solid transparent;
+//     &:hover {
+//         border-bottom: 2px solid var(--brand);
+//     }
+// }
+
+img.cover {
+    all: unset;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+span.divider {
+    display: block;
+    height: 2rem;
+    position: relative;
+    margin: 1rem 0;
+    transform-origin: left;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        width: 3rem;
+        height: 0.2rem;
+        border-radius: 0.1rem;
+        background-color: var(--brand);
+    }
+
+    &::before {
+        top: 0.5rem;
+        left: 0;
+    }
+
+    &::after {
+        bottom: 0.5rem;
+        left: 1.5rem;
+    }
+}

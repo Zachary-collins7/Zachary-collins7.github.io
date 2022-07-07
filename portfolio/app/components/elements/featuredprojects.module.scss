@@ -1,0 +1,13 @@
+.wrapper {
+    @include content-width();
+    margin: 0 auto;
+}
+
+.projects {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 3rem 0;
+}

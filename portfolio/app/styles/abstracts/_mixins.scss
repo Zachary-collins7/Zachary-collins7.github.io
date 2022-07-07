@@ -1,0 +1,77 @@
+@mixin breakpoint($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
+            @content;
+        }
+    }
+
+    @else {
+        @warn 'Unfortunately, no value could be retrieved from `#{$breakpoint}`. '
+        +'Please make sure it is defined in `$grid-breakpoints` map.';
+    }
+}
+
+@mixin content-width {
+    width: 100%;
+    max-width: map_get($container-max-widths, xs);
+    padding: 0 1rem;
+
+    @include breakpoint('sm') {
+        max-width: map_get($container-max-widths, sm);
+        padding: 0;
+    }
+
+    @include breakpoint('md') {
+        max-width: map_get($container-max-widths, md);
+    }
+
+    @include breakpoint('lg') {
+        max-width: map_get($container-max-widths, lg);
+    }
+
+    @include breakpoint('xl') {
+        max-width: map_get($container-max-widths, xl);
+    }
+}
+
+
+@mixin themed() {
+
+    @each $theme,
+    $map in $themes {
+        html[data-theme=#{$theme}] & {
+            $theme-map: () !global;
+
+            @each $key,
+            $submap in $map {
+                $value: map-get(map-get($themes, $theme), '#{$key}');
+                $theme-map: map-merge($theme-map, ($key: $value)) !global;
+            }
+
+            @content;
+            $theme-map: null !global;
+        }
+    }
+}
+
+@function t($key) {
+    @return map-get($theme-map, $key);
+}
+
+@mixin shadow() {
+    @include themed() {
+
+        box-shadow:
+            0px 0px calc(0.8*1.2px) change-color($color: t('surface-shadow'), $alpha: 0.015),
+            0px 0px calc(0.8*2.7px) change-color($color: t('surface-shadow'), $alpha: 0.022),
+            0px 0px calc(0.8*4.6px) change-color($color: t('surface-shadow'), $alpha: 0.027),
+            0px 0px calc(0.8*6.9px) change-color($color: t('surface-shadow'), $alpha: 0.031),
+            0px 0px calc(0.8*10px) change-color($color: t('surface-shadow'), $alpha: 0.035),
+            0px 0px calc(0.8*14.2px) change-color($color: t('surface-shadow'), $alpha: 0.039),
+            0px 0px calc(0.8*20.1px) change-color($color: t('surface-shadow'), $alpha: 0.043),
+            0px 0px calc(0.8*29.2px) change-color($color: t('surface-shadow'), $alpha: 0.048),
+            0px 0px calc(0.8*45px) change-color($color: t('surface-shadow'), $alpha: 0.055),
+            0px 0px calc(0.8*80px) change-color($color: t('surface-shadow'), $alpha: 0.07);
+    }
+
+}
