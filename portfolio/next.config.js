@@ -7,6 +7,11 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'app/styles')],
     additionalData: `@import "app/styles/abstracts/variables.scss"; @import "app/styles/abstracts/mixins.scss";`,
+  },
+  experimental: {
+    images: {
+      unoptimized: true
+    }
   }
 }
 

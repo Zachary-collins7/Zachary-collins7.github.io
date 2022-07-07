@@ -1,10 +1,11 @@
-import Button from '@element/Button';
-import Hero from '@element/Hero';
-import NavBar from '@element/Navbar';
-import Toggle from '@element/Toggle';
 import type { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import Hero from '@element/Hero';
+import NavBar from '@element/Navbar';
+import FeaturedProjects from '@element/FeaturedProjects';
+import AboutSkills from '@element/aboutSkills';
+
 
 
 export async function getStaticProps() {
@@ -14,12 +15,13 @@ export async function getStaticProps() {
 }
 
 const Home: NextPage = () => {
-
   return (
     <>
       <NavBar animate>
         <Link href={"/"}><a>Home</a></Link>
         <Link href={"/about"}><a>About</a></Link>
+        <Link href={"/projects"}><a>Projects</a></Link>
+        <Link href={"/contact"}><a>Contact</a></Link>
       </NavBar>
 
       <NextSeo
@@ -28,9 +30,9 @@ const Home: NextPage = () => {
 
       <Hero />
 
-      <div style={{ 
-        height: '100vh',
-       }}></div>
+      <FeaturedProjects />
+
+      <AboutSkills />
     </>
   )
 }

@@ -21,3 +21,9 @@ div.content {
     margin: auto;
 }
 
+span.highlight-text {
+    @include themed() {
+        color: t('brand');
+    }
+}
+

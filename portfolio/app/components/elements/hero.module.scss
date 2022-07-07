@@ -1,41 +1,181 @@
+@keyframes scrollIcon {
+    from {
+        transform: none;
+    }
+
+    to {
+        transform: translateY(-12%);
+    }
+}
+
 .hero {
     position: relative;
     height: 100vh;
     width: 100vw;
 
-    img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        z-index: 600;
-        object-fit: cover;
-        overflow: hidden;
-        filter: hue-rotate(162deg + hue($brand-origin) - 120deg) saturate(1.3) brightness(0.6);
-        cursor: alias;
-    }
+    // img {
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     height: 100%;
+    //     width: 100%;
+    //     z-index: 600;
+    //     object-fit: cover;
+    //     overflow: hidden;
+    //     filter: hue-rotate(162deg + hue($brand-origin) - 120deg) saturate(1.3) brightness(0.6);
+    //     cursor: alias;
+    // }
 
     .heroContent {
         position: relative;
         display: flex;
         flex-direction: column-reverse;
         align-items: center;
+        justify-content: center;
         z-index: 601;
         width: 100%;
         height: 100%;
+        border-radius: 0 0 3rem 3rem;
 
-        .about, .headshot {
-            flex: 1 1;
+        // @include shadow();
+
+        .about,
+        .image {
+            padding: 1rem;
+            width: 100%;
+            margin: auto;
         }
 
-        .about {
+        .image {
+            position: relative;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
 
+            &::before {
+                content: '👨‍💻';
+                position: relative;
+                font-size: 15rem;
+            }
+
+            &::after {
+                content: "Image pending";
+                position: relative;
+                top: -1em;
+                text-align: center;
+                font-size: 0.8rem;
+                color: rgba(125, 125, 125, 0.75);
+            }
         }
-        .headshot {
-            background-image: url("/images/headshot.webp");
-            background-size: cover;
-            background-position: top;
+
+        // .image {
+        //     position: relative;
+        //     display: flex;
+        //     justify-content: center;
+        //     align-items: center;
+
+        //     .inner {
+        //         width: 60%;
+        //         border-radius: 1rem;
+        //         aspect-ratio: 1;
+        //         background: no-repeat center / contain url('/images/headshot1.webp'),
+        //             // no-repeat center/50% linear-gradient(to top, transparent 0%, red 1%, transparent 30%, transparent 100%),
+        //             no-repeat bottom / 130% 35% radial-gradient(ellipse at bottom,
+        //                 $brand-origin,
+        //                 change-color($color: $brand-origin, $alpha: 0.75),
+        //                 change-color($color: $brand-origin, $alpha: 0.5),
+        //                 change-color($color: $brand-origin, $alpha: 0.25),
+        //                 transparent,
+        //                 transparent,
+        //                 transparent);
+
+        //         backdrop-filter: sepia(90%) blur(1rem);
+        //     }
+
+
+        //     overflow: hidden;
+        // }
+
+        @include content-width();
+        margin: auto;
+    }
+
+    &::before {
+        content: "Scroll to learn more \2192";
+        position: absolute;
+        bottom: 2rem;
+        left: 2rem;
+        line-height: 1em;
+        font-size: 1.1rem;
+        writing-mode: vertical-lr;
+        opacity: 0;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    &::after {
+        content: "\3009"; //2304 //27E9
+        position: absolute;
+        bottom: 0;
+        left: calc(50% - 0.5em);
+        color: whitesmoke;
+        font-size: 3.8rem;
+        line-height: 1em;
+        writing-mode: vertical-lr;
+        transition: 1s scale ease-out;
+        animation-delay: 0.5s;
+        animation: scrollIcon 1s ease infinite alternate;
+        z-index: 700;
+    }
+
+    @include breakpoint('md') {
+        &::before {
+            opacity: 0.8;
+        }
+
+        .heroContent {
+            flex-direction: row;
+
+            .about,
+            .image {
+                padding: 3rem;
+                flex: 1 1;
+            }
+            .image {
+                display: flex;
+                height: 100%;
+            }
+            .about {
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    @include themed() {
+        &::after {
+            color: t('text1');
+        }
+
+        &::before {
+            color: t('text2');
+        }
+
+        .heroContent {
+            background-color: t('surface1');
+            .about {
+                color: t('text1');
+
+                h6 {
+                    color: t('brand');
+                }
+
+                p {
+                    color: t('text2');
+                    font-size: 1.1rem;
+                    line-height: 1.4;
+                }
+            }
         }
     }
 }

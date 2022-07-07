@@ -17,7 +17,7 @@ $surface1-dark: change-color($color: $brand-origin, $saturation: 10%, $lightness
 $surface2-dark: change-color($color: $brand-origin, $saturation: 10%, $lightness: 15%);
 $surface3-dark: change-color($color: $brand-origin, $saturation: 5%, $lightness: 20%);
 $surface4-dark: change-color($color: $brand-origin, $saturation: 5%, $lightness: 25%);
-$surface-shadow-dark: hue($color: $brand-dark) 50% 3%;
+$surface-shadow-dark: hsl(hue($color: $brand-dark) 50% 3%);
 $shadow-strength-dark: .8;
 
 

@@ -57,3 +57,21 @@
 @function t($key) {
     @return map-get($theme-map, $key);
 }
+
+@mixin shadow() {
+    @include themed() {
+
+        box-shadow:
+            0px 0px calc(0.8*1.2px) change-color($color: t('surface-shadow'), $alpha: 0.015),
+            0px 0px calc(0.8*2.7px) change-color($color: t('surface-shadow'), $alpha: 0.022),
+            0px 0px calc(0.8*4.6px) change-color($color: t('surface-shadow'), $alpha: 0.027),
+            0px 0px calc(0.8*6.9px) change-color($color: t('surface-shadow'), $alpha: 0.031),
+            0px 0px calc(0.8*10px) change-color($color: t('surface-shadow'), $alpha: 0.035),
+            0px 0px calc(0.8*14.2px) change-color($color: t('surface-shadow'), $alpha: 0.039),
+            0px 0px calc(0.8*20.1px) change-color($color: t('surface-shadow'), $alpha: 0.043),
+            0px 0px calc(0.8*29.2px) change-color($color: t('surface-shadow'), $alpha: 0.048),
+            0px 0px calc(0.8*45px) change-color($color: t('surface-shadow'), $alpha: 0.055),
+            0px 0px calc(0.8*80px) change-color($color: t('surface-shadow'), $alpha: 0.07);
+    }
+
+}

@@ -8,7 +8,7 @@ type BaseProps = {
     children: React.ReactNode
     className?: string
     styleType: 'primary' | 'secondary' | 'tertiary' | 'ghost',
-    noPadding?: boolean
+    noPadding?: boolean,
 }
 
 type ButtonAsButton = BaseProps &
@@ -69,7 +69,10 @@ export default function Button({ className, styleType, as: buttonType, noPadding
             return <button className={className} {...props as React.ButtonHTMLAttributes<HTMLButtonElement>} />
         }
         default: {
-            return <button className={allClassNames} {...props as React.ButtonHTMLAttributes<HTMLButtonElement>} />
+            const buttonProps = props as React.ButtonHTMLAttributes<HTMLButtonElement>;
+            const isDisabledClass = styles.disabled ? " " + styles.disabled : "";
+
+            return <button className={allClassNames + isDisabledClass} {...props as React.ButtonHTMLAttributes<HTMLButtonElement>} />
         }
     }
 }

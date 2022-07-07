@@ -13,19 +13,28 @@ const Hero = () => {
     return (
         <>
             <div className={styles.hero} id="mainHero">
-                <img src="/images/hero1.min.webp" alt="Hero background" />
+                {/* <img src="/images/hero1.min.webp" alt="Hero background" /> */}
 
                 <div className={styles.heroContent}>
                     <div className={styles.about}>
-                        <h6>Hello, I'm Zach</h6>
-                        <h1>I'm a web developer</h1>
+                        <h6>Hi, I'm Zach</h6>
+                        <h1>Web Developer</h1>
                         <p>
-                            I'm a full-stack developer with a passion for creating beautiful and functional websites.
-                            I'm currently working on a new project called <a href="https://zachary-m.github.io/portfolio/">Portfolio</a>.
+                            Web/iOS developer with Agile Software Development skills and a passion for creating beautiful and functional apps.
                         </p>
+                        <p>I'm currently working on <Button as='link' href="/" styleType="tertiary" noPadding>My Portfolio</Button> (this site)</p>
+
+                        <div style={{ 
+                            fontSize: '1rem',
+                            display: 'flex',
+                            gap: '1rem',
+                         }}>
+                            <Button as='link' href="/contact" styleType="primary">Hire me</Button>
+                            <Button as='link' href="/projects" styleType="secondary">My projects</Button>
+                        </div>
                     </div>
-                    <div className={styles.headshot}>
-                        Lorem ipsum in deserunt dolor occaecat cupidatat dolore sit ad duis consequat dolore commodo do est dolore dolore nulla esse incididunt sunt dolor consectetur ut ad exercitation eu sit exercitation ad eiusmod ea laboris culpa adipisicing sed laboris ex veniam culpa sit minim nulla occaecat id culpa nostrud ut in 
+                    <div className={styles.image}>
+                        <div className={styles.inner}></div>
                     </div>
                 </div>
             </div>
