@@ -13,6 +13,9 @@ echo -e "\033[0;36minfo\033[0m  - Copying .env's to out folder "
 cp ./.env ./out/.env;
 cp ./.env.production ./out/.env.production;
 
+
+git branch -D gh-pages
+
 echo -e "\033[0;36minfo\033[0m  - Moving\033[0;32m built application\033[0m to gh-pages branch "
 git checkout --orphan gh-pages
 git --work-tree out add --all
