@@ -1,0 +1,77 @@
+// from button
+$horizontalPadding: 0.5em;
+$verticalPadding: 0.5em;
+$borderWidth: 0.1em;
+
+// slider
+$sliderPadding: 0.35em;
+$sliderHeight: calc(1em + $verticalPadding * 2 + $borderWidth * 2);
+$sliderWidth: calc(3em + $horizontalPadding * 2 + $borderWidth * 2);
+$sliderKnobSize: calc($sliderHeight - calc($sliderPadding * 2));
+
+// wrapper 
+.base {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    // top: -$verticalPadding;
+    height: $sliderHeight;
+    width: $sliderWidth;
+
+    border-radius: calc(calc($verticalPadding + 0.5em));
+
+    .input {
+        display: none;
+
+        &:checked {
+            ~ .toggle .slider {
+                left: 100%;
+                transform: translate(calc(-100% - $sliderPadding), 0);
+                @include themed() {
+                    background-color: t('brand');
+                }
+            }
+        }
+    }
+
+    .toggle {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        
+
+        .slider {
+            position: absolute;
+            height:$sliderKnobSize;
+            width: $sliderKnobSize;
+            border-radius: 50%;
+            left: $sliderPadding;
+
+            transition: all 0.3s ease-out;
+        }
+
+        &::after {
+            content: "\00a0";
+        }
+    }
+
+    @include themed() {
+        color: t('color-white');
+        background-color: t('surface4');
+        
+        .toggle {
+            .slider {
+                background-color: t('surface3');
+            }
+        }
+    }
+}
+
+
+// TODO: add sizes to all input elements
+// .small {}
+
+// .medium {}
+
+// .large {}
