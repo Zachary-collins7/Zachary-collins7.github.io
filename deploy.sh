@@ -1,3 +1,4 @@
 
 #copy build folder
-yes | \cp -rf portfolio/build/* ./
+echo 'Moving built application to root dir'
+yes | \cp -rf portfolio/out/* ./
