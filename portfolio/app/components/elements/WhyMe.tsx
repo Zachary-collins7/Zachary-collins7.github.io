@@ -21,7 +21,7 @@ export default function WhyMe(props: IWhyMeProps) {
                 </Card>
 
                 <Card title={"Modern Development"} className={styles.modern}>
-                    <p>I integrate modern frameworks like <b>ReactJS</b> and <b>NextJS</b></p>
+                    <p>I integrate modern frameworks like <b>ReactJS</b> and <b>NextJS</b>.</p>
                     <p>I'll update your website regularly to keep it up to date with the <b>latest trends</b> and technologies.</p>
                 </Card>
 

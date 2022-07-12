@@ -29,7 +29,12 @@
     }
 }
 
-.responsive, .updates, .modern, .seo, .performance, .customized {
+.responsive,
+.updates,
+.modern,
+.seo,
+.performance,
+.customized {
     color: $color-black;
     min-height: 100px;
 }
@@ -75,11 +80,11 @@
     @include themed() {
         $stripeColor: change-color($color: $color-white, $alpha: 0.1);
         background-image:
-                radial-gradient(at bottom right, $hightlight2, scale-color($color: $hightlight3, $lightness: 20%) 50%, transparent 50%),
-                repeating-radial-gradient(at top left, $stripeColor, $stripeColor 10px, transparent 10px, transparent 20px),
-                linear-gradient(to right, $hightlight1, $hightlight1);
+            radial-gradient(at bottom right, $hightlight2, scale-color($color: $hightlight3, $lightness: 20%) 50%, transparent 50%),
+            repeating-radial-gradient(at top left, $stripeColor, $stripeColor 10px, transparent 10px, transparent 20px),
+            linear-gradient(to right, $hightlight1, $hightlight1);
     }
-    
+
 }
 
 
@@ -94,6 +99,7 @@
         text-transform: capitalize;
     }
 
+
     .cardText {
         position: absolute;
         bottom: 0;
@@ -101,7 +107,15 @@
         width: 100%;
         padding: 1em;
 
-        @include themed() {
+
+    }
+
+    p {
+        color: $color-black2;
+    }
+
+    @include themed() {
+        .cardText {
             color: t('text1');
             background-color: t('surface3');
 
