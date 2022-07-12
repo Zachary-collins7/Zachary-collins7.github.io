@@ -88,7 +88,7 @@
     }
 
     @include themed() {
-        background-color: t('surface2');
+        background-color: t('surface3');
         color: t('text1');
 
         .about {
@@ -110,7 +110,7 @@
         }
 
         .image {
-            border-right: 2px solid t('surface3');
+            border-right: 2px solid t('surface4');
         }
     }
 

@@ -39,9 +39,14 @@ const Home: NextPage = () => {
         <WhyMe />
       </FullpageSection>
 
-      <FeaturedProjects />
+      <FullpageSection sectionProps={{ title: "Projects I Love" }} level="2">
+        <FeaturedProjects />
+      </FullpageSection>
 
-      <AboutSkills />
+
+      <FullpageSection sectionProps={{ title: "MySkills" }} level="1">
+        <AboutSkills />
+      </FullpageSection>
     </>
   )
 }

@@ -1,6 +1,4 @@
 import { getProjects, Iproject } from "@api/portfolioApi";
-import { log } from "console";
-import { GetStaticProps } from 'next'
 import React, { useEffect, useState } from "react";
 import styles from "./featuredprojects.module.scss";
 import ProjectCard from "./ProjectCard";
@@ -22,10 +20,6 @@ export default function FeaturedProjects(props: IFeaturedProjectsProps) {
         <>
             <div className={styles.wrapper}>
                 <div className={styles.projects}>
-                    <div style={{
-                        fontSize: "7vmin",
-                        textAlign: "center"
-                    }}>Featured Projects</div>
                     {featuredProjects && featuredProjects.map((project, idx) => (
                         <div key={idx}>
                             <ProjectCard project={project} />

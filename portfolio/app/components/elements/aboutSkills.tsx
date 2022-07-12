@@ -47,12 +47,6 @@ export default function AboutSkills(props: IaboutSkillsProps) {
     return (
         <>
             <div className={styles.wrapper}>
-                <div style={{
-                    fontSize: "7vmin",
-                    textAlign: "center",
-                    marginBottom: "2rem"
-                }}>My Skills</div>
-
                 <div className={styles.skills}>
                     {skills.map(({
                         icon,

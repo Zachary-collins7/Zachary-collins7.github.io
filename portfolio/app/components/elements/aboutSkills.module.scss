@@ -1,13 +1,6 @@
 
 .wrapper {
     position: relative;
-    min-height: 100vh;
-    
-    @media screen and (min-width: 600.1px) {
-            padding: 10rem;
-            z-index: 4;
-            backdrop-filter: blur();
-        }
 }
 
 .skills {
