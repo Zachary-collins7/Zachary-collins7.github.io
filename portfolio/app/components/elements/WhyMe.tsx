@@ -10,14 +10,17 @@ export default function WhyMe(props: IWhyMeProps) {
         <>
             <div className={styles.wrapper}>
                 <Card title={"Responsive Design"} text={"My layouts will work on any device, big or small"} className={styles.responsive}>
-                    <Image
-                        src="/images/responsiveAnimation.gif"
-                        blurDataURL="/images/responsiveAnimation.gif"
-                        layout="fill"
-                        objectFit="cover"
-                        alt="aminated responsive design"
-                        placeholder="blur"
-                    />
+                    <video autoPlay loop muted playsInline style={{
+                        position: "absolute",
+                        top: "0",
+                        left: "0",
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                    }}>
+                        <source src="/assets/responsiveAnimation.webm" type="video/webm" />
+                        <source src="/assets/responsiveAnimation.mp4" type="video/mp4" />
+                    </video>
                 </Card>
 
                 <Card title={"Modern Development"} className={styles.modern}>
@@ -30,15 +33,17 @@ export default function WhyMe(props: IWhyMeProps) {
                 </Card>
 
                 <Card title={"Really Fast Loadtimes"} text={"Fast load times and lag free interaction, my highest priority"} className={styles.performance}>
-                    <Image
-                        src="/images/rocket.gif"
-                        blurDataURL="/images/rocket.gif"
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition={"top"}
-                        alt="aminated rocket"
-                        placeholder="blur"
-                    />
+                    <video autoPlay loop muted playsInline style={{ 
+                        position: "absolute",
+                        top: "0",
+                        left: "0",
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                     }}>
+                        <source src="/assets/rocket.webm" type="video/webm" />
+                        <source src="/assets/rocket.mp4" type="video/mp4" />
+                    </video>
                 </Card>
 
                 <Card title={"Frequent intractable updates for you to test every other week"} className={styles.updates}>
