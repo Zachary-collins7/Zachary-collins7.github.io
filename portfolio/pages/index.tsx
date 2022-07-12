@@ -5,6 +5,11 @@ import Hero from '@element/Hero';
 import NavBar from '@element/Navbar';
 import FeaturedProjects from '@element/FeaturedProjects';
 import AboutSkills from '@element/aboutSkills';
+import Section from '@element/Section';
+import React from 'react';
+import TextCard from '@element/TextCard';
+import FullpageSection from '@molecules/FullpageSection';
+import WhyMe from '@element/WhyMe';
 
 
 
@@ -29,6 +34,10 @@ const Home: NextPage = () => {
       />
 
       <Hero />
+
+      <FullpageSection sectionProps={{ title: "Why me?" }} level="1">
+        <WhyMe />
+      </FullpageSection>
 
       <FeaturedProjects />
 

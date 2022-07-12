@@ -1,0 +1,15 @@
+
+.base {
+    flex: 1 1 300px;
+    padding: 1rem;
+    border-radius: 1rem;
+    // max-width: 400px;
+
+    @include themed() {
+        background-color: t('surface3');
+
+        p {
+            color: t('text2');
+        }
+    }
+}

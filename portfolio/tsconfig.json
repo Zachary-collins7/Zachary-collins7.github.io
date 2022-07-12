@@ -6,6 +6,9 @@
       "@element/*": [
         "components/elements/*"
       ],
+      "@molecules/*": [
+        "components/molecules/*"
+      ],
       "@layout/*": [
         "components/layouts/*"
       ],

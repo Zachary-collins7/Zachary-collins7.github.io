@@ -63,24 +63,18 @@ export default function AboutSkills(props: IaboutSkillsProps) {
                         toolSubtitle,
                         tools
                     }, idx) => (
-                        <>
-                            <div className={styles.skill} key={idx}>
-                                <div className={styles.icon}>
-                                    <FontAwesomeIcon icon={icon} />
-                                </div>
+                        <div className={styles.skill} key={idx + title}>
+                            <div className={styles.title}>{title}</div>
+                            <div className={styles.description}>{desc}</div>
 
 
-                                <div className={styles.title}>{title}</div>
-                                <div className={styles.description}>{desc}</div>
+                            <div className={styles.subtitle}>{subtitle1}</div>
+                            <div className={styles.description}>{desc1}</div>
 
 
-                                <div className={styles.subtitle}>{subtitle1}</div>
-                                <div className={styles.description}>{desc1}</div>
+                            <div className={styles.subtitle}>{toolSubtitle}</div>
 
-
-                                <div className={styles.subtitle}>{toolSubtitle}</div>
-
-                                <ul className={styles.toolList}>
+                            <ul className={styles.toolList}>
                                     {tools.map(({ text, link }, idx) => {
                                         return (
                                             <li key={idx}>
@@ -99,14 +93,13 @@ export default function AboutSkills(props: IaboutSkillsProps) {
                                     })}
                                 </ul>
 
-                                <div className={styles.onLongHover}>
-                                    Need to hire a <span>{title}</span>?
-                                    <div>
-                                        <Button styleType="primary" as="link" href="/contact">contact me</Button>
-                                    </div>
+                            <div className={styles.onLongHover}>
+                                Need to hire a <span>{title}</span>?
+                                <div>
+                                    <Button styleType="primary" as="link" href="/contact">contact me</Button>
                                 </div>
                             </div>
-                        </>
+                        </div>
                     ))}
                 </div>
             </div>

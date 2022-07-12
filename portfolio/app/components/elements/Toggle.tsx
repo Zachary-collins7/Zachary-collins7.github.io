@@ -1,4 +1,3 @@
-import { log } from "console";
 import React, { useId, useState } from "react";
 import styles from "./toggle.module.scss";
 

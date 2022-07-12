@@ -53,12 +53,6 @@
             justify-content: center;
             align-items: center;
 
-            &::before {
-                content: '👨‍💻';
-                position: relative;
-                font-size: 15rem;
-            }
-
             &::after {
                 content: "Image pending";
                 position: relative;
@@ -142,10 +136,12 @@
                 padding: 3rem;
                 flex: 1 1;
             }
+
             .image {
                 display: flex;
                 height: 100%;
             }
+
             .about {
                 font-size: 1.5rem;
             }
@@ -161,8 +157,19 @@
             color: t('text2');
         }
 
+        $herobgLineColor: change-color($color: t('brand'), $alpha: 0.2);
+
+        background-color: t('brand');
+        background-image: 
+        repeating-radial-gradient(at top left, $herobgLineColor 0px, $herobgLineColor 1px, transparent 2px),
+        radial-gradient(at 10% 10%, t('surface1') 0%, t('surface1') 30%, transparent 100%),
+        radial-gradient(at 3% 98%, hsla(337, 91%, 56%, 1) 0px, transparent 50%),
+        radial-gradient(at 27% 26%, hsla(36, 91%, 56%, 1) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(169, 91%, 56%, 1) 0px, transparent 50%);
+
         .heroContent {
-            background-color: t('surface1');
+
+            // background-color: t('surface1');
             .about {
                 color: t('text1');
 
@@ -174,6 +181,10 @@
                     color: t('text2');
                     font-size: 1.1rem;
                     line-height: 1.4;
+                }
+                a {
+                    // larger button padding
+                    padding: 0.7em 1em;
                 }
             }
         }

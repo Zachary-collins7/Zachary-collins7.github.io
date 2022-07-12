@@ -1,4 +1,4 @@
-$brand-origin: #a72af4;
+$brand-origin: hsl(277, 90%, 60%);
 
 $brand-light: $brand-origin;
 $text1-light: change-color($color: $brand-origin, $lightness: 10%);
@@ -9,8 +9,9 @@ $surface3-light: change-color($color: $brand-origin, $saturation: 20%, $lightnes
 $surface4-light: change-color($color: $brand-origin, $saturation: 20%, $lightness: 85%);
 $surface-shadow-light: hsl(hue($color: $brand-origin) 10% 20%);
 $shadow-strength-light: .02;
+$nav-bg-light: $surface1-light;
 
-$brand-dark: scale-color($color: $brand-origin, $saturation: -25%, $lightness: -5%); //-13.33
+$brand-dark: scale-color($color: $brand-origin, $saturation: -20%, $lightness: -5%); //-13.33
 $text1-dark: change-color($color: $brand-origin, $saturation: 15%, $lightness: 85%);
 $text2-dark: change-color($color: $brand-origin, $saturation: 5%, $lightness: 65%);
 $surface1-dark: change-color($color: $brand-origin, $saturation: 10%, $lightness: 10%);
@@ -19,7 +20,12 @@ $surface3-dark: change-color($color: $brand-origin, $saturation: 5%, $lightness:
 $surface4-dark: change-color($color: $brand-origin, $saturation: 5%, $lightness: 25%);
 $surface-shadow-dark: hsl(hue($color: $brand-dark) 50% 3%);
 $shadow-strength-dark: .8;
+$nav-bg-dark: $surface1-dark;
 
+
+$color-black: #050517;
+$color-white: #fff;
+$color-white2: #ddd;
 
 $themes: (
     light: (brand: $brand-light,
@@ -31,8 +37,11 @@ $themes: (
         surface4: $surface4-light,
         surface-shadow: $surface-shadow-light,
         shadow-strength: $shadow-strength-light,
-        color-black: #050517,
-        color-white: #fff),
+        color-black: $color-black,
+        color-white: $color-white,
+        color-white2: $color-white2,
+        nav-bg: $nav-bg-light,
+    ),
     dark: (brand: $brand-dark,
         text1: $text1-dark,
         text2: $text2-dark,
@@ -42,9 +51,10 @@ $themes: (
         surface4: $surface4-dark,
         surface-shadow: $surface-shadow-dark,
         shadow-strength: $shadow-strength-dark,
-        color-black: #050517,
-        color-white: #fff,
-        color-white2: #ddd,
+        color-black: $color-black,
+        color-white: $color-white,
+        color-white2: $color-white2,
+        nav-bg: $nav-bg-dark,
     )
 );
 

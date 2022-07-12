@@ -30,22 +30,23 @@ $navbar-height: 3rem;
                 border-radius: 50%;
                 margin: 0.3em;
 
-                &::after {
-                    content: 'Z';
+                &::before {
                     position: absolute;
                     left: 50%;
                     top: 50%;
                     transform: translate(-50%, -50%);
                     font-size: 1.8em;
                     font-weight: 800;
+                }
 
-
+                &::before {
+                    content: "Z";
                 }
 
                 @include themed() {
                     background-color: t('surface1');
 
-                    &::after {
+                    &::before {
                         color: t('brand');
                     }
                 }
@@ -93,7 +94,7 @@ $navbar-height: 3rem;
             left: 0;
 
             @include themed() {
-                background-color: t('surface2');
+                background-color: t('nav-bg');
             }
         }
 
@@ -105,11 +106,7 @@ $navbar-height: 3rem;
 
                 & nav.nav {
                     @include themed() {
-                        background-color: t('surface2');
-                    }
-
-                    .nav-logo {
-                        background-color: red;
+                        background-color: t('nav-bg');
                     }
                 }
 

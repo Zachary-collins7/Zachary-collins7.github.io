@@ -1,7 +1,5 @@
 import React from "react";
-import type { NextPage } from 'next';
-import { NextSeo } from 'next-seo';
-import Link from 'next/link';
+import Image from "next/image";
 import styles from "./hero.module.scss";
 import Button from "./Button";
 
@@ -24,16 +22,26 @@ const Hero = () => {
                         </p>
                         <p>I'm currently working on <Button as='link' href="/" styleType="tertiary" noPadding>My Portfolio</Button> (this site)</p>
 
-                        <div style={{ 
+                        <div style={{
                             fontSize: '1rem',
                             display: 'flex',
                             gap: '1rem',
-                         }}>
+                        }}>
                             <Button as='link' href="/contact" styleType="primary">Hire me</Button>
                             <Button as='link' href="/projects" styleType="secondary">My projects</Button>
                         </div>
                     </div>
                     <div className={styles.image}>
+                        <Image
+                            src="/images/headshot1.png"
+                            blurDataURL="/images/headshot1.png"
+                            width={420}
+                            height={420}
+                            alt="headshot image of me"
+                            quality={100}
+                            placeholder="blur"
+                            priority={true}
+                        />
                         <div className={styles.inner}></div>
                     </div>
                 </div>
