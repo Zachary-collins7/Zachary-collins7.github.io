@@ -14,8 +14,8 @@ touch portfolio/out/.nojekyll;
 
 
 echo -e "\033[0;36minfo\033[0m  - Copying .env's to out folder "
-cp portfolio/.env portfolio/out/.env;
-cp portfolio/.env.production portfolio/out/.env.production;
+\cp portfolio/.env portfolio/out/.env;
+\cp portfolio/.env.production portfolio/out/.env.production;
 
 
 echo -e "\033[0;36minfo\033[0m  - Delete old gh-pages branch"
