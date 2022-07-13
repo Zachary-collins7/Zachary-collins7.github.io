@@ -108,19 +108,21 @@
         pointer-events: none;
     }
 
-    &::after {
-        content: "\3009"; //2304 //27E9
-        position: absolute;
-        bottom: 0;
-        left: calc(50% - 0.5em);
-        color: whitesmoke;
-        font-size: 3.8rem;
-        line-height: 1em;
-        writing-mode: vertical-lr;
-        transition: 1s scale ease-out;
-        animation-delay: 0.5s;
-        animation: scrollIcon 1s ease infinite alternate;
-        z-index: 700;
+    @include breakpoint("md") {
+        &::after {
+            content: "\3009"; //2304 //27E9
+            position: absolute;
+            bottom: 0;
+            left: calc(50% - 0.5em);
+            color: whitesmoke;
+            font-size: 3.8rem;
+            line-height: 1em;
+            writing-mode: vertical-lr;
+            transition: 1s scale ease-out;
+            animation-delay: 0.5s;
+            animation: scrollIcon 1s ease infinite alternate;
+            z-index: 700;
+        }
     }
 
     @include breakpoint('md') {
@@ -160,8 +162,7 @@
         $herobgLineColor: change-color($color: t('brand'), $alpha: 0.2);
 
         background-color: t('brand');
-        background-image: 
-        repeating-radial-gradient(at top left, $herobgLineColor 0px, $herobgLineColor 1px, transparent 2px),
+        background-image: repeating-radial-gradient(at top left, $herobgLineColor 0px, $herobgLineColor 1px, transparent 2px),
         radial-gradient(at 10% 10%, t('surface1') 0%, t('surface1') 30%, transparent 100%),
         radial-gradient(at 3% 98%, hsla(337, 91%, 56%, 1) 0px, transparent 50%),
         radial-gradient(at 27% 26%, hsla(36, 91%, 56%, 1) 0px, transparent 50%),
@@ -182,6 +183,7 @@
                     font-size: 1.1rem;
                     line-height: 1.4;
                 }
+
                 a {
                     // larger button padding
                     padding: 0.7em 1em;
