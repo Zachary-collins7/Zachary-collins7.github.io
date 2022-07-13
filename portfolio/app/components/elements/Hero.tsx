@@ -16,7 +16,7 @@ const Hero = () => {
                 <div className={styles.heroContent}>
                     <div className={styles.about}>
                         <h6>Hi, I'm Zach</h6>
-                        <h1>Web Developer</h1>
+                        <h1>Developer</h1>
                         <p>
                             Web/iOS developer with Agile Software Development skills and a passion for creating beautiful and functional apps.
                         </p>
