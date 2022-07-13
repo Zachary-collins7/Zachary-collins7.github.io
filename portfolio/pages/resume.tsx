@@ -18,7 +18,14 @@ const Resume: NextPage = () => {
                         Portfolio: <a
                             href="http://zachary-collins7.github.io/"
                             target="_blank"
-                            rel='noopener noreferrer'>http://zachary-collins7.github.io/</a>
+                            rel='noopener noreferrer'>http://zachary-collins7.github.io/
+                        </a>
+                        <span> | </span>
+                        Github: <a
+                            href="https://github.com/Zachary-collins7"
+                            target="_blank"
+                            rel='noopener noreferrer'>https://github.com/Zachary-collins7
+                        </a>
                     </div>
 
                 </header>
