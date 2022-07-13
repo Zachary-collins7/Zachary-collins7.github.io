@@ -70,10 +70,10 @@ const Resume: NextPage = () => {
                             <li>
                                 Designed and implemented an event processing system that eliminated monthly bugs and unified system management.
                                 The system provided an 80% reduction in support tickets and a traceable log of events which aided development
-                                and greatly improved the system's performance and reduced the number of support tickets.
+                                and greatly improved the system&apos;s performance and reduced the number of support tickets.
                             </li>
                             <li>
-                                Developed a data generation tool to migrate data tables to streamline the customer's workflow.
+                                Developed a data generation tool to migrate data tables to streamline the customer&apos;s workflow.
                                 Streamlining reduced on-field table conversation and minimized user error.
                             </li>
                             <li>
@@ -93,7 +93,7 @@ const Resume: NextPage = () => {
                         <ul>
                             <li>
                                 Head of Global Strategy mentored me about product competition and the Gartner Magic Quadrant.
-                                Created "battle cards" comparing our product with competitors.
+                                Created &quot;battle cards&quot; comparing our product with competitors.
                             </li>
                             <li>
                                 Designed and implemented a Nagios compatible plugin for OP5 Monitor. Utilized command-line options and comprehensive exception handling.
