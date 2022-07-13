@@ -5,7 +5,7 @@
             "title": "Front-end Developer",
             "desc": "I like to code things from scratch and enjoy bringing ideas to life.",
             "subtitle1": "My favorite front-ends to create:",
-            "desc1": "ReactJS, SwiftII - iOS, Web",
+            "desc1": "ReactJS, SwiftUI - iOS, Webapps",
             "toolSubtitle": "My Favorite front-end tools:",
             "tools": [
                 {
@@ -38,7 +38,7 @@
             "title": "Back-end Developer",
             "desc": "I'm a passionate self-taught developer and I enjoy solving unique and challenging problems.",
             "subtitle1": "Languages I know:",
-            "desc1": "Python, Typescript/Javascript, Scss/Css, Swift, PHP",
+            "desc1": "Typescript/Javascript, Python, Swift, PHP",
             "toolSubtitle": "Dev tools I use:",
             "tools": [
                 {
