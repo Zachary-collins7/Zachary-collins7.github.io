@@ -16,9 +16,9 @@ const Resume: NextPage = () => {
                         <a href="tel:+1-918-574-4653">+1 (918) 574 4653</a>
                         <span> | Tulsa OK | Durango CO</span><br />
                         Portfolio: <a
-                            href="http://zachary-collins7.github.io/"
+                            href="http://zachary-collins7.github.io"
                             target="_blank"
-                            rel='noopener noreferrer'>http://zachary-collins7.github.io/
+                            rel='noopener noreferrer'>http://zachary-collins7.github.io
                         </a>
                         <span> | </span>
                         Github: <a
@@ -72,7 +72,7 @@ const Resume: NextPage = () => {
                         title="Expert Ready – Developer"
                         date="Sept 2019 – Oct 2020"
                         location="Tulsa, OK"
-                        tools={["Laravel", "PHP", "Docker", "K6"]}>
+                        tools={["Laravel", "PHP", "Docker", ".Net", "K6"]}>
                         <ul>
                             <li>
                                 Designed and implemented an event processing system that eliminated monthly bugs and unified system management.
