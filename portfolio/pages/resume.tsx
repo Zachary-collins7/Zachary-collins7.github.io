@@ -6,6 +6,14 @@ const Resume: NextPage = () => {
     return (
         <>
             <div className={styles.wrapper}>
+                <div className={styles.footer}>
+                    <a
+                        href="https://github.com/Zachary-collins7/Zachary-collins7/blob/main/resume2022.pdf"
+                        target="_blank"
+                        rel='noopener noreferrer'>
+                        Download pdf version here
+                    </a>
+                </div>
                 <header className={styles.header}>
                     <h1>Zachary Collins</h1>
 
