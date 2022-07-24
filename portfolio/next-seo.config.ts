@@ -12,11 +12,25 @@ const SEO: import('next-seo').DefaultSeoProps = {
         },
         images: [
             {
-                url: process.env.SITE_URL || "" + "/assets/images/portfolioScreenshot1.webp",
+                url: "/assets/images/portfolioScreenshot1.webp",
                 width: 1200,
                 height: 630,
                 alt: 'Portfolio Site Screenshot',
                 type: 'image/webp'
+            },
+            {
+                url: "/assets/images/portfolioScreenshot1.jpg",
+                width: 1200,
+                height: 630,
+                alt: 'Portfolio Site Screenshot',
+                type: 'image/jpeg'
+            },
+            {
+                url: "/assets/images/portfolioScreenshot1.png",
+                width: 1200,
+                height: 630,
+                alt: 'Portfolio Site Screenshot',
+                type: 'image/png'
             }
         ]
     },
