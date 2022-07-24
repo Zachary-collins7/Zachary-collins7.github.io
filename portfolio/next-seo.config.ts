@@ -1,4 +1,4 @@
-const fallBackSiteUrl = 'http://zachary-collins7.github.io'
+const fallBackSiteUrl = 'https://zachary-collins7.github.io'
 const siteUrl = process.env.SITE_URL || fallBackSiteUrl
 
 const SEO: import('next-seo').DefaultSeoProps = {
