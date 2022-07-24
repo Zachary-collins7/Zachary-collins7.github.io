@@ -39,6 +39,9 @@ const SEO: import('next-seo').DefaultSeoProps = {
         site: '@ZachTheCollins',
         handle: '@ZachTheCollins'   
     },
+    facebook: {
+        appId: '5348420825250671',
+    }
     additionalMetaTags: [
         {
             property: 'twitter:image',
