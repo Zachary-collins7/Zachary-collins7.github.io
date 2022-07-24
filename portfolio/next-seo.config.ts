@@ -41,7 +41,7 @@ const SEO: import('next-seo').DefaultSeoProps = {
     },
     facebook: {
         appId: '5348420825250671',
-    }
+    },
     additionalMetaTags: [
         {
             property: 'twitter:image',
