@@ -1,11 +1,25 @@
 import React, { useId } from "react";
-import type { NextPage } from 'next';
+import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import styles from "./resume.module.scss";
-import Image from "next/image";
+import { NextSeo } from "next-seo";
 
-const Resume: NextPage = () => {
+interface staticProps {
+    updatedAt: string;
+}
+
+export const getStaticProps: GetStaticProps<staticProps> = async (context) => {
+    const updatedAt: string = new Date().toLocaleDateString();
+    return {
+        props: {
+            updatedAt
+        }, // will be passed to the page component as props
+    }
+}
+
+const Resume = ({ updatedAt }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
         <>
+            <NextSeo title="Resume" description="Web version of my Resume"/>
             <div className={styles.wrapper}>
                 <div className={styles.footer}>
                     <a
@@ -14,6 +28,10 @@ const Resume: NextPage = () => {
                         rel="noopener noreferrer">
                         Download pdf version here
                     </a>
+                    
+                    <span>
+                        Last updated: {updatedAt}
+                    </span>
                 </div>
                 <header className={styles.header}>
                     <h1>Zachary Collins</h1>

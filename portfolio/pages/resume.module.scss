@@ -15,21 +15,22 @@ $lightGrey: rgb(170, 170, 170);
         position: fixed;
         bottom: 0;
         left: 0;
+        width: 100vw;
+        padding: 0.5em;
+        box-shadow: 0.2em 0.2em 1em rgba(0, 0, 0, 0.2);
+        color: #fafafa;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.94);
 
-        a {
-            position: relative;
-            line-height: 1em;
-            padding: 0.5em;
-            top: -0.5em;
-            border-radius: 0 1em 0 0;
-            background-color: #fafafa;
-            box-shadow: 0.2em 0.2em 1em rgba(0, 0, 0, 0.2);
+        @supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(0.5em);
         }
 
+
         @media screen {
-            display: block;
-
-
+            display: flex;
+            justify-content: space-between;
         }
     }
 
@@ -50,7 +51,7 @@ $lightGrey: rgb(170, 170, 170);
     }
 
     a {
-        color: #0070f3;
+        color: hsl(212, 100%, 60%);
         text-decoration: none;
     }
 
@@ -111,7 +112,7 @@ $lightGrey: rgb(170, 170, 170);
     .skillBlock {
         position: relative;
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
         align-items: center;
 
 
@@ -119,18 +120,38 @@ $lightGrey: rgb(170, 170, 170);
             min-width: fit-content;
         }
 
-        .skillSpacer {
-            height: 4em;
-            width: 1px;
-            border-right: 1px solid $lightGrey;
+        .skillsRight {
+            margin: 1em 0 0 0;
+
+            &::before {
+                content: "Contact Information";
+                position: relative;
+                top: -0.15em;
+                font-size: 1.1em;
+                font-weight: bolder;
+            }
         }
 
-        .skillsRight {
-            ul {
-                list-style:none;
+        @media screen and (min-width: $mobile-breakpoint) {
+            justify-content: space-between;
 
-                li {
-                    margin: 0;
+            .skillSpacer {
+                height: 4em;
+                width: 1px;
+                border-right: 1px solid $lightGrey;
+            }
+
+            .skillsRight {
+                margin: 0;
+
+                &::before {
+                    display: none;
+                }
+
+                ul {
+                    li {
+                        margin: 0;
+                    }
                 }
             }
         }
@@ -164,6 +185,8 @@ $lightGrey: rgb(170, 170, 170);
         }
 
         span {
+            margin: 0 0 0 1em;
+            min-width: fit-content;
             font-style: italic;
             font-weight: 300;
         }
