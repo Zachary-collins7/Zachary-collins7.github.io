@@ -1,6 +1,7 @@
 import React, { useId } from "react";
 import type { NextPage } from 'next';
 import styles from "./resume.module.scss";
+import Image from "next/image";
 
 const Resume: NextPage = () => {
     return (
@@ -10,7 +11,7 @@ const Resume: NextPage = () => {
                     <a
                         href="https://github.com/Zachary-collins7/Zachary-collins7/blob/main/resume2022.pdf"
                         target="_blank"
-                        rel='noopener noreferrer'>
+                        rel="noopener noreferrer">
                         Download pdf version here
                     </a>
                 </div>
@@ -18,35 +19,52 @@ const Resume: NextPage = () => {
                     <h1>Zachary Collins</h1>
 
                     <div className={styles.about}>
-                        Developer with 7 years of Programming experience.<br />
-                        <a href="mailto:zachary_collins@icloud.com">zachary_collins@icloud.com</a>
-                        <span> | </span>
-                        <a href="tel:+1-918-574-4653">+1 (918) 574 4653</a>
-                        <span> | Tulsa OK | Durango CO</span><br />
-                        Portfolio: <a
-                            href="http://zachary-collins7.github.io"
-                            target="_blank"
-                            rel='noopener noreferrer'>http://zachary-collins7.github.io
-                        </a>
-                        <span> | </span>
-                        Github: <a
-                            href="https://github.com/Zachary-collins7"
-                            target="_blank"
-                            rel='noopener noreferrer'>https://github.com/Zachary-collins7
-                        </a>
+                        <p>
+                            <i>Developer with 7 years of Programming experience.</i><br />
+
+                            Portfolio: <a
+                                href="http://zachary-collins7.github.io"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                http://zachary-collins7.github.io
+                            </a>
+                            <span> | </span>
+                            Github: <a
+                                href="https://github.com/Zachary-collins7"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                https://github.com/Zachary-collins7
+                            </a>
+                        </p>
                     </div>
 
                 </header>
 
                 <section className={styles.skills}>
                     <h2 className={styles.title}>Top Skills</h2>
-                    <article>
-                        <ul className={styles.skillList}>
-                            <li><b>Programming Languages:</b> Typescript/Javascript | Swift | Python | PHP</li>
-                            <li><b>Framework/Platforms:</b> ReactJS | NextJS | Laravel | SwiftUI | .NET</li>
-                            <li><b>Databases:</b> MYSQL | MongoDB |  MariaDB | Sqlite3</li>
-                        </ul>
-                    </article>
+                    <div className={styles.skillBlock}>
+                        <div className={styles.skillsLeft}>
+                            <ul>
+                                <li><b>Programming Languages:</b> Typescript/Javascript | Swift | Python | PHP</li>
+                                <li><b>Framework/Platforms:</b> ReactJS | NextJS | Laravel | SwiftUI | .NET</li>
+                                <li><b>Databases:</b> MYSQL | MongoDB |  MariaDB | Sqlite3</li>
+                            </ul>
+                        </div>
+                        <div className={styles.skillSpacer}></div>
+                        <div className={styles.skillsRight}>
+                            <ul>
+                                <li>
+                                    <a href="mailto:zachary_collins@icloud.com">zachary_collins@icloud.com</a>
+                                </li>
+                                <li>
+                                    <a href="tel:+1-918-574-4653">+1 (918) 574 4653</a>
+                                </li>
+                                <li>
+                                    Durango CO, USA
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </section>
 
                 <section className={styles.section}>
@@ -58,7 +76,7 @@ const Resume: NextPage = () => {
                         tools={["NextJS", "ReactJS", "Typescript", "SCSS", "NPM"]}>
                         <ul>
                             <li>
-                                Deployed using NextJS SSG to Github Pages (uses a work-tree branch instead of main)
+                                Deployed using NextJS static site generation to Github Pages (uses a work-tree deployment branch alongside the main branch)
                             </li>
                             <li>
                                 Site features a fully decked-out SEO (including sitemap and robots.txt), color themes, Google Analytics, and a custom 404 page.
@@ -157,7 +175,7 @@ const Resume: NextPage = () => {
                         date="2017 – 2020"
                         tools={["Java", "Python", "CAD"]}>
                         <ul>
-                            <li>Lead FTC team 11572 - a team of 10 to design and create a robot</li>
+                            <li>Lead FTC team 11572 - a team of 10 to design and create a robot.</li>
                             <li>Competed at the world level against 70+ countries.</li>
                             <li>Independently learned and applied control systems to autonomously complete challenges.</li>
                         </ul>

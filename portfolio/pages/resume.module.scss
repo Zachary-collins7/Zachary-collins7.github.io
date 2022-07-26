@@ -1,4 +1,5 @@
 $mobile-breakpoint: 640px;
+$lightGrey: rgb(170, 170, 170);
 
 .wrapper {
     color: #131313;
@@ -11,13 +12,24 @@ $mobile-breakpoint: 640px;
 
     .footer {
         display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+
+        a {
+            position: relative;
+            line-height: 1em;
+            padding: 0.5em;
+            top: -0.5em;
+            border-radius: 0 1em 0 0;
+            background-color: #fafafa;
+            box-shadow: 0.2em 0.2em 1em rgba(0, 0, 0, 0.2);
+        }
 
         @media screen {
             display: block;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            padding: 1em;
+
+
         }
     }
 
@@ -61,7 +73,7 @@ $mobile-breakpoint: 640px;
 
     h1 {
         font-size: 2.5em;
-        margin-bottom: 0.5em;
+        margin-bottom: 0.15em;
     }
 
 
@@ -96,7 +108,34 @@ $mobile-breakpoint: 640px;
 .skills {
     @extend .section;
 
-    .skillList {}
+    .skillBlock {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+        .skillsLeft {
+            min-width: fit-content;
+        }
+
+        .skillSpacer {
+            height: 4em;
+            width: 1px;
+            border-right: 1px solid $lightGrey;
+        }
+
+        .skillsRight {
+            ul {
+                list-style:none;
+
+                li {
+                    margin: 0;
+                }
+            }
+        }
+    }
+
 }
 
 .experience {
@@ -149,7 +188,7 @@ $mobile-breakpoint: 640px;
                 &::before {
                     content: "";
                     flex: 1;
-                    border-bottom: 1px solid rgb(170, 170, 170);
+                    border-bottom: 1px solid $lightGrey;
                     transform: translateY(calc(-50% + 1px));
                     margin-right: 0.5em;
                 }
