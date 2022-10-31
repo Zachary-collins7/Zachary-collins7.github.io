@@ -1,4 +1,4 @@
-# Portfolio Project build in ReactJS ✨
+# Portfolio Project built in NextJS/ReactJS ✨
 
 Check out the project [Here](https://zachary-collins7.github.io "Zachary's Portfolio")
 
@@ -20,10 +20,9 @@ Built with ReactJS, Typescript, and scss
 - Uses typescript for live type-checking and to give confidence in deployed code
 - Uses a data folder to hold mutable data - components and pages reference as needed
 
-![Lighthouse scores are good! - check theme using google chrome](https://zachary-collins7.github.io/images/lighthouseScores.png)
+![Lighthouse scores are good! - check them using google chrome](https://zachary-collins7.github.io/images/lighthouseScores.png)
 
 ## Scripts
-
 | script               | desc                                 |
 | -------------------- | :----------------------------------- |
 | ```npm run start```  | starts dev build with live reload    |

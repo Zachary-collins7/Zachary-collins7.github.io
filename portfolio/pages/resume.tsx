@@ -63,9 +63,9 @@ const Resume = ({ updatedAt }: InferGetStaticPropsType<typeof getStaticProps>) =
                     <div className={styles.skillBlock}>
                         <div className={styles.skillsLeft}>
                             <ul>
-                                <li><b>Programming Languages:</b> Typescript/Javascript | Swift | Python | PHP</li>
+                                <li><b>Programming Languages:</b> Python | Typescript/Javascript | Swift | PHP</li>
                                 <li><b>Framework/Platforms:</b> ReactJS | NextJS | Laravel | SwiftUI | .NET</li>
-                                <li><b>Databases:</b> MYSQL | MongoDB |  MariaDB | Sqlite3</li>
+                                <li><b>Databases:</b> MySQL | MongoDB |  MariaDB | Sqlite3</li>
                             </ul>
                         </div>
                         <div className={styles.skillSpacer}></div>
@@ -111,6 +111,31 @@ const Resume = ({ updatedAt }: InferGetStaticPropsType<typeof getStaticProps>) =
 
                 <section className={styles.experience}>
                     <h2 className={styles.title}>Professional Experience</h2>
+
+                    <Project
+                        title="Comcast – Python Developer III - Contract"
+                        date="Aug 2022 – Oct 2022"
+                        location="Durango, CO"
+                        tools={["Python", "EC2", "Mysql", "MongoDB", "S3", "Oracle", 
+                        "Postgresql", "DynamoDB", "Cassandra", "Memsql", "Teradata", "Redis"]}>
+                        <ul>
+                            <li>
+                                Created a python project to create test connections to 10,000+ database nodes of various database types
+                                (including: Mysql, Oracle, MongoDB, Postgresql) and report the results to a database. <br/>
+                                - Collated the database nodes by host-name to prevent connecting to the same host multiple times. <br/>
+                                - Utilized python libraries to multi-thread the connections to increase the speed of the test. <br/>
+                                - Results were used to determine if a database was up and running, identify the user&apos;s query access across the schema,
+                                and check if the internal password manager contained the correct credentials.
+                            </li>
+                            <li>
+                                Converted the project to a pip installable package to promote reusability and ease of use across other projects.
+                            </li>
+                            <li>
+                                Connection Data was delivered to a web application for users to view.
+                                Users could flag columns to be profiled and the system would preform a set of queries to profile the specific flagged columns. 
+                            </li>
+                        </ul>
+                    </Project>
 
                     <Project
                         title="Expert Ready – Developer"
