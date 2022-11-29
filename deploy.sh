@@ -24,8 +24,8 @@ echo -e "\033[0;36minfo\033[0m  - Delete old gh-pages branch"
 git branch -D gh-pages; sleep 1;
 
 echo -e "\033[0;36minfo\033[0m  - Moving\033[0;32m built application\033[0m to gh-pages branch "
-git checkout --orphan gh-pages; sleep 1;
-git rm -r --cached .; sleep 1;
-git --work-tree portfolio/out add --all; sleep 1;
-git --work-tree portfolio/out commit -m 'deploy gh-pages'; sleep 1;
+git checkout --orphan gh-pages; sleep 3;
+git rm -r --cached .; sleep 3;
+git --work-tree portfolio/out add --all; sleep 3;
+git --work-tree portfolio/out commit -m 'deploy gh-pages'; sleep 3;
 git push origin HEAD:gh-pages --force && git checkout -f main
