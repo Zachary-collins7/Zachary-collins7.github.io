@@ -210,9 +210,58 @@ const addButtonEventListeners = async () => {
         const updateTable = ({ coupon, res }) => {
             const td = document.querySelector("#_coupon_" + coupon + " td:last-child")
             td.innerText = resCodeKey[res.code] || res.code;
-            if (sucessCodes.includes(res.code)) td.style.color = "green";
+            if (sucessCodes.includes(res.code)) return td.style.color = "green";
+            if (messageCodes.includes(res.code)) return td.style.color = "grey";
+            if (res.code === 10001) return td.style.color = "red";
+
+
+            // if we can check the date
+            if (!isNaN(coupon.slice(-4))) {
+                const dateAvailable = coupon.slice(-4);
+
+                // create new date object with the date available assuming it's in the format MMDD
+                // assume date is in the future
+                const activeDate = new Date();
+                activeDate.setUTCMonth(dateAvailable.slice(0, 2) - 1);
+                activeDate.setUTCDate(dateAvailable.slice(2, 4));
+                activeDate.setUTCHours(1, 0, 0, 0); // Not sure why they start it at 10am kst but whatever
+
+                const currentDate = new Date();
+
+                // if the month is less than the current assume it's next year
+                if (activeDate.getUTCMonth() < currentDate.getUTCMonth()) {
+                    activeDate.setUTCFullYear(currentDate.getUTCFullYear() + 1);
+                }
+
+                //TODO only update if res.code is a number
+
+                const niceDate = (() => {
+                    const rtf1 = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
+
+                    const diff = activeDate - currentDate;
+
+                    const months = Math.floor(diff / 1000 / 60 / 60 / 24 / 30);
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor(diff / (1000 * 60 * 60));
+                    const minutes = Math.floor(diff / (1000 * 60));
+
+
+                    if (months > 0) return rtf1.format(months, 'month');
+                    if (days > 0) return rtf1.format(days, 'day');
+                    if (hours > 0) return rtf1.format(hours, 'hour');
+                    if (minutes > 0) return rtf1.format(minutes, 'minute');
+                    return "now";
+                })()
+                
+                // if we hit the api already (and it's not a sucess code)
+                if (!isNaN(res.code)) {
+                    td.innerText += ` (${resCodeKey[res.code] || res.code})`;
+                    td.innerText = `Available ${niceDate}`;
+                    td.style.color = "orange";
+                }
+            }
+            // default to red
             if (errorCodes.includes(res.code)) td.style.color = "red";
-            if (messageCodes.includes(res.code)) td.style.color = "grey";
         }
 
         await Promise.allSettled(coupons.map(coupon => ({ nickname, coupon })).map(async ({ nickname, coupon }, i) => {
