@@ -189,8 +189,17 @@ const createUi = async () => {
 }
 
 const addButtonEventListeners = async () => {
-    document.querySelector("button").addEventListener("click", async () => {
-        const nickname = document.querySelector("#_nickname").value;
+    const button = document.querySelector("button");
+    const input = document.querySelector("#_nickname");
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            button.click();
+            e.preventDefault();
+        }
+    })
+
+    button.addEventListener("click", async () => {
+        const nickname = document.querySelector("#_nickname").value?.trim();
 
         if (nickname.length < 1) {
             alert("Please enter your nickname");
@@ -260,8 +269,10 @@ const addButtonEventListeners = async () => {
                     td.style.color = "orange";
                 }
             }
-            // default to red
-            if (errorCodes.includes(res.code)) td.style.color = "red";
+            
+            if (errorCodes.includes(res.code)) return td.style.color = "red";
+            
+            td.style.color = "whitesmoke";
         }
 
         await Promise.allSettled(coupons.map(coupon => ({ nickname, coupon })).map(async ({ nickname, coupon }, i) => {
@@ -281,3 +292,4 @@ const addButtonEventListeners = async () => {
     await createUi();
     await addButtonEventListeners();
 })();
+
