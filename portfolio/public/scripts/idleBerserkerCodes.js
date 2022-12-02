@@ -22,7 +22,7 @@ const createUi = async () => {
         // "padding": "1rem"
     });
 
-    var form = document.body.appendChild(document.createElement("div"));
+    const form = document.body.appendChild(document.createElement("div"));
     form.style = objToCss({
         "display": "flex",
         "flex-direction": "column",
@@ -241,8 +241,6 @@ const addButtonEventListeners = async () => {
                 if (activeDate.getUTCMonth() < currentDate.getUTCMonth()) {
                     activeDate.setUTCFullYear(currentDate.getUTCFullYear() + 1);
                 }
-
-                //TODO only update if res.code is a number
 
                 const niceDate = (() => {
                     const rtf1 = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
