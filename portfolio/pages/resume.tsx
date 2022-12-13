@@ -69,19 +69,19 @@ const Resume = ({ updatedAt }: InferGetStaticPropsType<typeof getStaticProps>) =
                             </ul>
                         </div>
                         <div className={styles.skillSpacer}></div>
-                        <div className={styles.skillsRight}>
+                        {/* <div className={styles.skillsRight}>
                             <ul>
                                 <li>
                                     <a href="mailto:zachary_collins@icloud.com">zachary_collins@icloud.com</a>
                                 </li>
                                 <li>
-                                    <a href="tel:+1-918-574-4653">+1 (918) 574 4653</a>
+                                    <a href="tel:+1-918-574-4653">+X (XXX) XXX XXXX</a>
                                 </li>
                                 <li>
                                     Durango CO, USA
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
                     </div>
                 </section>
 
