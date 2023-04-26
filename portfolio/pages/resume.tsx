@@ -119,8 +119,8 @@ const Resume = ({ updatedAt }: InferGetStaticPropsType<typeof getStaticProps>) =
                             </li>
                             <li>
                                 Using information provided by the users, the bot calculates insights about the individual user&apos;s progress
-                                and provides them with personalized information. Personalized information is also translated into the user&aposs 
-                                language (if supported). The information is also used to hit the game&aposs API to give the user in-game items.
+                                and provides them with personalized information. Personalized information is also translated into the user&apos;s 
+                                language (if supported). The information is also used to hit the game&apos;s API to give the user in-game items.
                             </li>
                             <li>
                                 Detailed logs are kept for each user to help with debugging and to provide insight into how the bot is being used.
