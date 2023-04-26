@@ -109,7 +109,7 @@ const Resume = ({ updatedAt }: InferGetStaticPropsType<typeof getStaticProps>) =
                         <ul>
                             <li>
                                 Created a discord bot to connect users of a game to resources and information
-                                provided by the game and the community. <br/> With over 14,000 daily users, I focused on
+                                provided by the game and the community. <br/> With over 1,400 daily users, I focused on
                                 making the bot as efficient and fast as possible while still providing a great user experience.
                             </li>
                             <li>
