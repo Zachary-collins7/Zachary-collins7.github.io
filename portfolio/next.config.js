@@ -8,6 +8,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'app/styles')],
     additionalData: `@import "app/styles/abstracts/variables.scss"; @import "app/styles/abstracts/mixins.scss";`,
   },
+  output: "export",
   experimental: {
     images: {
       unoptimized: true

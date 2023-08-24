@@ -1,44 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "baseUrl": "app",
-    "paths": {
-      "@element/*": [
-        "components/elements/*"
-      ],
-      "@molecules/*": [
-        "components/molecules/*"
-      ],
-      "@layout/*": [
-        "components/layouts/*"
-      ],
-      "@module/*": [
-        "components/modules/*"
-      ],
-      "@template/*": [
-        "components/templates/*"
-      ],
-      "@constant/*": [
-        "constants/*"
-      ],
-      "@context/*": [
-        "context/*"
-      ],
-      "@hook/*": [
-        "hooks/*"
-      ],
-      "@util/*": [
-        "utils/*"
-      ],
-      "@api/*": [
-        "api/*"
-      ]
-    },
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -46,18 +9,20 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

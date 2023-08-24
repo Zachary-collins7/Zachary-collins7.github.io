@@ -3,34 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "next start",
     "dev": "next dev",
-    "export": "next export",
     "build": "next build",
-    "sitemap": "next-sitemap",
-    "deploy": "npm run build && npm run export && npm run sitemap &&  cd .. && ./deploy.sh && echo 'deployed'",
+    "export": "next export",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "next": "12.2.0",
-    "next-seo": "^5.4.0",
-    "next-sitemap": "^3.1.7",
-    "nextjs-google-analytics": "^1.2.1",
-    "nprogress": "^0.2.0",
+    "@types/node": "20.4.10",
+    "@types/react": "18.2.20",
+    "@types/react-dom": "18.2.7",
+    "babel-plugin-macros": "^3.1.0",
+    "eslint": "8.47.0",
+    "eslint-config-next": "13.4.13",
+    "next": "13.4.13",
+    "next-seo": "^6.1.0",
+    "nextjs-google-analytics": "^2.3.3",
+    "nextjs-toploader": "^1.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sass": "^1.53.0"
-  },
-  "devDependencies": {
-    "@types/node": "18.0.1",
-    "@types/nprogress": "^0.2.0",
-    "@types/react": "18.0.14",
-    "@types/react-dom": "18.0.5",
-    "eslint": "8.19.0",
-    "eslint-config-next": "12.2.0",
-    "typescript": "4.7.4"
+    "react-icons": "^4.10.1",
+    "typescript": "5.1.6"
   }
 }
