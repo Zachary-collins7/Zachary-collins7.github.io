@@ -45,6 +45,20 @@ const Resume = ({
               alt: "Resume SEO Image",
               type: "image/webp",
             },
+            {
+              url: "https://zachary-collins7.github.io/images/resume-seo-image.webp",
+              width: 1200,
+              height: 630,
+              alt: "Resume SEO Image",
+              type: "image/png",
+            },
+            {
+              url: "https://zachary-collins7.github.io/images/resume-seo-image.webp",
+              width: 1200,
+              height: 630,
+              alt: "Resume SEO Image",
+              type: "image/jpeg",
+            },
           ],
         }}
       />
