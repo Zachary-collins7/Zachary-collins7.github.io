@@ -33,7 +33,21 @@ const Resume = ({
 
   return (
     <>
-      <NextSeo title="Resume" description="Web version of my Resume" />
+      <NextSeo
+        title="Resume"
+        description="Web version of my Resume"
+        openGraph={{
+          images: [
+            {
+              url: "https://zachary-collins7.github.io/images/resume-seo-image.webp",
+              width: 1200,
+              height: 630,
+              alt: "Resume SEO Image",
+              type: "image/webp",
+            },
+          ],
+        }}
+      />
       <div className={styles.wrapper}>
         <div className={styles.footer}>
           {/* <a
