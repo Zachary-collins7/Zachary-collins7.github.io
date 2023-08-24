@@ -174,6 +174,7 @@ $lightGrey: rgb(170, 170, 170);
     &:not(:last-of-type) {
         margin-bottom: 1.5em;
     }
+    break-inside: avoid;
 
     .projectHeader {
         display: flex;
