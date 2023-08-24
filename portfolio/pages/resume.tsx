@@ -149,8 +149,8 @@ const Resume = ({
                 Tables queued for analysis were then processed by a separate
                 Python program that connected and queried the database nodes,
                 sending the results back to the web application for display. The
-                project's efficiency-focused design included the use of threads
-                and processes to speed up the entire process.
+                project&apos;s efficiency-focused design included the use of
+                threads and processes to speed up the entire process.
               </li>
 
               <li>
