@@ -122,14 +122,6 @@ $lightGrey: rgb(170, 170, 170);
 
         .skillsRight {
             margin: 1em 0 0 0;
-
-            &::before {
-                content: "Contact Information";
-                position: relative;
-                top: -0.15em;
-                font-size: 1.1em;
-                font-weight: bolder;
-            }
         }
 
         @media screen and (min-width: $mobile-breakpoint) {
