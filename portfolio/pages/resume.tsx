@@ -293,14 +293,7 @@ const Resume = ({
           <Project
             title="Discord Bot"
             date="Feb 2023"
-            tools={[
-              "Python",
-              "GPT-3",
-              "Selenium",
-              "Google Translate",
-              "Discord-api",
-              "Mysql",
-            ]}
+            tools={["Python", "GPT-3", "Selenium", "Discord-api", "Mysql"]}
           >
             <ul>
               <li>
