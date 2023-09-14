@@ -1,0 +1,28 @@
+@import "abstracts/variables";
+@import "abstracts/mixins";
+@import "abstracts/functions";
+
+@import "base/normalize";
+// @import 'lib/nprogress';
+@import "base/typography";
+@import "base/base";
+
+body {
+    @include themed() {
+        color: t("text1");
+        background-color: t("surface1");
+    }
+    line-height: 1.5;
+    z-index: 1;
+}
+
+div.content {
+    @include content-width();
+    margin: auto;
+}
+
+span.highlight-text {
+    @include themed() {
+        color: t("brand");
+    }
+}
