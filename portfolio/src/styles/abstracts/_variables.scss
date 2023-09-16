@@ -120,6 +120,21 @@ $themes: (
         color-white2: $color-white2,
         nav-bg: $nav-bg-dark,
     ),
+    monotone-dark: (
+        brand: $brand-origin,
+        text1: #fff,
+        text2: #bbb,
+        surface1: #000,
+        surface2: #111,
+        surface3: #222,
+        surface4: #333,
+        surface-shadow: #000,
+        shadow-strength: 0.8,
+        color-black: $color-black,
+        color-white: $color-white,
+        color-white2: $color-white2,
+        nav-bg: $nav-bg-dark,
+    ),
 );
 
 $breakpoints: (
