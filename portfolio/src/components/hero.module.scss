@@ -1,0 +1,52 @@
+.wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10vh 10vw;
+
+    // background
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: url("/assets/images/11226740766_890db563a5_o.jpg");
+        background-repeat: no-repeat;
+        background-size: 220%;
+        object-fit: cover;
+        background-position: 21% 45%;
+        filter: grayscale(1) blur(0px) brightness(0.5) contrast(2); // invert(1);
+        background-color: black;
+        background-blend-mode: screen;
+        z-index: -1;
+    }
+
+    & > div {
+        flex: 1 1 50%;
+        font-size: 2rem;
+        font-weight: 700;
+        color: whitesmoke;
+        text-shadow: 0 0 10px rgba(1, 1, 1, 0.5);
+    }
+
+    @include breakpoint("md") {
+        flex-direction: row;
+    }
+
+    // font-family: "Courier New", Courier, monospace;
+    .left {
+    }
+    .right {
+    }
+}
+.brandColor {
+    @include themed() {
+        color: t("brand");
+        font-family: "Montserrat", sans-serif, monospace;
+    }
+}
