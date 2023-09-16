@@ -1,26 +1,157 @@
-import Image from "next/image";
 import styles from "./page.module.css";
-import Link from "next/link";
-import { SiLinkedin } from "react-icons/si";
+import NavBar from "@components/navbar";
+import ContentView from "@components/ui/contentView";
+import Spacer from "@components/ui/spacer";
+import Button from "@components/ui/button";
+import Hero from "@components/hero";
 
 export default function Home() {
-  return (
-    <main
-      style={{
-        backgroundColor: "white",
-        color: "black",
-      }}
-    >
-      hello
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="2em"
-        viewBox="0 0 448 512"
-      >
-        <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" />
-      </svg>
-      world
-      <SiLinkedin />?<Link href="/about">About</Link>
-    </main>
-  );
+    return (
+        <main className={styles.main}>
+            <NavBar />
+
+            <Hero />
+            {/* <div style={{ height: "3rem" }} /> */}
+            {/* <div style={{ height: "100vh", backgroundColor: "#00ff003f" }} /> */}
+
+            <ContentView backgroundSurfaceLevel={2}>
+                <ContentView
+                    backgroundSurfaceLevel={3}
+                    style={{ margin: "1rem" }}
+                >
+                    <h1>hello</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Fugit cupiditate perferendis culpa voluptatem
+                        perspiciatis non eos deserunt, neque atque? Alias autem
+                        enim asperiores sit, magni voluptas officia omnis
+                        aliquid vel. Lorem ipsum dolor sit amet consectetur
+                        adipisicing elit. Fugit cupiditate perferendis culpa
+                        voluptatem perspiciatis non eos deserunt, neque atque?
+                        Alias autem enim asperiores sit, magni voluptas officia
+                        omnis aliquid vel. Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Fugit cupiditate
+                        perferendis culpa voluptatem perspiciatis non eos
+                        deserunt, neque atque? Alias autem enim asperiores sit,
+                        magni voluptas officia omnis aliquid vel.
+                    </p>
+                    <ContentView backgroundSurfaceLevel={4}>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Fugit cupiditate perferendis culpa voluptatem
+                            perspiciatis non eos deserunt, neque atque? Alias
+                            autem enim asperiores sit, magni voluptas officia
+                            omnis aliquid vel.
+                        </p>
+                    </ContentView>
+                </ContentView>
+
+                <Spacer size="lg" />
+
+                <ContentView backgroundSurfaceLevel={2}>
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: "1rem",
+                            margin: "1rem",
+                        }}
+                    >
+                        <span>hello</span>
+                        <Button styleType="primary" as="button" size="small">
+                            primary
+                        </Button>
+                        <Button styleType="secondary" as="button" size="small">
+                            secondary
+                        </Button>
+                        <Button styleType="tertiary" as="button" size="small">
+                            tertiary
+                        </Button>
+                        <Button styleType="ghost" as="button" size="small">
+                            ghost
+                        </Button>
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: "1rem",
+                            margin: "1rem",
+                        }}
+                    >
+                        <span>hello</span>
+                        <Button
+                            styleType="primary"
+                            as="externalLink"
+                            size="medium"
+                        >
+                            primary
+                        </Button>
+                        <Button
+                            styleType="secondary"
+                            as="externalLink"
+                            size="medium"
+                        >
+                            secondary
+                        </Button>
+                        <Button
+                            styleType="tertiary"
+                            as="externalLink"
+                            size="medium"
+                        >
+                            tertiary
+                        </Button>
+                        <Button
+                            styleType="ghost"
+                            as="externalLink"
+                            size="medium"
+                        >
+                            ghost
+                        </Button>
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: "1rem",
+                            margin: "1rem",
+                        }}
+                    >
+                        <span>hello</span>
+                        <Button
+                            styleType="primary"
+                            as="link"
+                            size="large"
+                            href={"/"}
+                        >
+                            primary
+                        </Button>
+                        <Button
+                            styleType="secondary"
+                            as="link"
+                            size="large"
+                            href={"/"}
+                        >
+                            secondary
+                        </Button>
+                        <Button
+                            styleType="tertiary"
+                            as="link"
+                            size="large"
+                            href={"/"}
+                        >
+                            tertiary
+                        </Button>
+                        <Button
+                            styleType="ghost"
+                            as="link"
+                            size="large"
+                            href={"/"}
+                        >
+                            ghost
+                        </Button>
+                    </div>
+                </ContentView>
+            </ContentView>
+
+            <div style={{ height: "100vh", backgroundColor: "#ff00000f" }} />
+        </main>
+    );
 }
