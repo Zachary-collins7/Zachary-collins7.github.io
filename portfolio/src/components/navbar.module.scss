@@ -1,0 +1,262 @@
+$mobile-nav-breakpoint: 600px;
+$navHeight: 3rem;
+
+.navHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $navHeight;
+    display: flex;
+    justify-content: space-between;
+
+    input {
+        display: none;
+    }
+
+    z-index: 1000;
+
+    // menu button
+    label {
+        &::before,
+        &::after {
+            $menu_line_height: 5px;
+            content: "";
+            position: absolute;
+            height: $menu_line_height;
+            width: calc($navHeight * 2 / 3);
+            border-radius: $menu_line_height / 2;
+            top: 50%;
+            right: 0;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s;
+
+            @include breakpoint("md") {
+                display: none;
+                width: calc($navHeight * 4 / 3 * 2 / 3);
+            }
+
+            @include themed() {
+                background-color: t("brand");
+            }
+        }
+        &::before {
+            transform: translate(-50%, 50%);
+        }
+        &::after {
+            transform: translate(-50%, -150%);
+        }
+    }
+
+    @include themed() {
+        background-color: t("surface1");
+    }
+
+    // stick and reappear on scroll
+    @include breakpoint("md") {
+        height: $navHeight * 4/3;
+
+        &.animate {
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include themed() {
+                background-color: transparent;
+                a::before {
+                    background-color: transparent;
+                }
+            }
+
+            &.hide,
+            &.show {
+                position: fixed;
+            }
+
+            &.hide {
+                transform: translateY(-100%);
+            }
+            &.show {
+                transition: transform 0.3s ease;
+                // position: fixed;
+
+                &:not(.hide) {
+                    transform: translateY(0);
+
+                    @include themed() {
+                        background-color: t("surface1");
+                        a::before {
+                            background-color: t("surface2");
+                        }
+                    }
+                }
+            }
+        }
+
+        // todo feature
+        &.transparent-before-scroll {
+            background-color: transparent;
+        }
+    }
+}
+
+.navElements {
+    height: 100%;
+    width: $navHeight * 4/3;
+    // background-color: blue;
+    user-select: none;
+
+    @include breakpoint("md") {
+        width: 100%;
+    }
+}
+
+.brand {
+    position: relative;
+    height: $navHeight;
+    width: $navHeight;
+    border-radius: 50%;
+    scale: 0.8;
+
+    &::before {
+        content: "Z";
+        position: absolute;
+        font-size: $navHeight * 0.8;
+        font-weight: 700;
+        font-family: "Roboto", sans-serif;
+        top: 50%;
+        left: $navHeight / 2;
+        transform: translate(-50%, -50%);
+
+        @include breakpoint("md") {
+            font-size: $navHeight * 4/3 * 0.8;
+            left: $navHeight * 4/3 / 2;
+        }
+    }
+
+    @include themed() {
+        background-color: t("surface2");
+
+        &::before {
+            color: t("brand");
+        }
+    }
+
+    @include breakpoint("md") {
+        height: $navHeight * 4/3;
+        width: $navHeight * 4/3;
+    }
+}
+
+.navLinks {
+    position: fixed;
+    top: $navHeight;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+    font-size: 2rem;
+
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.3s ease-out;
+
+    z-index: 1001;
+
+    @include themed() {
+        background-color: t("surface1");
+        padding-bottom: 3rem;
+        border-top: 3px solid
+            change-color($color: t("brand"), $saturation: 90%, $lightness: 10%);
+
+        @include breakpoint("md") {
+            background-color: transparent;
+            border-top: none;
+        }
+
+        a {
+            position: relative;
+            user-select: auto;
+            color: t("text2");
+            transition: color 0.3s ease-out;
+            height: 1.2em;
+
+            @include breakpoint("md") {
+                padding: 10% 30%;
+
+                // capsule behind nav links on hover and on active
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    height: 100%;
+                    width: 100%;
+                    box-sizing: "border-box";
+                    overflow: "hidden";
+                    border-radius: 1em;
+
+                    transform: translate(-50%, -50%);
+                    z-index: -1;
+                    background-color: t("surface2");
+                    opacity: 0;
+                    transition: none;
+                }
+                &.active {
+                    transition: none;
+                }
+
+                &:hover,
+                &.active {
+                    color: t("text1");
+
+                    &::before {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        @include breakpoint("md") {
+            position: relative;
+            flex-direction: row;
+            justify-content: center;
+            gap: 2rem;
+            font-size: 1rem;
+            align-items: center;
+            top: $navHeight * 4/3;
+            padding-bottom: 0;
+            padding-right: $navHeight * 4/3;
+            clip-path: none;
+            transition: none;
+            top: unset;
+            left: unset;
+        }
+    }
+}
+
+.navInput:checked ~ label {
+    &::before {
+        transform: translate(-50%, -50%) rotateZ(-45deg);
+    }
+    &::after {
+        transform: translate(-50%, -50%) rotateZ(45deg);
+    }
+
+    & .navLinks {
+        clip-path: inset(0 0 0 0);
+
+        .navLink {
+            width: 100%;
+            font-size: 2rem;
+            text-align: center;
+        }
+    }
+}
