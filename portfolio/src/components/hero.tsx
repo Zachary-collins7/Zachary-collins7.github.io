@@ -18,8 +18,9 @@ const Greeting = ({ varient }: { varient: number }) => {
         "Software Engineer",
         "Fullstack Developer",
         "Prompt Engineer",
+        // "Dev",
     ];
-    const titleChangeDelayMs = 5000;
+    const titleChangeDelayMs = 10000;
     const [titleIndex, setTitleIndex] = useState(0);
     const [title, setTitle] = useState(allTitles[titleIndex]);
 
@@ -34,8 +35,8 @@ const Greeting = ({ varient }: { varient: number }) => {
                 const minLen = Math.min(oldTitle.length, newTitle.length);
                 const transitionCharecters = "@#$%&*+=<>?~";
 
-                const changesPerLetter = 1;
-                const transitionTimeMs = titleChangeDelayMs / 2; // 1/5 of time is spent transitioning
+                const changesPerLetter = 2;
+                const transitionTimeMs = titleChangeDelayMs / 10; // 1/x of time is spent transitioning
                 const transitionTimePerLetterMs =
                     transitionTimeMs / changesPerLetter / minLen;
 
@@ -46,7 +47,6 @@ const Greeting = ({ varient }: { varient: number }) => {
 
                 for (let i = 0; i < minLen; i++) {
                     for (let j = 0; j < changesPerLetter; j++) {
-                        let titleFragment = newTitle.slice(0, i);
                         const getRandomChar = () => {
                             return transitionCharecters[
                                 Math.floor(
@@ -54,10 +54,14 @@ const Greeting = ({ varient }: { varient: number }) => {
                                 )
                             ];
                         };
+                        let titleFragment =
+                            newTitle.slice(0, i) +
+                            getRandomChar() +
+                            oldTitle.slice(i + 1);
 
-                        for (let k = i; k < minLen; k++) {
-                            titleFragment += getRandomChar();
-                        }
+                        // for (let k = i; k < minLen; k++) {
+                        //     titleFragment += getRandomChar();
+                        // }
 
                         doSetTitle(titleFragment);
 
@@ -70,7 +74,7 @@ const Greeting = ({ varient }: { varient: number }) => {
                 doSetTitle(newTitle);
             };
 
-            inner().then(console.log).catch(console.error);
+            inner().catch(console.error);
         }, 5000);
         return () => clearInterval(interval);
     }, [titleIndex]);
