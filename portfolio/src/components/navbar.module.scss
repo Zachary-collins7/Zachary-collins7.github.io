@@ -163,8 +163,8 @@ $navHeight: 3rem;
     padding: 0;
     list-style: none;
     height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    // overflow-y: scroll;
+    // overflow-x: hidden;
     clip-path: inset(0 0 100% 0);
     transition: clip-path 0.3s ease-out;
 
@@ -179,6 +179,7 @@ $navHeight: 3rem;
         @include breakpoint("md") {
             background-color: transparent;
             border-top: none;
+            padding-bottom: 0;
         }
 
         a {
@@ -189,18 +190,16 @@ $navHeight: 3rem;
             height: 1.2em;
 
             @include breakpoint("md") {
-                padding: 10% 30%;
-
                 // capsule behind nav links on hover and on active
                 &::before {
                     content: "";
                     position: absolute;
                     left: 50%;
                     top: 50%;
-                    height: 100%;
-                    width: 100%;
+                    height: calc(100% + 0.85em); // TODO: CHECK padding
+                    width: calc(100% + 2.1em);
                     box-sizing: "border-box";
-                    overflow: "hidden";
+                    overflow: "hidden"; // TODO huh
                     border-radius: 1em;
 
                     transform: translate(-50%, -50%);
@@ -228,7 +227,7 @@ $navHeight: 3rem;
             position: relative;
             flex-direction: row;
             justify-content: center;
-            gap: 2rem;
+            gap: 3rem;
             font-size: 1rem;
             align-items: center;
             top: $navHeight * 4/3;
