@@ -1,11 +1,16 @@
 .wrapper {
-    height: 100vh;
+    min-height: 100vh; // TODO: CHECK THIS WOULD BE NICE TO HAVE A SET HEIGHT
     width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10vh 10vw;
+    flex-direction: column-reverse;
+    // justify-content: center;
+    // align-items: center;
+    color: whitesmoke;
+    font-size: clamp(0.75em, 1.5vw, 1.6rem);
+    // color: black;
+
+    // padding: 10vh 10vw;
+    // padding-top: 3rem;
 
     // background
     &::before {
@@ -17,20 +22,19 @@
         width: 100%;
         background: url("/assets/images/11226740766_890db563a5_o.jpg");
         background-repeat: no-repeat;
-        background-size: 220%;
         object-fit: cover;
-        background-position: 21% 45%;
-        filter: grayscale(1) blur(0px) brightness(0.5) contrast(2); // invert(1);
+        filter: grayscale(1) blur(0px) brightness(0.5) contrast(2);
+        // filter: grayscale(1) blur(0px) brightness(0.5) contrast(2) invert(1); // light
         background-color: black;
         background-blend-mode: screen;
         z-index: -1;
     }
 
     & > div {
-        flex: 1 1 50%;
-        font-size: 2rem;
-        font-weight: 700;
-        color: whitesmoke;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // height: 100%;
         text-shadow: 0 0 10px rgba(1, 1, 1, 0.5);
     }
 
@@ -40,25 +44,244 @@
 
     // font-family: "Courier New", Courier, monospace;
     .left {
+        flex: 2 0 66%;
+        // TODO change layout? needs to have more than 50%
+        // before mobile md breakpoint
+        & > div {
+            width: 100%;
+            margin: 0 0 0 10vw;
+        }
+        @include themed() {
+            h3::selection {
+                background-color: t("text1");
+                color: t("surface1");
+            }
+            p {
+                color: t("text3");
+                font-size: max(1em, 1rem);
+
+                &::selection {
+                    background-color: t("text3");
+                    color: t("surface1");
+                }
+            }
+        }
     }
     .right {
+        position: relative;
+        flex: 1 1 33%;
+
+        // &::before,
+        // &::after {
+        //     content: "";
+        //     position: absolute;
+        //     top: 0;
+        //     left: 0;
+        //     height: 100%;
+        //     width: 100%;
+        // }
+
+        &::after {
+            background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(0, 0, 0, 1) 100%
+            );
+            border: 1px solid;
+            border-top-left-radius: 3rem;
+            border-bottom-left-radius: 3rem;
+            // clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 calc(100% - 3rem));
+        }
     }
 }
+
+.callToActionButtons {
+    display: flex;
+    gap: 1.5rem;
+}
+
 .brandColor {
     @include themed() {
         color: t("brand");
-        font-family: "Montserrat", sans-serif, monospace;
+        &::selection {
+            background-color: t("brand");
+            color: t("surface1");
+        }
+    }
+}
+
+.title {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    // font-size: 1.5rem;
+    // font-weight: 700;
+    align-items: center;
+    gap: 1ch;
+
+    // font-size: 3rem;
+}
+
+.word {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: 1.11em;
+
+    // padding: 0 1ch 0 0;
+}
+
+.letterBase {
+    position: relative;
+    line-height: 1em;
+    width: 1ch;
+    height: 100%;
+
+    & span:first-child,
+    & span:last-child {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+$animation-duration: 1s;
+
+@keyframes substitutionOld {
+    from {
+        clip-path: inset(0 0 0 0);
+    }
+    to {
+        clip-path: inset(0 0 100% 0);
+    }
+}
+@keyframes substitutionNew {
+    from {
+        top: 100%;
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+        // border-top: 3px solid red;
+    }
+    80% {
+        // border-top: 3px solid red;
+    }
+    to {
+        top: 0;
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+        // border-top: 0px solid red;
+    }
+}
+
+@keyframes deletion {
+    to {
+        opacity: 0;
+        width: 0;
+    }
+}
+
+@keyframes insertion {
+    0% {
+        opacity: 0;
+        width: 0;
+    }
+    100% {
+        opacity: 1;
+        width: 1ch;
     }
 }
 
 .match {
+    @extend .letterBase;
+
+    & span:first-child {
+        clip-path: inset(0 0 0 0);
+        animation: substitutionOld 0 linear;
+        animation-fill-mode: forwards;
+    }
+    & span:last-child {
+        top: 100%;
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+        // border-top: 3px solid red;
+        animation: substitutionNew 0 linear;
+        animation-fill-mode: forwards;
+    }
 }
 
 .substitution {
+    @extend .letterBase;
+
+    & span:first-child {
+        clip-path: inset(0 0 0 0);
+        animation: substitutionOld $animation-duration linear;
+        animation-fill-mode: forwards;
+    }
+    & span:last-child {
+        top: 100%;
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+        // border-top: 3px solid red;
+        animation: substitutionNew $animation-duration linear;
+        animation-fill-mode: forwards;
+    }
 }
 
 .deletion {
+    @extend .letterBase;
+
+    // border-right: 3px solid red;
+    animation: deletion $animation-duration linear;
+    animation-fill-mode: forwards;
+    // animation-delay: 0.5s;
+    // overflow: hidden;
+
+    // swipe WIP
+    // position: relative;
+
+    // &::after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     height: 100%;
+    //     width: 3px;
+    //     background-color: red;
+    // }
 }
 
 .insertion {
+    @extend .letterBase;
+
+    opacity: 0;
+    width: 0;
+
+    animation: insertion $animation-duration linear;
+    animation-fill-mode: forwards;
+}
+
+@for $i from 1 through 20 {
+    :is(.substitution):nth-child(#{$i}) {
+        & span:first-child,
+        & span:last-child {
+            // delay the first span by 0.5s
+            animation-delay: #{0.5 + $i / 10}s;
+        }
+    }
+}
+
+@for $i from 1 through 20 {
+    :is(.deletion, .insertion):nth-child(#{$i}) {
+        animation-duration: $animation-duration / 2;
+        animation-delay: #{$i / 10}s;
+    }
+}
+
+// test class for badly tagged letters
+.HUHHH {
+    color: orange !important;
+    border: 1px solid orange !important;
 }
