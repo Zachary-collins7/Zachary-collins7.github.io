@@ -114,29 +114,40 @@
     position: relative;
     display: flex;
     flex-direction: row;
+    line-height: 1;
     // font-size: 1.5rem;
     // font-weight: 700;
     align-items: center;
-    gap: 1ch;
+    // gap: 1ch;
 
     // font-size: 3rem;
+    // height: 1em;
+    height: 1em;
 }
 
-.word {
+.LevenshteinChangingTitle {
     position: relative;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    height: 1.11em;
+    height: 1em;
+    flex: 1 1 auto;
+    // flex-direction: row;
+    // line-height: 1;
+    // // font-size: 1.5rem;
+    // // font-weight: 700;
+    // align-items: center;
+    // // gap: 1ch;
 
-    // padding: 0 1ch 0 0;
+    // // font-size: 3rem;
+    // // height: 1em;
+    // height: 1em;
 }
 
 .letterBase {
-    position: relative;
-    line-height: 1em;
+    position: absolute;
+    top: 0;
     width: 1ch;
     height: 100%;
+    animation-delay: 1s;
 
     & span:first-child,
     & span:last-child {
@@ -146,96 +157,196 @@
         height: 100%;
         width: 100%;
     }
-}
 
-$animation-duration: 1s;
+    & span:first-child {
+        // border-bottom: 1px solid blue;
+    }
 
-@keyframes substitutionOld {
-    from {
-        clip-path: inset(0 0 0 0);
-    }
-    to {
-        clip-path: inset(0 0 100% 0);
-    }
-}
-@keyframes substitutionNew {
-    from {
+    &:not(.insertion) span:last-child {
         top: 100%;
-        opacity: 0;
-        clip-path: inset(0 0 100% 0);
-        // border-top: 3px solid red;
     }
-    80% {
-        // border-top: 3px solid red;
+
+    // border: 1px solid green;
+}
+
+@for $i from 0 through 20 {
+    .letterNumber#{$i} {
+        left: #{$i}ch;
     }
-    to {
+    .letterNumber#{-1 * $i} {
+        left: #{-1 * $i}ch;
+    }
+}
+
+$animation-duration: 2.5s;
+
+@for $i from 0 through 20 {
+    //forwards delta {letter(s) before current are inserted}
+    @keyframes delta#{$i} {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(#{$i}ch);
+        }
+    }
+    .letterDelta#{$i} {
+        border-bottom: 1px solid lightblue;
+        animation: delta#{$i} $animation-duration linear forwards;
+    }
+
+    @keyframes delta#{-1 * $i} {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(#{-1 * $i}ch);
+        }
+    }
+
+    .letterDelta#{-1 * $i} {
+        border-bottom: 1px solid blue;
+        animation: delta#{-1 * $i} $animation-duration linear forwards;
+    }
+}
+
+// @for $i from 0 through -20 {
+//     //backwards delta {letter(s) before current are deleted}
+//     @keyframes delta#{$i} {
+//         0% {
+//             transform: translateX(#{-1 * $i}ch);
+//         }
+//         100% {
+//             transform: translateX(0);
+//         }
+//     }
+//     .letterDelta#{$i} {
+//         // border: 1px solid blue;
+//         animation: delta#{$i} 0.5s linear forwards;
+//     }
+// }
+
+// @keyframes substitutionOld {
+//     from {
+//         clip-path: inset(0 0 0 0);
+//     }
+//     to {
+//         clip-path: inset(0 0 100% 0);
+//     }
+// }
+// @keyframes substitutionNew {
+//     from {
+//         top: 100%;
+//         opacity: 0;
+//         clip-path: inset(0 0 100% 0);
+//         // border-top: 3px solid red;
+//     }
+//     80% {
+//         // border-top: 3px solid red;
+//     }
+//     to {
+//         top: 0;
+//         opacity: 1;
+//         clip-path: inset(0 0 0 0);
+//         // border-top: 0px solid red;
+//     }
+// }
+
+// @keyframes deletion {
+//     to {
+//         opacity: 0;
+//         width: 0;
+//     }
+// }
+
+.insertion {
+    @extend .letterBase;
+    // $insertShowPercent: %;
+    @keyframes insertion {
+        0% {
+            opacity: 0;
+            // clip-path: inset(0 100% 0 0);
+        }
+        100% {
+            opacity: 1;
+            // clip-path: inset(0 0 0 0);
+        }
+    }
+
+    & span:last-child::after {
+        @keyframes insertionAfter {
+            0% {
+                clip-path: inset(0 100% 0 0);
+            }
+            33% {
+                clip-path: inset(0 0 0 0);
+            }
+            100% {
+                clip-path: inset(0 0 0 100%);
+            }
+        }
+        content: "";
+        position: absolute;
         top: 0;
-        opacity: 1;
-        clip-path: inset(0 0 0 0);
-        // border-top: 0px solid red;
-    }
-}
-
-@keyframes deletion {
-    to {
-        opacity: 0;
-        width: 0;
-    }
-}
-
-@keyframes insertion {
-    0% {
-        opacity: 0;
-        width: 0;
-    }
-    100% {
-        opacity: 1;
+        left: 0;
         width: 1ch;
+        height: 1em;
+        background-color: green;
+        animation: insertionAfter $animation-duration linear forwards;
+    }
+
+    // animation-duration: 0s;
+
+    & span:last-child {
+        opacity: 0;
+        // clip-path: inset(0 100% 0 0);
+        // border-top: 1px solid green;
+        animation: insertion $animation-duration linear forwards;
     }
 }
 
 .match {
     @extend .letterBase;
 
-    & span:first-child {
-        clip-path: inset(0 0 0 0);
-        animation: substitutionOld 0 linear;
-        animation-fill-mode: forwards;
-    }
-    & span:last-child {
-        top: 100%;
-        opacity: 0;
-        clip-path: inset(0 0 100% 0);
-        // border-top: 3px solid red;
-        animation: substitutionNew 0 linear;
-        animation-fill-mode: forwards;
-    }
+    // & span:first-child {
+    //     clip-path: inset(0 0 0 0);
+    //     animation: substitutionOld 0 linear;
+    //     animation-fill-mode: forwards;
+    // }
+    // & span:last-child {
+    //     top: 100%;
+    //     opacity: 0;
+    //     clip-path: inset(0 0 100% 0);
+    //     // border-top: 3px solid red;
+    //     animation: substitutionNew 0 linear;
+    //     animation-fill-mode: forwards;
+    // }
 }
 
 .substitution {
     @extend .letterBase;
 
-    & span:first-child {
-        clip-path: inset(0 0 0 0);
-        animation: substitutionOld $animation-duration linear;
-        animation-fill-mode: forwards;
-    }
-    & span:last-child {
-        top: 100%;
-        opacity: 0;
-        clip-path: inset(0 0 100% 0);
-        // border-top: 3px solid red;
-        animation: substitutionNew $animation-duration linear;
-        animation-fill-mode: forwards;
-    }
+    // & span:first-child {
+    //     clip-path: inset(0 0 0 0);
+    //     animation: substitutionOld $animation-duration linear;
+    //     animation-fill-mode: forwards;
+    // }
+    // & span:last-child {
+    //     top: 100%;
+    //     opacity: 0;
+    //     clip-path: inset(0 0 100% 0);
+    //     // border-top: 3px solid red;
+    //     animation: substitutionNew $animation-duration linear;
+    //     animation-fill-mode: forwards;
+    // }
 }
 
 .deletion {
     @extend .letterBase;
 
     // border-right: 3px solid red;
-    animation: deletion $animation-duration linear;
-    animation-fill-mode: forwards;
+    // animation: deletion $animation-duration linear;
+    // animation-fill-mode: forwards;
     // animation-delay: 0.5s;
     // overflow: hidden;
 
@@ -253,32 +364,22 @@ $animation-duration: 1s;
     // }
 }
 
-.insertion {
-    @extend .letterBase;
+// @for $i from 1 through 20 {
+//     :is(.substitution):nth-child(#{$i}) {
+//         & span:first-child,
+//         & span:last-child {
+//             // delay the first span by 0.5s
+//             animation-delay: #{0.5 + $i / 10}s;
+//         }
+//     }
+// }
 
-    opacity: 0;
-    width: 0;
-
-    animation: insertion $animation-duration linear;
-    animation-fill-mode: forwards;
-}
-
-@for $i from 1 through 20 {
-    :is(.substitution):nth-child(#{$i}) {
-        & span:first-child,
-        & span:last-child {
-            // delay the first span by 0.5s
-            animation-delay: #{0.5 + $i / 10}s;
-        }
-    }
-}
-
-@for $i from 1 through 20 {
-    :is(.deletion, .insertion):nth-child(#{$i}) {
-        animation-duration: $animation-duration / 2;
-        animation-delay: #{$i / 10}s;
-    }
-}
+// @for $i from 1 through 20 {
+//     :is(.deletion, .insertion):nth-child(#{$i}) {
+//         animation-duration: $animation-duration / 2;
+//         animation-delay: #{$i / 10}s;
+//     }
+// }
 
 // test class for badly tagged letters
 .HUHHH {

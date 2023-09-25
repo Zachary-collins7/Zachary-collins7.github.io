@@ -89,19 +89,16 @@ const Greeting = () => {
         <>
             <h3>Im Zach</h3>
             <h1>
-                <span className={`${styles.title} ${styles.brandColor}`}>
-                    {(wordChanges && wordChanges.length > 0 && (
-                        <LevenshteinChangingTitle wordChanges={wordChanges} />
-                    )) ||
-                        title.split(" ").map((word, i) => (
-                            <span className={styles.word} key={i}>
-                                {word.split("").map((char, j) => (
-                                    <span className={styles.letterBase} key={j}>
-                                        {char}
-                                    </span>
-                                ))}
-                            </span>
-                        ))}
+                <span className={`${styles.brandColor} ${styles.title}`}>
+                    <span style={{ marginRight: "1ch" }}>Hello</span>
+                    <span className={styles.LevenshteinChangingTitle}>
+                        {(wordChanges && wordChanges.length > 0 && (
+                            <LevenshteinChangingTitle
+                                wordChanges={wordChanges}
+                            />
+                        )) ||
+                            title}
+                    </span>
                 </span>
             </h1>
             <p
@@ -139,46 +136,122 @@ const LevenshteinChangingTitle = ({
     wordChanges,
 }: {
     wordChanges: LevenshteinDistanceResult[];
-}) => {
+}): (JSX.Element | string)[] => {
     // Helper function to generate the html for each word
-    const words = wordChanges.map((change, i) => {
-        const innerHtml = change.steps.map((step, j) => {
-            let styleClass = "";
-            switch (step.type) {
-                case "match":
-                    styleClass = styles.match;
-                    break;
-                case "substitution":
-                    styleClass = styles.substitution;
-                    break;
-                case "deletion":
-                    styleClass = styles.deletion;
-                    break;
-                case "insertion":
-                    styleClass = styles.insertion;
-                    break;
-                default:
-                    styleClass = styles.HUHHH;
-                    break;
+    // const oldwords = wordChanges.map((change, i) => {
+    //     let animationIndexChange = 0;
+    //     let deltaIndex = 0;
+
+    //     const innerHtml = change.steps.map((step, j) => {
+    //         const animationStyleClass =
+    //             step.type in styles ? styles[step.type] : styles.HUHHH;
+    //         const indexStyleClass = styles[`letterNumber${j}`]; // relative to the word
+    //         const deltaStyleClass =
+    //             styles[`letterDelta${animationIndexChange}`]; // relative to all words
+
+    //         const styleClass = [
+    //             animationStyleClass,
+    //             indexStyleClass,
+    //             deltaStyleClass,
+    //         ].join(" ");
+
+    //         console.log(styleClass);
+
+    //         // for letters after this we need to update the delta
+    //         if (step.type == "insertion") {
+    //             animationIndexChange++;
+    //         } else if (step.type == "deletion") {
+    //             animationIndexChange--;
+    //         }
+
+    //         return (
+    //             // `<span class=${styleClass}>` +
+    //             // `<span>${step.oldChar}</span>` +
+    //             // `<span>${step.newChar}</span>` +
+    //             // "</span>"
+    //             <span className={styleClass} key={j}>
+    //                 <span>{step.oldChar}</span>
+    //                 <span>{step.newChar}</span>
+    //             </span>
+    //         );
+    //     });
+
+    //     // we use dangerouslySetInnerHTML because without it the html
+    //     // animations were working inconsistently
+    //     return (
+    //         <span
+    //             className={styles.word}
+    //             key={i}
+    //             // dangerouslySetInnerHTML={{ __html: innerHtml.join("") }}
+    //         >
+    //             {innerHtml}
+    //         </span>
+    //     );
+    // });
+
+    // we have to init the index to be centered at the start of the first word
+    // so we have to count the number of wordchanges before the oldChar has its first letter
+    let i =
+        (() => {
+            let index = 0;
+            for (let i = 0; i < wordChanges.length; i++) {
+                for (let j = 0; j < wordChanges[i].steps.length; j++) {
+                    if (wordChanges[i].steps[j].oldChar !== "") {
+                        return -index;
+                    }
+                    index++;
+                }
             }
-            return (
-                `<span class=${styleClass}>` +
-                `<span>${step.oldChar}</span>` +
-                `<span>${step.newChar}</span>` +
-                "</span>"
-            );
-        });
+        })() || 0;
+    let delta = -i;
 
-        // we use dangerouslySetInnerHTML because without it the html
-        // animations were working inconsistently
-        return (
-            <span
-                className={styles.word}
-                key={i}
-                dangerouslySetInnerHTML={{ __html: innerHtml.join("") }}
-            />
-        );
-    });
+    const allDifferentStepTypes = wordChanges
+        .map((change) =>
+            Array.from(new Set(change.steps.map((step) => step.type)))
+        )
+        .reduce((acc, set) => Array.from(new Set([...acc, ...set])), []);
 
-    return words;
+    console.log({ allDifferentStepTypes, i, delta });
+
+    const letters = wordChanges
+        .map((change, keyI) => {
+            // we will describe the current index and the target delta
+            // if the new word starts after the old word then the delta will be negative at the first index
+            const letterGroups = change.steps.map((step, keyJ) => {
+                const animationStyleClass =
+                    step.type in styles ? styles[step.type] : styles.HUHHH;
+                const indexStyleClass = styles[`letterNumber${i}`];
+                const deltaStyleClass = styles[`letterDelta${delta}`]; // relative to all words
+                const styleClass = [
+                    animationStyleClass,
+                    indexStyleClass,
+                    deltaStyleClass,
+                ].join(" ");
+
+                if (step.oldChar === "") {
+                    // delta++;
+                } else if (step.newChar === "") {
+                    delta--;
+                }
+
+                i++;
+
+                // // if new char is empty
+                // if (step.newChar === "") {
+                // }
+
+                // i++;
+                return (
+                    <span className={styleClass} key={`${keyI}.${keyJ}`}>
+                        <span>{step.oldChar}</span>
+                        <span>{step.newChar}</span>
+                    </span>
+                );
+            });
+
+            i++; // for the space between words
+            return letterGroups;
+        })
+        .flat(); // flatten the array
+    return letters;
 };
