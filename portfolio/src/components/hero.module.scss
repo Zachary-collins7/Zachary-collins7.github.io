@@ -35,7 +35,7 @@
         justify-content: center;
         align-items: center;
         // height: 100%;
-        text-shadow: 0 0 10px rgba(1, 1, 1, 0.5);
+        // text-shadow: 0 0 10px rgba(1, 1, 1, 0.5);
     }
 
     @include breakpoint("md") {
@@ -126,6 +126,7 @@
 }
 
 .LevenshteinChangingTitle {
+    @extend .brandColor;
     position: relative;
     display: flex;
     height: 1em;
@@ -162,9 +163,16 @@
         // border-bottom: 1px solid blue;
     }
 
-    &:not(.insertion) span:last-child {
-        top: 100%;
+    & span:last-child {
+        // top: 100%;
     }
+
+    // &:not(.insertion) span {
+    //     animation-delay: 1s;
+    //     &:is(:first-child, :last-child) {
+    //         animation-delay: 1s;
+    //     }
+    // }
 
     // border: 1px solid green;
 }
@@ -178,35 +186,78 @@
     }
 }
 
-$animation-duration: 2.5s;
+// $animation-duration: 5s;
+
+// $insertAnimationDuration: $animation-duration / 5 * 2;
+// $insertAnimationDelay: 0s;
+
+// $deleteAnimationDuration: $animation-duration / 5 * 2;
+// $deleteAnimationDelay: $insertAnimationDuration;
+
+// $matchAnimationDuration: $animation-duration / 5 * 1;
+// $matchAnimationDelay: $insertAnimationDuration + $deleteAnimationDuration;
+
+// $substitutionAnimationDuration: $animation-duration / 5 * 1;
+// $substitutionAnimationDelay: $insertAnimationDuration + $deleteAnimationDuration;
+
+$animation-duration: 10s;
+$animation-step: $animation-duration / 4;
+
+$insertAnimationDuration: $animation-step;
+$insertAnimationDelay: $animation-step * 0;
+$insertShowTimeClipSpace: 0.3; // 0.3 = 30% of animation time for first animation step
+$insertShowPercent: $insertShowTimeClipSpace * 100%;
+
+$substitutionAnimationDuration: $animation-step;
+$substitutionAnimationDelay: $animation-step * 1;
+
+$deleteAnimationDuration: $animation-step;
+$deleteAnimationDelay: $animation-step * 2;
+$deleteShowTimeClipSpace: 0.3; // 0.3 = 30% of animation time for moving all letters
+$deleteShowPercent: (1 - $deleteShowTimeClipSpace) * 100%;
+
+$matchAnimationDuration: $animation-step;
+$matchAnimationDelay: $animation-step * 3;
 
 @for $i from 0 through 20 {
     //forwards delta {letter(s) before current are inserted}
     @keyframes delta#{$i} {
         0% {
-            transform: translateX(0);
+            translate: 0;
         }
         100% {
-            transform: translateX(#{$i}ch);
+            translate: #{$i}ch;
         }
     }
     .letterDelta#{$i} {
-        border-bottom: 1px solid lightblue;
-        animation: delta#{$i} $animation-duration linear forwards;
+        // animation: delta#{$i} $insertAnimationDuration linear forwards;
+        animation: delta#{$i}
+            $insertAnimationDuration *
+            $insertShowTimeClipSpace
+            linear
+            forwards;
+        animation-delay: $insertAnimationDelay;
     }
 
     @keyframes delta#{-1 * $i} {
         0% {
-            transform: translateX(0);
+            translate: 0;
         }
         100% {
-            transform: translateX(#{-1 * $i}ch);
+            translate: #{-1 * $i}ch;
         }
     }
 
     .letterDelta#{-1 * $i} {
-        border-bottom: 1px solid blue;
-        animation: delta#{-1 * $i} $animation-duration linear forwards;
+        animation: delta#{-1 *
+            $i}
+            $deleteAnimationDuration *
+            $deleteShowTimeClipSpace
+            linear
+            forwards;
+        animation-delay: $deleteAnimationDelay +
+            $deleteAnimationDuration *
+            (1 - $deleteShowTimeClipSpace);
     }
 }
 
@@ -226,142 +277,299 @@ $animation-duration: 2.5s;
 //     }
 // }
 
-// @keyframes substitutionOld {
-//     from {
-//         clip-path: inset(0 0 0 0);
-//     }
-//     to {
-//         clip-path: inset(0 0 100% 0);
-//     }
-// }
-// @keyframes substitutionNew {
-//     from {
-//         top: 100%;
-//         opacity: 0;
-//         clip-path: inset(0 0 100% 0);
-//         // border-top: 3px solid red;
-//     }
-//     80% {
-//         // border-top: 3px solid red;
-//     }
-//     to {
-//         top: 0;
-//         opacity: 1;
-//         clip-path: inset(0 0 0 0);
-//         // border-top: 0px solid red;
-//     }
-// }
-
-// @keyframes deletion {
-//     to {
-//         opacity: 0;
-//         width: 0;
-//     }
-// }
-
 .insertion {
     @extend .letterBase;
-    // $insertShowPercent: %;
     @keyframes insertion {
         0% {
-            opacity: 0;
-            // clip-path: inset(0 100% 0 0);
+            color: transparent;
+        }
+        #{$insertShowPercent} {
+            color: transparent;
         }
         100% {
-            opacity: 1;
-            // clip-path: inset(0 0 0 0);
+            color: inherit;
         }
     }
 
-    & span:last-child::after {
-        @keyframes insertionAfter {
-            0% {
-                clip-path: inset(0 100% 0 0);
+    & span:last-child {
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1ch;
+            height: 1em;
+        }
+        &::before {
+            content: "\21FE";
+            @keyframes insertionBefore {
+                0% {
+                    clip-path: inset(0 100% 0 0);
+                }
+                #{$insertShowPercent},
+                #{100% - $insertShowPercent} {
+                    clip-path: inset(0 0 0 0);
+                }
+                100% {
+                    clip-path: inset(0 0 0 100%);
+                }
             }
-            33% {
-                clip-path: inset(0 0 0 0);
+            @include themed() {
+                color: t("brand");
+                background-color: t("surface1");
             }
-            100% {
-                clip-path: inset(0 0 0 100%);
+            animation: insertionBefore $insertAnimationDuration ease-in forwards;
+            animation-delay: $insertAnimationDelay;
+        }
+        &::after {
+            @keyframes insertionAfter {
+                // 0% {
+                //     // background: none;
+                // }
+                // #{$insertShowPercent - 1%} {
+                //     // background: none;
+                // }
+                // #{$insertShowPercent} {
+                //     background-position: 200%;
+                // }
+                0% {
+                    background-position: 200%;
+                }
+                #{$insertShowPercent} {
+                    background-position: 200%;
+                }
+                #{100% - $insertShowPercent} {
+                    background-position: -100%;
+                }
+                100% {
+                    background-position: -100%;
+                }
+            }
+            @include themed() {
+                background: linear-gradient(
+                    to left,
+                    t("brand") 0%,
+                    t("brand") 10%,
+                    transparent 20%,
+                    transparent 25%,
+                    t("brand") 25%,
+                    t("brand") 35%,
+                    transparent 35%,
+                    transparent 40%,
+                    t("brand") 40%,
+                    t("brand") 50%,
+                    transparent 50%,
+                    transparent 100%
+                );
+                background-repeat: no-repeat;
+                background-size: 200% 100%;
+                background-position: 200%;
+                animation: insertionAfter $insertAnimationDuration ease-in
+                    forwards;
+                animation-delay: $insertAnimationDelay +
+                    $insertAnimationDuration * $insertShowTimeClipSpace;
             }
         }
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 1ch;
-        height: 1em;
-        background-color: green;
-        animation: insertionAfter $animation-duration linear forwards;
     }
 
     // animation-duration: 0s;
 
     & span:last-child {
-        opacity: 0;
+        // opacity: 0;
         // clip-path: inset(0 100% 0 0);
         // border-top: 1px solid green;
-        animation: insertion $animation-duration linear forwards;
+        animation: insertion $insertAnimationDuration linear forwards;
+        animation-delay: $insertAnimationDelay;
     }
-}
-
-.match {
-    @extend .letterBase;
-
-    // & span:first-child {
-    //     clip-path: inset(0 0 0 0);
-    //     animation: substitutionOld 0 linear;
-    //     animation-fill-mode: forwards;
-    // }
-    // & span:last-child {
-    //     top: 100%;
-    //     opacity: 0;
-    //     clip-path: inset(0 0 100% 0);
-    //     // border-top: 3px solid red;
-    //     animation: substitutionNew 0 linear;
-    //     animation-fill-mode: forwards;
-    // }
 }
 
 .substitution {
     @extend .letterBase;
 
-    // & span:first-child {
-    //     clip-path: inset(0 0 0 0);
-    //     animation: substitutionOld $animation-duration linear;
-    //     animation-fill-mode: forwards;
-    // }
-    // & span:last-child {
-    //     top: 100%;
-    //     opacity: 0;
-    //     clip-path: inset(0 0 100% 0);
-    //     // border-top: 3px solid red;
-    //     animation: substitutionNew $animation-duration linear;
-    //     animation-fill-mode: forwards;
-    // }
+    & span:first-child {
+        @keyframes substitutionOld {
+            0% {
+                // transform: translate(0, 0);
+                color: inherit;
+            }
+            49% {
+                color: inherit;
+            }
+            50% {
+                color: transparent;
+            }
+            100% {
+                // transform: translate(0, -100%);
+                color: transparent;
+            }
+        }
+        // transform: translate(0, 0);
+        color: inherit;
+        animation: substitutionOld $substitutionAnimationDuration linear
+            forwards;
+        animation-delay: $substitutionAnimationDelay;
+    }
+
+    & span:last-child {
+        @keyframes substitutionNew {
+            0% {
+                // transform: translate(0, 100%);
+                color: transparent;
+            }
+            49% {
+                color: transparent;
+            }
+            50% {
+                color: inherit;
+            }
+            100% {
+                // transform: translate(0, 0);
+                color: inherit;
+            }
+        }
+        // transform: translate(0, 100%);
+        color: transparent;
+        animation: substitutionNew $substitutionAnimationDuration linear
+            forwards;
+        animation-delay: $substitutionAnimationDelay;
+
+        &::before {
+            transform-origin: top center;
+            transform: translateY(-10%) scale(1, 0);
+            @include themed() {
+                border-bottom: 0.2em solid t("brand");
+                // border-top: 0.4em solid red;
+            }
+
+            @keyframes substitutionBefore {
+                0% {
+                    transform: translateY(-10%) scale(1, 0);
+                }
+                50% {
+                    transform: translateY(-10%) scale(1, 0.61);
+                }
+                100% {
+                    transform: translateY(-10%) scale(1, 0);
+                }
+            }
+            animation: substitutionBefore $substitutionAnimationDuration
+                ease-in-out forwards;
+            animation-delay: $substitutionAnimationDelay;
+        }
+
+        &::after {
+            transform-origin: bottom center;
+            transform: translateY(-10%) scale(1, 0);
+            @include themed() {
+                border-top: 0.2em solid t("brand");
+                // border-bottom: 0.6em solid red;
+                // // border and we can also do
+            }
+            @keyframes substitutionAfter {
+                0% {
+                    transform: translateY(10%) scale(1, 0);
+                }
+                50% {
+                    transform: translateY(10%) scale(1, 0.61);
+                }
+                100% {
+                    transform: translateY(10%) scale(1, 0);
+                }
+            }
+            animation: substitutionAfter $substitutionAnimationDuration
+                ease-in-out forwards;
+            animation-delay: $substitutionAnimationDelay;
+        }
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1ch;
+            height: 1em;
+            // background-color: red;
+            // border-bottom: 3px solid blue;
+            @include themed() {
+                background-color: t("surface1");
+            }
+        }
+    }
+}
+
+.match {
+    @extend .letterBase;
 }
 
 .deletion {
     @extend .letterBase;
 
-    // border-right: 3px solid red;
-    // animation: deletion $animation-duration linear;
-    // animation-fill-mode: forwards;
-    // animation-delay: 0.5s;
-    // overflow: hidden;
+    @keyframes deletion {
+        #{$deleteShowPercent / 4 * 3},
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        #{$deleteShowPercent},
+        100% {
+            opacity: 0;
+            transform: scale(0);
+        }
+    }
 
-    // swipe WIP
-    // position: relative;
+    // make x with before and after
+    &::before {
+        translate: -50% -50%;
+        rotate: -45deg;
+    }
+    &::after {
+        translate: -50% -50%;
+        rotate: 45deg;
+    }
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0.2em;
+        height: 0.9em;
+        border-radius: 0.1em;
+        background-color: red;
+        transform-origin: center center;
+        z-index: 2;
+        transform: scale(0);
 
-    // &::after {
-    //     content: "";
-    //     position: absolute;
-    //     top: 0;
-    //     left: 0;
-    //     height: 100%;
-    //     width: 3px;
-    //     background-color: red;
-    // }
+        @keyframes deletionX {
+            0% {
+                opacity: 0;
+                transform: scale(2);
+            }
+            #{$deleteShowPercent / 4} {
+                opacity: 1;
+                transform: scale(1.25);
+            }
+            #{$deleteShowPercent / 4 * 2} {
+                opacity: 1;
+                transform: scale(1);
+            }
+            #{$deleteShowPercent / 4 * 3} {
+                opacity: 1;
+                transform: scale(1);
+            }
+            #{$deleteShowPercent} {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+        animation: deletionX $deleteAnimationDuration linear forwards;
+        animation-delay: $deleteAnimationDelay;
+    }
+
+    // clip-path: inset(0 0 0 0);
+    animation: deletion $deleteAnimationDuration linear forwards;
+    animation-delay: $deleteAnimationDelay;
 }
 
 // @for $i from 1 through 20 {

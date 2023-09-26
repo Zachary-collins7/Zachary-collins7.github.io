@@ -28,7 +28,7 @@ const Greeting = () => {
         "Fullstack Developer",
         "Prompt Engineer",
     ];
-    const titleChangeDelayMs = 5000;
+    const titleChangeDelayMs = 10000;
     const [titleIndex, setTitleIndex] = useState(1); // TODO: check prod. no idea why this is 1 and not 0
     const [title, setTitle] = useState(allTitles[0]);
     const [wordChanges, setWordChanges]: [LevenshteinDistanceResult[], any] =
@@ -44,6 +44,8 @@ const Greeting = () => {
             const newTitleWords = newTitle.split(" ");
             setTitleIndex(newIndex);
             setTitle(allTitles[titleIndex]);
+
+            console.log({ oldTitle, newTitle });
 
             // update to support different length titles
             const newWordChanges = oldTitleWords.map((word, i) => {
@@ -89,16 +91,23 @@ const Greeting = () => {
         <>
             <h3>Im Zach</h3>
             <h1>
-                <span className={`${styles.brandColor} ${styles.title}`}>
-                    <span style={{ marginRight: "1ch" }}>Hello</span>
-                    <span className={styles.LevenshteinChangingTitle}>
-                        {(wordChanges && wordChanges.length > 0 && (
-                            <LevenshteinChangingTitle
-                                wordChanges={wordChanges}
-                            />
-                        )) ||
-                            title}
-                    </span>
+                <span className={`${styles.title}`}>
+                    <span style={{ marginRight: "1ch" }}>a</span>
+                    {(wordChanges && wordChanges.length > 0 && (
+                        <span
+                            className={styles.LevenshteinChangingTitle}
+                            dangerouslySetInnerHTML={{
+                                __html:
+                                    (LevenshteinChangingTitle({
+                                        wordChanges,
+                                    }) as string) || title,
+                            }}
+                        />
+                    )) || (
+                        <span className={styles.LevenshteinChangingTitle}>
+                            {title}
+                        </span>
+                    )}
                 </span>
             </h1>
             <p
@@ -136,58 +145,8 @@ const LevenshteinChangingTitle = ({
     wordChanges,
 }: {
     wordChanges: LevenshteinDistanceResult[];
-}): (JSX.Element | string)[] => {
+}): (JSX.Element | string)[] | JSX.Element | String => {
     // Helper function to generate the html for each word
-    // const oldwords = wordChanges.map((change, i) => {
-    //     let animationIndexChange = 0;
-    //     let deltaIndex = 0;
-
-    //     const innerHtml = change.steps.map((step, j) => {
-    //         const animationStyleClass =
-    //             step.type in styles ? styles[step.type] : styles.HUHHH;
-    //         const indexStyleClass = styles[`letterNumber${j}`]; // relative to the word
-    //         const deltaStyleClass =
-    //             styles[`letterDelta${animationIndexChange}`]; // relative to all words
-
-    //         const styleClass = [
-    //             animationStyleClass,
-    //             indexStyleClass,
-    //             deltaStyleClass,
-    //         ].join(" ");
-
-    //         console.log(styleClass);
-
-    //         // for letters after this we need to update the delta
-    //         if (step.type == "insertion") {
-    //             animationIndexChange++;
-    //         } else if (step.type == "deletion") {
-    //             animationIndexChange--;
-    //         }
-
-    //         return (
-    //             // `<span class=${styleClass}>` +
-    //             // `<span>${step.oldChar}</span>` +
-    //             // `<span>${step.newChar}</span>` +
-    //             // "</span>"
-    //             <span className={styleClass} key={j}>
-    //                 <span>{step.oldChar}</span>
-    //                 <span>{step.newChar}</span>
-    //             </span>
-    //         );
-    //     });
-
-    //     // we use dangerouslySetInnerHTML because without it the html
-    //     // animations were working inconsistently
-    //     return (
-    //         <span
-    //             className={styles.word}
-    //             key={i}
-    //             // dangerouslySetInnerHTML={{ __html: innerHtml.join("") }}
-    //         >
-    //             {innerHtml}
-    //         </span>
-    //     );
-    // });
 
     // we have to init the index to be centered at the start of the first word
     // so we have to count the number of wordchanges before the oldChar has its first letter
@@ -236,16 +195,12 @@ const LevenshteinChangingTitle = ({
 
                 i++;
 
-                // // if new char is empty
-                // if (step.newChar === "") {
-                // }
-
-                // i++;
+                // return string html because react was messing up the animation
                 return (
-                    <span className={styleClass} key={`${keyI}.${keyJ}`}>
-                        <span>{step.oldChar}</span>
-                        <span>{step.newChar}</span>
-                    </span>
+                    `<span class="${styleClass}">` +
+                    `<span>${step.oldChar}</span>` +
+                    `<span>${step.newChar}</span>` +
+                    `</span>`
                 );
             });
 
@@ -253,5 +208,5 @@ const LevenshteinChangingTitle = ({
             return letterGroups;
         })
         .flat(); // flatten the array
-    return letters;
+    return letters.join("");
 };
