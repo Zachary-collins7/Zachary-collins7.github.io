@@ -8,7 +8,7 @@ import Hero from "@components/hero";
 export default function Home() {
     return (
         <main className={styles.main}>
-            <NavBar />
+            <NavBar animate />
 
             <Hero />
             {/* <div style={{ height: "3rem" }} /> */}
@@ -54,6 +54,7 @@ export default function Home() {
                             display: "flex",
                             gap: "1rem",
                             margin: "1rem",
+                            flexWrap: "wrap",
                         }}
                     >
                         <span>hello</span>
@@ -75,6 +76,7 @@ export default function Home() {
                             display: "flex",
                             gap: "1rem",
                             margin: "1rem",
+                            flexWrap: "wrap",
                         }}
                     >
                         <span>hello</span>
@@ -112,6 +114,7 @@ export default function Home() {
                             display: "flex",
                             gap: "1rem",
                             margin: "1rem",
+                            flexWrap: "wrap",
                         }}
                     >
                         <span>hello</span>
