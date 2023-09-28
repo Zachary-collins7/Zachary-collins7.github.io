@@ -96,6 +96,16 @@ const Greeting = () => {
                     {(wordChanges && wordChanges.length > 0 && (
                         <span
                             className={styles.LevenshteinChangingTitle}
+                            aria-description={
+                                "Title animating between " +
+                                allTitles.join(", ")
+                            }
+                            aria-details={
+                                `Role changes every ${Math.round(
+                                    titleChangeDelayMs / 10
+                                )} seconds and uses the` +
+                                " Levenshtein distance algorithm to animate the title change."
+                            }
                             dangerouslySetInnerHTML={{
                                 __html:
                                     (LevenshteinChangingTitle({
