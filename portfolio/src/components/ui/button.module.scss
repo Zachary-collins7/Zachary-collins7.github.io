@@ -27,11 +27,12 @@ $borderWidth: 0.1em;
     background: transparent;
     cursor: pointer;
     user-select: none;
+    // padding: 0 0.5em;
 
     @include brightnessHoverEffect();
 
     @include themed() {
-        color: t("brand");
+        color: t("primary");
     }
 
     &.small {
@@ -78,16 +79,16 @@ $borderWidth: 0.1em;
 
 .primary {
     @include themed() {
-        color: t("color-white");
-        background-color: t("brand");
-        border-color: t("brand");
+        color: t("text1");
+        background-color: t("primary");
+        border-color: t("primary");
     }
 }
 
 .secondary {
     @include themed() {
         color: t("text2");
-        background-color: t("surface4");
+        background-color: t("secondary");
     }
 }
 
@@ -114,16 +115,16 @@ $borderWidth: 0.1em;
     // }
 
     @include themed() {
-        color: t("brand");
+        color: t("primary");
 
         & span::after {
-            background: t("brand");
+            background: t("primary");
         }
     }
 }
 
 .ghost {
     @include themed() {
-        border: $borderWidth solid t("brand");
+        border: $borderWidth solid t("primary");
     }
 }
