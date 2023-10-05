@@ -1,0 +1,114 @@
+$brand-origin: #7b0ac2;
+$brand-dark: #a119d7;
+$brand-light: #b028e6;
+
+$color-black: #050517;
+$color-black2: #252537;
+$color-white: #fff;
+$color-white2: #ddd;
+
+$monotone-dark-text1: #faf9fa;
+$monotone-dark-text2: scale-color(
+    $monotone-dark-text1,
+    $lightness: -30%,
+    $saturation: -20%
+);
+$monotone-dark-text3: scale-color(
+    $monotone-dark-text1,
+    $lightness: -40%,
+    $saturation: -20%
+);
+
+$monotone-dark-surface1: #030203;
+
+$monotone-dark-surface2: scale-color(
+    $monotone-dark-surface1,
+    $lightness: 7%,
+    $saturation: -40%
+);
+$monotone-dark-surface3: scale-color(
+    $monotone-dark-surface1,
+    $lightness: 18%,
+    $saturation: -40%
+);
+$monotone-dark-surface4: scale-color(
+    $monotone-dark-surface1,
+    $lightness: 25%,
+    $saturation: -40%
+);
+
+$themes: (
+    monotone-dark: (
+        primary: $brand-dark,
+        secondary: #1d0c1d,
+        accent: #ab49ab,
+        text1: $monotone-dark-text1,
+        text2: $monotone-dark-text2,
+        text3: $monotone-dark-text3,
+        surface1: $monotone-dark-surface1,
+        surface2: $monotone-dark-surface2,
+        surface3: $monotone-dark-surface3,
+        surface4: $monotone-dark-surface4,
+        surface-shadow: red,
+        shadow-strength: 1,
+        color-black: red,
+        color-white: red,
+        color-white2: red,
+        nav-bg: #0b060e,
+    ),
+    monotone-light: (
+        primary: $brand-light,
+        secondary: #f3e2f3,
+        accent: #b654b6,
+        text1: #060506,
+        text2: scale-color(#060506, $lightness: 80%),
+        text3: red,
+        surface1: #fdfcfd,
+        surface2: red,
+        surface3: red,
+        surface4: red,
+        surface-shadow: red,
+        shadow-strength: 1,
+        color-black: red,
+        color-white: red,
+        color-white2: red,
+        nav-bg: #0b060e,
+    ),
+);
+
+$breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+);
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes floatUpRight {
+    0% {
+        transform: translate(-3rem, 3rem);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}

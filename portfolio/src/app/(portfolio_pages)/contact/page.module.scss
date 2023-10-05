@@ -1,0 +1,236 @@
+.wrapper {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0.5rem;
+    padding-top: 3rem;
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 0.15em;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 1.5em;
+        @include themed() {
+            color: t("text2");
+        }
+    }
+
+    @media screen and (min-width: 600.1px) {
+        padding: 3rem;
+
+        h1 {
+            font-size: max(6vmin, 2rem);
+        }
+
+        h3 {
+            font-size: max(2.5vmin, 1.25rem);
+            margin-bottom: 5rem;
+        }
+    }
+
+    @include themed() {
+        h1 > span {
+            color: t("primary");
+        }
+
+        h2 {
+            color: t("text1");
+        }
+    }
+}
+
+.formBox {
+    position: relative;
+    font-size: 1.1rem;
+    padding: 1.5rem 1.5rem 0;
+    max-width: 700px;
+
+    @media screen and (min-width: 600.1px) {
+        padding: 2.5rem 2.5rem 0.5rem;
+    }
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 2rem;
+    }
+
+    &,
+    &::before {
+        border-radius: 1rem;
+    }
+
+    h2 {
+        position: relative;
+        font-size: 2em;
+        background: transparent;
+        text-align: center;
+        margin: 0 0 1em 0;
+    }
+
+    .inputBox {
+        position: relative;
+        padding-top: 0.25em;
+        flex: 1 1 280px;
+        // max-width: 350px;
+
+        & :is(label, input) {
+            padding: 0.5em 0;
+            font-size: 1em;
+        }
+
+        input {
+            margin: 0;
+            outline: none;
+            border: none;
+            border-top: 1px solid transparent;
+            background: transparent;
+            width: 100%;
+
+            &::placeholder {
+                opacity: 0;
+            }
+
+            &:is(:focus, :not(:placeholder-shown)) ~ label {
+                font-size: 0.8em;
+                top: -1em;
+            }
+
+            &:not(:focus):not(:placeholder-shown):invalid ~ label::after {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        textarea {
+            font-size: 1.1rem;
+            padding: 1rem 0.1rem 0.5rem;
+            width: 100%;
+            resize: vertical;
+            border: none;
+            margin: 0;
+
+            background: transparent;
+
+            &::placeholder {
+                opacity: 0;
+            }
+
+            &:is(:focus, :not(:placeholder-shown)) ~ label {
+                font-size: 0.8em;
+                top: -1em;
+            }
+        }
+
+        label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-transform: capitalize;
+            pointer-events: none;
+            transition: all 0.3s;
+
+            &::after {
+                content: attr(data-error-msg);
+                position: absolute;
+                right: 0;
+                color: red;
+                opacity: 0;
+                transform: translateY(0.5em);
+                transition: all 0.3s;
+            }
+        }
+    }
+
+    button {
+        font-size: 1em;
+        width: 100%;
+        padding: 0.75em 0;
+        margin: 2em 0;
+        border-radius: 0.5em;
+        background: transparent;
+        transition: filter 0.3s, background 0.3s;
+    }
+
+    & form:valid {
+        button {
+            &:hover {
+                filter: brightness(1.2);
+            }
+        }
+    }
+
+    @include themed() {
+        background: t("surface2");
+
+        .inputBox {
+            input {
+                border-bottom: 2px solid t("surface3");
+                color: t("text1");
+
+                &:is(:focus, :not(:placeholder-shown)) ~ label {
+                    color: t("primary");
+                }
+
+                &:valid {
+                    border-bottom-color: t("accent");
+                }
+            }
+
+            textarea {
+                border-bottom: 2px solid t("surface3");
+                color: t("text1");
+
+                &:focus {
+                    outline: none;
+                }
+
+                &:is(:focus, :not(:placeholder-shown)) ~ label {
+                    color: t("primary");
+                }
+
+                &:valid {
+                    border-bottom-color: t("accent");
+                }
+            }
+
+            label {
+                color: t("text1");
+            }
+        }
+
+        button {
+            color: t("text1");
+            border: 1px solid t("text2");
+        }
+
+        & form:valid {
+            button {
+                background: t("primary");
+                border: 1px solid t("accent");
+            }
+        }
+    }
+}
+
+// @supports (backdrop-filter: blur()) or (-webkit-backdrop-filter: blur()) {
+//     .form-box {
+//         background: var(--bg-a);
+//         backdrop-filter: blur(0.1rem);
+//         box-shadow: inset 0 0 2em var(--bg-a);
+//     }
+// }
+
+// .form-box div.input-box:nth-last-of-type(2) {
+//     margin-bottom: 0;
+// }

@@ -1,0 +1,900 @@
+.wrapper {
+    --average-color: t("surface1");
+    min-height: 100vh; // TODO: CHECK THIS WOULD BE NICE TO HAVE A SET HEIGHT
+    // min-height: 100dvh; dvh is discusting
+    min-height: 100svh;
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: clamp(0.75em, 3.5vmin, 1.5em);
+    padding: 3rem 0 0;
+
+    @include themed() {
+        background-color: t("surface1");
+    }
+
+    // background image
+    $totalW: 20vmin;
+    $totalH: 20vmin;
+    $dw: $totalW / 2;
+    $dh: $totalH / 2;
+    $dwn: $dw * -1;
+    $dhn: $dh * -1;
+    $innerW: $totalW / 4;
+    $diagMul: 1.5;
+    & > picture {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0.75;
+        // transition: clip-path 1.5s cubic-bezier(0.9, 0.03, 0.64, 0.99),
+        //     opacity 0.5s ease;
+        transition: clip-path 1.5s ease-in-out, opacity 0.5s ease;
+        display: none;
+
+        @include breakpoint("md") {
+            display: unset;
+        }
+
+        clip-path: polygon(
+            calc(50% + $dwn) calc(70% + $dhn + $innerW),
+            calc(50% + $dwn) calc(70% + $dhn),
+            calc(50% + $dw) calc(70% + $dhn),
+            calc(50% + $dw) calc(70% + $dhn + $innerW),
+            calc(50% + $dwn + $innerW * $diagMul) calc(70% + $dh - $innerW),
+            calc(50% + $dw) calc(70% + $dh - $innerW),
+            calc(50% + $dw) calc(70% + $dh),
+            calc(50% + $dwn) calc(70% + $dh),
+            calc(50% + $dwn) calc(70% + $dh - $innerW),
+            calc(50% + $dw - $innerW * $diagMul) calc(70% + $dhn + $innerW)
+        );
+
+        @include breakpoint("xl") {
+            clip-path: polygon(
+                calc(50% + $dwn) calc(50% + $dhn + $innerW),
+                calc(50% + $dwn) calc(50% + $dhn),
+                calc(50% + $dw) calc(50% + $dhn),
+                calc(50% + $dw) calc(50% + $dhn + $innerW),
+                calc(50% + $dwn + $innerW * $diagMul) calc(50% + $dh - $innerW),
+                calc(50% + $dw) calc(50% + $dh - $innerW),
+                calc(50% + $dw) calc(50% + $dh),
+                calc(50% + $dwn) calc(50% + $dh),
+                calc(50% + $dwn) calc(50% + $dh - $innerW),
+                calc(50% + $dw - $innerW * $diagMul) calc(50% + $dhn + $innerW)
+            );
+        }
+
+        & > img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            background-blend-mode: screen;
+            z-index: -1;
+            opacity: 0.5;
+            filter: saturate(0.25);
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: background-color 0.5s ease;
+        }
+
+        @include themed() {
+            &,
+            & > img {
+                background-color: t("surface1");
+            }
+            &::after {
+                background-color: var(
+                    --average-color
+                ); // average color of ship2
+            }
+        }
+
+        &.imageLoaded {
+            opacity: 1;
+            clip-path: polygon(
+                0% 0%,
+                0% 0%,
+                100% 0%,
+                100% 0%,
+                100% 0%,
+                100% 100%,
+                100% 100%,
+                0% 100%,
+                0% 100%,
+                0% 100%
+            );
+
+            @include breakpoint("xl") {
+                clip-path: polygon(
+                    calc(50% + $dwn) calc(50% + $dhn + $innerW),
+                    calc(50% + $dwn) calc(50% + $dhn),
+                    calc(50% + $dw) calc(50% + $dhn),
+                    calc(50% + $dw) calc(50% + $dhn + $innerW),
+                    calc(50% + $dwn + $innerW * $diagMul)
+                        calc(50% + $dh - $innerW),
+                    calc(50% + $dw) calc(50% + $dh - $innerW),
+                    calc(50% + $dw) calc(50% + $dh),
+                    calc(50% + $dwn) calc(50% + $dh),
+                    calc(50% + $dwn) calc(50% + $dh - $innerW),
+                    calc(50% + $dw - $innerW * $diagMul)
+                        calc(50% + $dhn + $innerW)
+                );
+                clip-path: polygon(
+                    calc(100% - 26ch) 0%,
+                    calc(100% - 26ch) 0%,
+                    100% 0%,
+                    // above is top right need above
+                    100% 0%,
+                    100% 90%,
+                    100% 100%,
+                    100% 100%,
+                    // above is bottom right needed
+                    50% 100%,
+                    50% 100%,
+                    calc(100% - 26ch) 0%
+                );
+            }
+
+            // @media screen and (min-width: 1650px) {
+            //     clip-path: polygon(
+            //         80% 0%,
+            //         50% 0%,
+            //         100% 0%,
+            //         100% 0%,
+            //         100% 0%,
+            //         100% 100%,
+            //         100% 100%,
+            //         50% 100%,
+            //         50% 100%,
+            //         50% 100%
+            //     );
+            //     // border: 1rem solid red;
+            // }
+
+            @include themed() {
+                &::after {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    & > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // height: 100%;
+        // text-shadow: 0 0 10px rgba(1, 1, 1, 0.5);
+    }
+
+    .left,
+    .right {
+        z-index: 2;
+    }
+
+    // font-family: "Courier New", Courier, monospace;
+
+    .left {
+        flex: 0 0;
+        & div > :not(h3) {
+            opacity: 0;
+            animation: floatUpRight 1s ease 0.5s forwards;
+        }
+
+        @for $i from 0 through 7 {
+            & div > :not(h3):nth-of-type(#{$i}) {
+                animation-delay: 0.5s + 0.2s * $i;
+            }
+        }
+        @include themed() {
+            background-color: unset;
+            @include breakpoint("md") {
+                background-color: t("surface1");
+                border-top-left-radius: 10vmin;
+                border-top-right-radius: 10vmin;
+            }
+            @include breakpoint("xl") {
+                background-color: unset;
+            }
+        }
+
+        // TODO change layout? needs to have more than 50%
+        // before mobile md breakpoint
+        & > div {
+            width: 100%;
+            margin: auto 10vmin 0;
+            padding: 1rem 0;
+
+            @include breakpoint("md") {
+                width: unset;
+                padding: 2rem;
+                margin: 0 auto 0 10vw;
+
+                // @include themed() {
+                //     background-color: change-color(
+                //         $color: t("surface1"),
+                //         $alpha: 0.25
+                //     );
+                //     backdrop-filter: blur(3px);
+                //     border-radius: 2rem;
+                // }
+            }
+        }
+        @include themed() {
+            h3 {
+                // color: t("primary");
+
+                // gradient text
+                background: linear-gradient(
+                    to bottom right,
+                    t("primary"),
+                    t("accent")
+                );
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                display: inline-block;
+
+                &::selection {
+                    background-color: t("primary");
+                    color: t("surface1");
+                }
+            }
+            p {
+                color: t("text3");
+                font-size: max(1em, 1rem);
+
+                &::selection {
+                    background-color: t("text3");
+                    color: t("surface1");
+                }
+            }
+            p:nth-of-type(1) {
+                color: t("text2");
+            }
+        }
+    }
+    .right {
+        position: relative;
+        flex: 2 1;
+
+        & > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            // display: grid;
+            // place-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: scaleIn 1s ease 0.5s forwards;
+            animation-delay: 1s;
+
+            & > picture {
+                position: relative;
+                aspect-ratio: 1;
+                max-height: 30vh;
+                border-radius: 50%;
+                transition: border-radius 0.3s ease;
+
+                @include themed() {
+                    @include breakpoint("md") {
+                        background-color: change-color(
+                            $color: t("secondary"),
+                            $alpha: 0.4
+                        );
+                        backdrop-filter: blur(3px);
+                    }
+                    &::after {
+                        background-color: t("secondary");
+                    }
+                }
+
+                &::after {
+                    content: "Built with NextJs";
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    margin-top: 0.5em;
+                    padding: 0.2em 0.4em;
+                    font-size: 0.6em;
+                    line-height: 1em;
+                    border-radius: 0.6em;
+                    border-top-left-radius: 0;
+                    border-left: 1px solid whitesmoke;
+                    transform: translate(-50%, 1em) scale(0);
+                    transform-origin: center top;
+                    transition: transform 0.3s ease;
+                }
+
+                &:hover {
+                    border-radius: 30%;
+
+                    @include themed() {
+                        img {
+                            border-radius: 30%;
+                        }
+                    }
+
+                    &::after {
+                        transform: translate(-50%, 0);
+                    }
+                }
+
+                & img {
+                    object-fit: contain;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 50%;
+                    transition: border-radius 0.3s ease, border 0.3s ease;
+                    clip-path: polygon(
+                        0% 0%,
+                        20% 0%,
+                        50% 10%,
+                        80% 0%,
+                        100% 0%,
+                        100% 100%,
+                        0% 100%
+                    );
+
+                    @include themed() {
+                        border: 3px solid t("text2");
+                        border-bottom: 5px solid t("text2");
+                        @include breakpoint("md") {
+                            border: 5px solid t("secondary");
+                            border-bottom: 10px solid t("secondary");
+                        }
+                    }
+                }
+
+                //mobile fix
+                //TODO should do for every aspect ratio
+                display: none;
+                @media screen and (min-height: 350px) {
+                    display: unset;
+                }
+            }
+        }
+    }
+    @include breakpoint("xl") {
+        flex-direction: row;
+        .left {
+            flex: 2 1;
+        }
+        .right {
+            flex: 1 1;
+        }
+    }
+    @include breakpoint("md") {
+        // border: 1px solid blue;
+        // .left {
+        //     flex: 2 1;
+        // }
+        // .right {
+        //     flex: 1 1;
+        // }
+    }
+
+    @include breakpoint("md") {
+    }
+}
+
+.callToActionButtons {
+    display: flex;
+    gap: 1.5rem;
+}
+.title {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    line-height: 1;
+    // font-size: 1.5rem;
+    // font-weight: 700;
+    align-items: center;
+    // gap: 1ch;
+
+    // font-size: 3rem;
+    // height: 1em;
+    height: 1em;
+}
+
+.LevenshteinChangingTitle {
+    position: relative;
+    display: flex;
+    height: 1em;
+    flex: 1 1 auto;
+    font-family: "Roboto Mono", "Courier New", Courier, monospace;
+    // flex-direction: row;
+    // line-height: 1;
+    // // font-size: 1.5rem;
+    // // font-weight: 700;
+    // align-items: center;
+    // // gap: 1ch;
+
+    // // font-size: 3rem;
+    // // height: 1em;
+    // height: 1em;
+
+    @include themed() {
+        color: t("text1");
+        &::selection {
+            background-color: t("text1");
+            color: t("surface1");
+        }
+        // background: linear-gradient(to right, t("primary"), red);
+        // background-clip: text;
+        // -webkit-text-fill-color: transparent;
+    }
+    // & span {
+    //     // background: inherit;
+    //     background-clip: text;
+    //     -webkit-text-fill-color: transparent;
+    // }
+}
+
+.letterBase {
+    position: absolute;
+    top: 0;
+    width: 1ch;
+    height: 100%;
+    // animation-delay: 1s;
+
+    & span:first-child,
+    & span:last-child {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    & span:first-child {
+        // border-bottom: 1px solid blue;
+    }
+
+    & span:last-child {
+        // top: 100%;
+    }
+
+    // &:not(.insertion) span {
+    //     animation-delay: 1s;
+    //     &:is(:first-child, :last-child) {
+    //         animation-delay: 1s;
+    //     }
+    // }
+
+    // border: 1px solid green;
+}
+
+@for $i from 0 through 20 {
+    .letterNumber#{$i} {
+        left: #{$i}ch;
+    }
+    .letterNumber#{-1 * $i} {
+        left: #{-1 * $i}ch;
+    }
+}
+
+// $animation-duration: 5s;
+
+// $insertAnimationDuration: $animation-duration / 5 * 2;
+// $insertAnimationDelay: 0s;
+
+// $deleteAnimationDuration: $animation-duration / 5 * 2;
+// $deleteAnimationDelay: $insertAnimationDuration;
+
+// $matchAnimationDuration: $animation-duration / 5 * 1;
+// $matchAnimationDelay: $insertAnimationDuration + $deleteAnimationDuration;
+
+// $substitutionAnimationDuration: $animation-duration / 5 * 1;
+// $substitutionAnimationDelay: $insertAnimationDuration + $deleteAnimationDuration;
+
+$animation-duration: 5s;
+$animation-step: $animation-duration / 4;
+
+$insertAnimationDuration: $animation-step;
+$insertAnimationDelay: $animation-step * 0;
+$insertShowTimeClipSpace: 0.3; // 0.3 = 30% of animation time for first animation step
+$insertShowPercent: $insertShowTimeClipSpace * 100%;
+
+$substitutionAnimationDuration: $animation-step;
+$substitutionAnimationDelay: $animation-step * 1;
+
+$deleteAnimationDuration: $animation-step;
+$deleteAnimationDelay: $animation-step * 2;
+$deleteShowTimeClipSpace: 0.3; // 0.3 = 30% of animation time for moving all letters
+$deleteShowPercent: (1 - $deleteShowTimeClipSpace) * 100%;
+
+$matchAnimationDuration: $animation-step;
+$matchAnimationDelay: $animation-step * 3;
+
+@for $i from 0 through 20 {
+    //forwards delta {letter(s) before current are inserted}
+    @keyframes delta#{$i} {
+        0% {
+            translate: 0;
+        }
+        100% {
+            translate: #{$i}ch;
+        }
+    }
+    .letterDelta#{$i} {
+        // animation: delta#{$i} $insertAnimationDuration linear forwards;
+        animation: delta#{$i}
+            $insertAnimationDuration *
+            $insertShowTimeClipSpace
+            linear
+            forwards;
+        animation-delay: $insertAnimationDelay;
+    }
+
+    @keyframes delta#{-1 * $i} {
+        0% {
+            translate: 0;
+        }
+        100% {
+            translate: #{-1 * $i}ch;
+        }
+    }
+
+    .letterDelta#{-1 * $i} {
+        animation: delta#{-1 *
+            $i}
+            $deleteAnimationDuration *
+            $deleteShowTimeClipSpace
+            linear
+            forwards;
+        animation-delay: $deleteAnimationDelay +
+            $deleteAnimationDuration *
+            (1 - $deleteShowTimeClipSpace);
+    }
+}
+
+// @for $i from 0 through -20 {
+//     //backwards delta {letter(s) before current are deleted}
+//     @keyframes delta#{$i} {
+//         0% {
+//             transform: translateX(#{-1 * $i}ch);
+//         }
+//         100% {
+//             transform: translateX(0);
+//         }
+//     }
+//     .letterDelta#{$i} {
+//         // border: 1px solid blue;
+//         animation: delta#{$i} 0.5s linear forwards;
+//     }
+// }
+
+.insertion {
+    @extend .letterBase;
+    @keyframes insertion {
+        0% {
+            color: transparent;
+        }
+        #{$insertShowPercent} {
+            color: transparent;
+        }
+        100% {
+            color: inherit;
+        }
+    }
+
+    & span:last-child {
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1ch;
+            height: 1em;
+        }
+        &::before {
+            content: "\21FE";
+            @keyframes insertionBefore {
+                0% {
+                    clip-path: inset(0 100% 0 0);
+                }
+                #{$insertShowPercent},
+                #{100% - $insertShowPercent} {
+                    clip-path: inset(-10% 0 -10% 0);
+                }
+                100% {
+                    clip-path: inset(0 0 0 100%);
+                }
+            }
+            @include themed() {
+                color: t("accent");
+                background-color: t("surface1");
+            }
+            animation: insertionBefore $insertAnimationDuration ease-in forwards;
+            animation-delay: $insertAnimationDelay;
+        }
+        &::after {
+            @keyframes insertionAfter {
+                0% {
+                    background-position: 200%;
+                }
+                #{$insertShowPercent} {
+                    background-position: 200%;
+                }
+                #{100% - $insertShowPercent} {
+                    background-position: -100%;
+                }
+                100% {
+                    background-position: -100%;
+                }
+            }
+            @include themed() {
+                background: linear-gradient(
+                    to left,
+                    t("accent") 0%,
+                    t("accent") 10%,
+                    transparent 20%,
+                    transparent 25%,
+                    t("accent") 25%,
+                    t("accent") 35%,
+                    transparent 35%,
+                    transparent 40%,
+                    t("accent") 40%,
+                    t("accent") 50%,
+                    transparent 50%,
+                    transparent 100%
+                );
+                background-repeat: no-repeat;
+                background-size: 200% 100%;
+                background-position: 200%;
+                animation: insertionAfter $insertAnimationDuration ease-in
+                    forwards;
+                animation-delay: $insertAnimationDelay +
+                    $insertAnimationDuration * $insertShowTimeClipSpace;
+            }
+        }
+    }
+
+    // animation-duration: 0s;
+
+    & span:last-child {
+        // opacity: 0;
+        // clip-path: inset(0 100% 0 0);
+        // border-top: 1px solid green;
+        animation: insertion $insertAnimationDuration linear forwards;
+        animation-delay: $insertAnimationDelay;
+    }
+}
+
+.substitution {
+    @extend .letterBase;
+
+    & span:first-child {
+        @keyframes substitutionOld {
+            0% {
+                // transform: translate(0, 0);
+                color: inherit;
+                // clip-path: inset(-10% 0 -10% 0);
+            }
+            49% {
+                color: inherit;
+            }
+            50% {
+                color: transparent;
+                // clip-path: inset(45% 0 45% 0);
+            }
+            100% {
+                // transform: translate(0, -100%);
+                color: transparent;
+            }
+        }
+        // transform: translate(0, 0);
+        color: inherit;
+        animation: substitutionOld $substitutionAnimationDuration ease-in-out
+            forwards;
+        animation-delay: $substitutionAnimationDelay;
+    }
+
+    & span:last-child {
+        @keyframes substitutionNew {
+            0% {
+                // transform: translate(0, 100%);
+                color: transparent;
+                // clip-path: inset(45% 0 45% 0);
+            }
+            49% {
+                color: transparent;
+            }
+            50% {
+                color: inherit;
+                // clip-path: inset(45% 0 45% 0);
+            }
+            100% {
+                // transform: translate(0, 0);
+                color: inherit;
+                // clip-path: inset(-10% 0 -10% 0);
+            }
+        }
+        // transform: translate(0, 100%);
+        color: transparent;
+        animation: substitutionNew $substitutionAnimationDuration ease-in-out
+            forwards;
+        animation-delay: $substitutionAnimationDelay;
+
+        &::before {
+            transform-origin: top center;
+            transform: translateY(-10%) scale(1, 0);
+            @include themed() {
+                border-bottom: 0.2em solid t("accent");
+                // border-top: 0.4em solid red;
+            }
+
+            @keyframes substitutionBefore {
+                0% {
+                    transform: translateY(-10%) scale(1, 0);
+                }
+                50% {
+                    transform: translateY(-10%) scale(1, 0.61);
+                }
+                100% {
+                    transform: translateY(-10%) scale(1, 0);
+                }
+            }
+            animation: substitutionBefore $substitutionAnimationDuration
+                ease-in-out forwards;
+            animation-delay: $substitutionAnimationDelay;
+        }
+
+        &::after {
+            transform-origin: bottom center;
+            transform: translateY(-10%) scale(1, 0);
+            @include themed() {
+                border-top: 0.2em solid t("accent");
+                // border-bottom: 0.6em solid red;
+                // // border and we can also do
+            }
+            @keyframes substitutionAfter {
+                0% {
+                    transform: translateY(10%) scale(1, 0);
+                }
+                50% {
+                    transform: translateY(10%) scale(1, 0.61);
+                }
+                100% {
+                    transform: translateY(10%) scale(1, 0);
+                }
+            }
+            animation: substitutionAfter $substitutionAnimationDuration
+                ease-in-out forwards;
+            animation-delay: $substitutionAnimationDelay;
+        }
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1ch;
+            height: 1em;
+            // background-color: red;
+            // border-bottom: 3px solid blue;
+            @include themed() {
+                background-color: t("surface1");
+            }
+        }
+    }
+}
+
+.match {
+    @extend .letterBase;
+}
+
+.deletion {
+    @extend .letterBase;
+
+    @keyframes deletion {
+        #{$deleteShowPercent / 4 * 3},
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        #{$deleteShowPercent},
+        100% {
+            opacity: 0;
+            transform: scale(0);
+        }
+    }
+
+    // make x with before and after
+    &::before {
+        translate: -50% -50%;
+        rotate: -45deg;
+    }
+    &::after {
+        translate: -50% -50%;
+        rotate: 45deg;
+    }
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0.2em;
+        height: 0.9em;
+        border-radius: 0.1em;
+        transform-origin: center center;
+        z-index: 2;
+        transform: scale(0);
+
+        @keyframes deletionX {
+            0% {
+                opacity: 0;
+                transform: scale(2);
+            }
+            #{$deleteShowPercent / 4} {
+                opacity: 1;
+                transform: scale(1.25);
+            }
+            #{$deleteShowPercent / 4 * 2} {
+                opacity: 1;
+                transform: scale(1);
+            }
+            #{$deleteShowPercent / 4 * 3} {
+                opacity: 1;
+                transform: scale(1);
+            }
+            #{$deleteShowPercent} {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        @include themed() {
+            background-color: t("accent");
+        }
+
+        animation: deletionX $deleteAnimationDuration linear forwards;
+        animation-delay: $deleteAnimationDelay;
+    }
+
+    // clip-path: inset(-10% 0 -10% 0);
+    animation: deletion $deleteAnimationDuration linear forwards;
+    animation-delay: $deleteAnimationDelay;
+}
+
+// @for $i from 1 through 20 {
+//     :is(.substitution):nth-child(#{$i}) {
+//         & span:first-child,
+//         & span:last-child {
+//             // delay the first span by 0.5s
+//             animation-delay: #{0.5 + $i / 10}s;
+//         }
+//     }
+// }
+
+// @for $i from 1 through 20 {
+//     :is(.deletion, .insertion):nth-child(#{$i}) {
+//         animation-duration: $animation-duration / 2;
+//         animation-delay: #{$i / 10}s;
+//     }
+// }
+
+// test class for badly tagged letters
+.HUHHH {
+    color: orange !important;
+    border: 1px solid orange !important;
+}

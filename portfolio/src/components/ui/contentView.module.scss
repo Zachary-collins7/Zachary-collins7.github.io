@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content {
+    @include content-width();
+    padding: 1rem;
+}
+
+.backgroundSurfaceLevel1 {
+    @include themed() {
+        background-color: t("surface1");
+    }
+}
+.backgroundSurfaceLevel2 {
+    @include themed() {
+        background-color: t("surface2");
+    }
+}
+.backgroundSurfaceLevel3 {
+    @include themed() {
+        background-color: t("surface3");
+    }
+}
+.backgroundSurfaceLevel4 {
+    @include themed() {
+        background-color: t("surface4");
+    }
+}

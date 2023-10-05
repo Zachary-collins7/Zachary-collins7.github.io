@@ -1,53 +1,47 @@
-const { userAgent } = require('next/server')
+const { userAgent } = require("next/server");
 
 const botAgents = [
-    'Googlebot',
-    'Slurp',
-    'Yahoo! Slurp',
-    'msnbot',
-    'bingbot',
-    'Baiduspider',
-    'YandexBot',
-    'Sogou web spider',
-    'Sosospider',
-    'Sogou web spider',
-    'AdsBot-Google',
-    'magpie-crawler',
-    'feedjira',
+    "Googlebot",
+    "Slurp",
+    "Yahoo! Slurp",
+    "msnbot",
+    "bingbot",
+    "Baiduspider",
+    "YandexBot",
+    "Sogou web spider",
+    "Sosospider",
+    "Sogou web spider",
+    "AdsBot-Google",
+    "magpie-crawler",
+    "feedjira",
 ];
 
-const blockBotPaths = [
-    '/api/',
-    '/no-robots/',
-    '/private/',
-];
-
+const blockBotPaths = ["/api/", "/no-robots/", "/private/"];
 
 /** @type {import('next-sitemap').IRobotPolicy[]} */
-const generatedPolicies = botAgents.map(botAgent => {
+const generatedPolicies = botAgents.map((botAgent) => {
     return {
         userAgent: botAgent,
-        disallow: blockBotPaths
-    }
+        disallow: blockBotPaths,
+    };
 });
-
 
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-    siteUrl: process.env.SITE_URL || 'https://example.com',
+    siteUrl: process.env.SITE_URL || "https://zachary-collins7.github.io",
     sitemapSize: 7000,
-    outDir: 'out',
-    changefreq: 'monthly',
+    outDir: "out",
+    changefreq: "monthly",
     generateRobotsTxt: true,
     robotsTxtOptions: {
         policies: [
             {
-                userAgent: '*',
-                allow: '/',
+                userAgent: "*",
+                allow: "/",
             },
             ...generatedPolicies,
-        ]
-    }
+        ],
+    },
 };
 
 module.exports = config;

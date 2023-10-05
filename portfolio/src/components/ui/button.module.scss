@@ -1,0 +1,130 @@
+$borderWidth: 0.1em;
+
+// $horizontalPadding: 1em;
+// $verticalPadding: 0.6em;
+// $borderWidth: 0.1em;
+
+@mixin brightnessHoverEffect {
+    transition: 0.3s filter;
+    &:hover,
+    &:focus {
+        filter: brightness(1.2);
+    }
+}
+
+// ::before is for tool tips
+// ::after is for effects
+.base {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: $borderWidth solid transparent;
+    outline: none;
+    // color: $brand-light; //scale-color($color: $brand-light, $lightness: 15%); //looks better?
+    font-weight: 500;
+    text-align: center;
+    background: transparent;
+    cursor: pointer;
+    user-select: none;
+    // padding: 0 0.5em;
+
+    @include brightnessHoverEffect();
+
+    @include themed() {
+        color: t("primary");
+    }
+
+    &.small {
+        font-size: 14px;
+        border-radius: 6px;
+        height: 32px;
+        padding: 0 12px;
+    }
+
+    &.medium {
+        font-size: 16px;
+        border-radius: 6px;
+        height: 40px;
+        padding: 0 12px;
+    }
+
+    &.large {
+        font-size: 16px;
+        border-radius: 8px;
+        height: 48px;
+        padding: 0 16px;
+    }
+}
+
+.noPadding {
+    padding: 0 !important;
+
+    &::after {
+        bottom: -0.1em !important; // todo remove these !important flags
+        left: 0 !important;
+        width: 100% !important;
+    }
+}
+
+.disabled {
+    cursor: not-allowed;
+    filter: grayscale(1) !important;
+    opacity: 0.6;
+
+    &:hover::after {
+        display: none;
+    }
+}
+
+.primary {
+    @include themed() {
+        color: t("text1");
+        background-color: t("primary");
+        border-color: t("primary");
+    }
+}
+
+.secondary {
+    @include themed() {
+        color: t("text2");
+        background-color: t("secondary");
+    }
+}
+
+.tertiary {
+    & span {
+        position: relative;
+    }
+    // & span::after {
+    //     content: "";
+    //     position: absolute;
+    //     bottom: 0;
+    //     left: 50%;
+    //     height: $borderWidth;
+    //     width: 95%;
+    //     border-radius: calc($borderWidth / 2);
+    //     translate: -50% 100%;
+    //     scale: 0 1;
+    //     transform-origin: left;
+    //     transition: 0.3s scale;
+    // }
+
+    // &:is(:hover, :focus) span::after {
+    //     scale: 1;
+    // }
+
+    @include themed() {
+        color: t("primary");
+
+        & span::after {
+            background: t("primary");
+        }
+    }
+}
+
+.ghost {
+    @include themed() {
+        border: $borderWidth solid t("primary");
+    }
+}
