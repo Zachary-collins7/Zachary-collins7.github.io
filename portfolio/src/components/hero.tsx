@@ -156,7 +156,7 @@ const Greeting = () => {
     const allTitles = [
         "Software Engineer",
         "Fullstack Developer",
-        "Prompt Engineer",
+        "Pizza Lover",
     ];
     const titleChangeDelayMs = 10000;
     const [titleIndex, setTitleIndex] = useState(1); // TODO: check prod. no idea why this is 1 and not 0
