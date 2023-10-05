@@ -1,18 +1,21 @@
-const path = require('path');
-
+const path = require("path");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: "export",
+    images: {
+        unoptimized: true,
+    },
     sassOptions: {
-        includePaths: [path.join(__dirname, 'src/styles')],
+        includePaths: [path.join(__dirname, "src/styles")],
         additionalData: `@import "src/styles/abstracts/_variables.scss"; @import "src/styles/abstracts/_mixins.scss";`,
-      },
-      experimental: {
+    },
+    experimental: {
+        appDir: true,
         images: {
-          unoptimized: true
-        }
-      }
-}
+            unoptimized: true,
+        },
+    },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
