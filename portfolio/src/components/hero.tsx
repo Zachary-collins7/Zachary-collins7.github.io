@@ -1,22 +1,152 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
     levenshteinDistance,
     LevenshteinDistanceResult,
 } from "../util/dataStructures"; //"@util/dataStructures";
 import styles from "./hero.module.scss";
 import Button from "./ui/button";
+import Link from "next/link";
 
 export default function Hero() {
+    const bgImageRef = useRef<HTMLImageElement>(null);
+    const profileImageRef = useRef<HTMLImageElement>(null);
+
+    //triggers multiple times if the user resizes the window
+    const onLoad = () => {
+        const imageElement = bgImageRef.current;
+        if (!imageElement) {
+            return;
+        }
+        // wait 2 sceonds before showing the image
+        setTimeout(() => {
+            imageElement.classList.add(styles.imageLoaded);
+        }, 2000);
+
+        console.log("image loaded");
+    };
+    const onError = () => {
+        const imageElement = bgImageRef.current;
+        if (!imageElement) {
+            return;
+        }
+        imageElement.style.display = "none";
+    };
+
     return (
         <div className={styles.wrapper}>
+            <picture
+                ref={bgImageRef}
+                style={
+                    {
+                        "--average-color": "hsl(252, 12%, 8%)",
+                    } as React.CSSProperties
+                }
+            >
+                <source
+                    type="image/webp"
+                    data-srcset="../assets/images/herobg-4k.webp 1x, ../assets/images/herobg-4k@2x.webp 2x"
+                    media="(min-width: 2561px)"
+                    srcSet="../assets/images/herobg-4k.webp 1x, ../assets/images/herobg-4k@2x.webp 2x"
+                />
+                <source
+                    type="image/jpg"
+                    data-srcset="../assets/images/herobg-4k.jpg 1x, ../assets/images/herobg-4k@2x.jpg 2x"
+                    media="(min-width: 2561px)"
+                    srcSet="../assets/images/herobg-4k.jpg 1x, ../assets/images/herobg-4k@2x.jpg 2x"
+                />
+                <source
+                    type="image/webp"
+                    data-srcset="../assets/images/herobg-2k.webp 1x, ../assets/images/herobg-2k@2x.webp 2x"
+                    media="(min-width: 1930px)"
+                    srcSet="../assets/images/herobg-2k.webp 1x, ../assets/images/herobg-2k@2x.webp 2x"
+                />
+                <source
+                    type="image/jpg"
+                    data-srcset="../assets/images/herobg-2k.jpg 1x, ../assets/images/herobg-2k@2x.jpg 2x"
+                    media="(min-width: 1930px)"
+                    srcSet="../assets/images/herobg-2k.jpg 1x, ../assets/images/herobg-2k@2x.jpg 2x"
+                />
+                <source
+                    type="image/webp"
+                    data-srcset="../assets/images/herobg-hd.webp 1x, ../assets/images/herobg-hd@2x.webp 2x"
+                    media="(min-width: 1441px)"
+                    srcSet="../assets/images/herobg-hd.webp 1x, ../assets/images/herobg-hd@2x.webp 2x"
+                />
+                <source
+                    type="image/jpg"
+                    data-srcset="../assets/images/herobg-hd.jpg 1x, ../assets/images/herobg-hd@2x.jpg 2x"
+                    media="(min-width: 1441px)"
+                    srcSet="../assets/images/herobg-hd.jpg 1x, ../assets/images/herobg-hd@2x.jpg 2x"
+                />
+                <source
+                    type="image/webp"
+                    data-srcset="../assets/images/herobg-pi.webp 1x, ../assets/images/herobg-pi@2x.webp 2x"
+                    media="(min-width: 1281px)"
+                    srcSet="../assets/images/herobg-pi.webp 1x, ../assets/images/herobg-pi@2x.webp 2x"
+                />
+                <source
+                    type="image/jpg"
+                    data-srcset="../assets/images/herobg-pi.jpg 1x, ../assets/images/herobg-pi@2x.jpg 2x"
+                    media="(min-width: 1281px)"
+                    srcSet="../assets/images/herobg-pi.jpg 1x, ../assets/images/herobg-pi@2x.jpg 2x"
+                />
+                <source
+                    type="image/webp"
+                    data-srcset="../assets/images/herobg-md.webp 1x, ../assets/images/herobg-md@2x.webp 2x"
+                    media="(min-width: 481px)"
+                    srcSet="../assets/images/herobg-md.webp 1x, ../assets/images/herobg-md@2x.webp 2x"
+                />
+                <source
+                    type="image/jpg"
+                    data-srcset="../assets/images/herobg-md.jpg 1x, ../assets/images/herobg-md@2x.jpg 2x"
+                    media="(min-width: 481px)"
+                    srcSet="../assets/images/herobg-md.jpg 1x, ../assets/images/herobg-md@2x.jpg 2x"
+                />
+                <source
+                    type="image/webp"
+                    data-srcset="../assets/images/herobg-mobile@2x.webp 1x, ../assets/images/herobg-md.webp 2x"
+                    media="(max-width: 414px)"
+                    srcSet="../assets/images/herobg-mobile@2x.webp 1x, ../assets/images/herobg-md.webp 2x"
+                />
+                <source
+                    type="image/jpg"
+                    data-srcset="../assets/images/herobg-mobile@2x.jpg 1x, ../assets/images/herobg-md.jpg 2x"
+                    media="(max-width: 414px)"
+                    srcSet="../assets/images/herobg-mobile@2x.jpg 1x, ../assets/images/herobg-md.jpg 2x"
+                />
+                <Image
+                    className="parallax lazyloaded"
+                    width="2160"
+                    height="2028"
+                    src="../assets/images/herobg-hd.jpg"
+                    data-src="../assets/images/herobg-hd.jpg"
+                    alt="olt art"
+                    role="presentation"
+                    onLoad={onLoad}
+                    onError={onError}
+                />
+            </picture>
+
             <div className={styles.left}>
                 <div>
                     <Greeting />
                 </div>
             </div>
             <div className={styles.right}>
-                <div></div>
+                <div>
+                    <picture>
+                        <Image
+                            src={"/assets/images/headshot2.png"}
+                            alt="picture of me"
+                            width={100}
+                            height={100}
+                            ref={profileImageRef}
+                            priority
+                        />
+                    </picture>
+                </div>
             </div>
         </div>
     );
@@ -44,8 +174,6 @@ const Greeting = () => {
             const newTitleWords = newTitle.split(" ");
             setTitleIndex(newIndex);
             setTitle(allTitles[titleIndex]);
-
-            console.log({ oldTitle, newTitle });
 
             // update to support different length titles
             const newWordChanges = oldTitleWords.map((word, i) => {
@@ -85,14 +213,14 @@ const Greeting = () => {
             setWordChanges(newWordChanges);
         }, titleChangeDelayMs);
         return () => clearInterval(interval);
-    }, [titleIndex]);
+    }, [titleIndex, title]);
 
     return (
         <>
-            <h3>Im Zach</h3>
+            <h3>I&apos;m Zach</h3>
             <h1>
                 <span className={`${styles.title}`}>
-                    <span style={{ marginRight: "1ch" }}>a</span>
+                    {/* <span style={{ marginRight: "1ch" }}>a</span> */}
                     {(wordChanges && wordChanges.length > 0 && (
                         <span
                             className={styles.LevenshteinChangingTitle}
@@ -128,8 +256,7 @@ const Greeting = () => {
                 ... with agile software development skills and a passion for
                 creating beautiful and functional applications
             </p>
-            <p>Hello world</p>
-            <div className={styles.callToActionButtons}>
+            <p className={styles.callToActionButtons}>
                 <Button
                     as={"link"}
                     href={"/contact"}
@@ -146,7 +273,19 @@ const Greeting = () => {
                 >
                     Learn More
                 </Button>
-            </div>
+            </p>
+            <p style={{ fontSize: "0.8em" }}>
+                I&apos;m currently working on: My discord bot{" "}
+                <Link
+                    href="/projects/zerkbot"
+                    style={{
+                        color: "inherit",
+                        textDecoration: "underline",
+                    }}
+                >
+                    ZerkBot
+                </Link>
+            </p>
         </>
     );
 };

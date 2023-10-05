@@ -1,33 +1,174 @@
 .wrapper {
+    --average-color: t("surface1");
     min-height: 100vh; // TODO: CHECK THIS WOULD BE NICE TO HAVE A SET HEIGHT
+    // min-height: 100dvh; dvh is discusting
+    min-height: 100svh;
     width: 100%;
     display: flex;
     flex-direction: column-reverse;
-    // justify-content: center;
-    // align-items: center;
-    color: whitesmoke;
-    font-size: clamp(0.75em, 1.5vw, 1.6rem);
-    // color: black;
+    font-size: clamp(0.75em, 3.5vmin, 1.5em);
+    padding: 3rem 0 0;
 
-    // padding: 10vh 10vw;
-    // padding-top: 3rem;
+    @include themed() {
+        background-color: t("surface1");
+    }
 
-    // background
-    &::before {
-        content: "";
+    // background image
+    $totalW: 20vmin;
+    $totalH: 20vmin;
+    $dw: $totalW / 2;
+    $dh: $totalH / 2;
+    $dwn: $dw * -1;
+    $dhn: $dh * -1;
+    $innerW: $totalW / 4;
+    $diagMul: 1.5;
+    & > picture {
         position: absolute;
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
-        background: url("/assets/images/11226740766_890db563a5_o.jpg");
-        background-repeat: no-repeat;
-        object-fit: cover;
-        filter: grayscale(1) blur(0px) brightness(0.5) contrast(2);
-        // filter: grayscale(1) blur(0px) brightness(0.5) contrast(2) invert(1); // light
-        background-color: black;
-        background-blend-mode: screen;
-        z-index: -1;
+        opacity: 0.75;
+        // transition: clip-path 1.5s cubic-bezier(0.9, 0.03, 0.64, 0.99),
+        //     opacity 0.5s ease;
+        transition: clip-path 1.5s ease-in-out, opacity 0.5s ease;
+        display: none;
+
+        @include breakpoint("md") {
+            display: unset;
+        }
+
+        clip-path: polygon(
+            calc(50% + $dwn) calc(70% + $dhn + $innerW),
+            calc(50% + $dwn) calc(70% + $dhn),
+            calc(50% + $dw) calc(70% + $dhn),
+            calc(50% + $dw) calc(70% + $dhn + $innerW),
+            calc(50% + $dwn + $innerW * $diagMul) calc(70% + $dh - $innerW),
+            calc(50% + $dw) calc(70% + $dh - $innerW),
+            calc(50% + $dw) calc(70% + $dh),
+            calc(50% + $dwn) calc(70% + $dh),
+            calc(50% + $dwn) calc(70% + $dh - $innerW),
+            calc(50% + $dw - $innerW * $diagMul) calc(70% + $dhn + $innerW)
+        );
+
+        @include breakpoint("xl") {
+            clip-path: polygon(
+                calc(50% + $dwn) calc(50% + $dhn + $innerW),
+                calc(50% + $dwn) calc(50% + $dhn),
+                calc(50% + $dw) calc(50% + $dhn),
+                calc(50% + $dw) calc(50% + $dhn + $innerW),
+                calc(50% + $dwn + $innerW * $diagMul) calc(50% + $dh - $innerW),
+                calc(50% + $dw) calc(50% + $dh - $innerW),
+                calc(50% + $dw) calc(50% + $dh),
+                calc(50% + $dwn) calc(50% + $dh),
+                calc(50% + $dwn) calc(50% + $dh - $innerW),
+                calc(50% + $dw - $innerW * $diagMul) calc(50% + $dhn + $innerW)
+            );
+        }
+
+        & > img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            background-blend-mode: screen;
+            z-index: -1;
+            opacity: 0.5;
+            filter: saturate(0.25);
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: background-color 0.5s ease;
+        }
+
+        @include themed() {
+            &,
+            & > img {
+                background-color: t("surface1");
+            }
+            &::after {
+                background-color: var(
+                    --average-color
+                ); // average color of ship2
+            }
+        }
+
+        &.imageLoaded {
+            opacity: 1;
+            clip-path: polygon(
+                0% 0%,
+                0% 0%,
+                100% 0%,
+                100% 0%,
+                100% 0%,
+                100% 100%,
+                100% 100%,
+                0% 100%,
+                0% 100%,
+                0% 100%
+            );
+
+            @include breakpoint("xl") {
+                clip-path: polygon(
+                    calc(50% + $dwn) calc(50% + $dhn + $innerW),
+                    calc(50% + $dwn) calc(50% + $dhn),
+                    calc(50% + $dw) calc(50% + $dhn),
+                    calc(50% + $dw) calc(50% + $dhn + $innerW),
+                    calc(50% + $dwn + $innerW * $diagMul)
+                        calc(50% + $dh - $innerW),
+                    calc(50% + $dw) calc(50% + $dh - $innerW),
+                    calc(50% + $dw) calc(50% + $dh),
+                    calc(50% + $dwn) calc(50% + $dh),
+                    calc(50% + $dwn) calc(50% + $dh - $innerW),
+                    calc(50% + $dw - $innerW * $diagMul)
+                        calc(50% + $dhn + $innerW)
+                );
+                clip-path: polygon(
+                    calc(100% - 26ch) 0%,
+                    calc(100% - 26ch) 0%,
+                    100% 0%,
+                    // above is top right need above
+                    100% 0%,
+                    100% 90%,
+                    100% 100%,
+                    100% 100%,
+                    // above is bottom right needed
+                    50% 100%,
+                    50% 100%,
+                    calc(100% - 26ch) 0%
+                );
+            }
+
+            // @media screen and (min-width: 1650px) {
+            //     clip-path: polygon(
+            //         80% 0%,
+            //         50% 0%,
+            //         100% 0%,
+            //         100% 0%,
+            //         100% 0%,
+            //         100% 100%,
+            //         100% 100%,
+            //         50% 100%,
+            //         50% 100%,
+            //         50% 100%
+            //     );
+            //     // border: 1rem solid red;
+            // }
+
+            @include themed() {
+                &::after {
+                    background-color: transparent;
+                }
+            }
+        }
     }
 
     & > div {
@@ -38,23 +179,77 @@
         // text-shadow: 0 0 10px rgba(1, 1, 1, 0.5);
     }
 
-    @include breakpoint("md") {
-        flex-direction: row;
+    .left,
+    .right {
+        z-index: 2;
     }
 
     // font-family: "Courier New", Courier, monospace;
+
     .left {
-        flex: 2 0 66%;
+        flex: 0 0;
+        & div > :not(h3) {
+            opacity: 0;
+            animation: floatUpRight 1s ease 0.5s forwards;
+        }
+
+        @for $i from 0 through 7 {
+            & div > :not(h3):nth-of-type(#{$i}) {
+                animation-delay: 0.5s + 0.2s * $i;
+            }
+        }
+        @include themed() {
+            background-color: unset;
+            @include breakpoint("md") {
+                background-color: t("surface1");
+                border-top-left-radius: 10vmin;
+                border-top-right-radius: 10vmin;
+            }
+            @include breakpoint("xl") {
+                background-color: unset;
+            }
+        }
+
         // TODO change layout? needs to have more than 50%
         // before mobile md breakpoint
         & > div {
             width: 100%;
-            margin: 0 0 0 10vw;
+            margin: auto 10vmin 0;
+            padding: 1rem 0;
+
+            @include breakpoint("md") {
+                width: unset;
+                padding: 2rem;
+                margin: 0 auto 0 10vw;
+
+                // @include themed() {
+                //     background-color: change-color(
+                //         $color: t("surface1"),
+                //         $alpha: 0.25
+                //     );
+                //     backdrop-filter: blur(3px);
+                //     border-radius: 2rem;
+                // }
+            }
         }
         @include themed() {
-            h3::selection {
-                background-color: t("text1");
-                color: t("surface1");
+            h3 {
+                // color: t("primary");
+
+                // gradient text
+                background: linear-gradient(
+                    to bottom right,
+                    t("primary"),
+                    t("accent")
+                );
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                display: inline-block;
+
+                &::selection {
+                    background-color: t("primary");
+                    color: t("surface1");
+                }
             }
             p {
                 color: t("text3");
@@ -65,33 +260,137 @@
                     color: t("surface1");
                 }
             }
+            p:nth-of-type(1) {
+                color: t("text2");
+            }
         }
     }
     .right {
         position: relative;
-        flex: 1 1 33%;
+        flex: 2 1;
 
-        // &::before,
-        // &::after {
-        //     content: "";
-        //     position: absolute;
-        //     top: 0;
-        //     left: 0;
-        //     height: 100%;
-        //     width: 100%;
-        // }
+        & > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            // display: grid;
+            // place-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: scaleIn 1s ease 0.5s forwards;
+            animation-delay: 1s;
 
-        &::after {
-            background: linear-gradient(
-                to right,
-                rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 1) 100%
-            );
-            border: 1px solid;
-            border-top-left-radius: 3rem;
-            border-bottom-left-radius: 3rem;
-            // clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 calc(100% - 3rem));
+            & > picture {
+                position: relative;
+                aspect-ratio: 1;
+                max-height: 30vh;
+                border-radius: 50%;
+                transition: border-radius 0.3s ease;
+
+                @include themed() {
+                    @include breakpoint("md") {
+                        background-color: change-color(
+                            $color: t("secondary"),
+                            $alpha: 0.4
+                        );
+                        backdrop-filter: blur(3px);
+                    }
+                    &::after {
+                        background-color: t("secondary");
+                    }
+                }
+
+                &::after {
+                    content: "Built with NextJs";
+                    position: absolute;
+                    top: 100%;
+                    left: 50%;
+                    margin-top: 0.5em;
+                    padding: 0.2em 0.4em;
+                    font-size: 0.6em;
+                    line-height: 1em;
+                    border-radius: 0.6em;
+                    border-top-left-radius: 0;
+                    border-left: 1px solid whitesmoke;
+                    transform: translate(-50%, 1em) scale(0);
+                    transform-origin: center top;
+                    transition: transform 0.3s ease;
+                }
+
+                &:hover {
+                    border-radius: 30%;
+
+                    @include themed() {
+                        img {
+                            border-radius: 30%;
+                        }
+                    }
+
+                    &::after {
+                        transform: translate(-50%, 0);
+                    }
+                }
+
+                & img {
+                    object-fit: contain;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 50%;
+                    transition: border-radius 0.3s ease, border 0.3s ease;
+                    clip-path: polygon(
+                        0% 0%,
+                        20% 0%,
+                        50% 10%,
+                        80% 0%,
+                        100% 0%,
+                        100% 100%,
+                        0% 100%
+                    );
+
+                    @include themed() {
+                        border: 3px solid t("text2");
+                        border-bottom: 5px solid t("text2");
+                        @include breakpoint("md") {
+                            border: 5px solid t("secondary");
+                            border-bottom: 10px solid t("secondary");
+                        }
+                    }
+                }
+
+                //mobile fix
+                //TODO should do for every aspect ratio
+                display: none;
+                @media screen and (min-height: 350px) {
+                    display: unset;
+                }
+            }
         }
+    }
+    @include breakpoint("xl") {
+        flex-direction: row;
+        .left {
+            flex: 2 1;
+        }
+        .right {
+            flex: 1 1;
+        }
+    }
+    @include breakpoint("md") {
+        // border: 1px solid blue;
+        // .left {
+        //     flex: 2 1;
+        // }
+        // .right {
+        //     flex: 1 1;
+        // }
+    }
+
+    @include breakpoint("md") {
     }
 }
 
@@ -99,17 +398,6 @@
     display: flex;
     gap: 1.5rem;
 }
-
-.brandColor {
-    @include themed() {
-        color: t("brand");
-        &::selection {
-            background-color: t("brand");
-            color: t("surface1");
-        }
-    }
-}
-
 .title {
     position: relative;
     display: flex;
@@ -126,11 +414,11 @@
 }
 
 .LevenshteinChangingTitle {
-    @extend .brandColor;
     position: relative;
     display: flex;
     height: 1em;
     flex: 1 1 auto;
+    font-family: "Roboto Mono", "Courier New", Courier, monospace;
     // flex-direction: row;
     // line-height: 1;
     // // font-size: 1.5rem;
@@ -141,6 +429,22 @@
     // // font-size: 3rem;
     // // height: 1em;
     // height: 1em;
+
+    @include themed() {
+        color: t("text1");
+        &::selection {
+            background-color: t("text1");
+            color: t("surface1");
+        }
+        // background: linear-gradient(to right, t("primary"), red);
+        // background-clip: text;
+        // -webkit-text-fill-color: transparent;
+    }
+    // & span {
+    //     // background: inherit;
+    //     background-clip: text;
+    //     -webkit-text-fill-color: transparent;
+    // }
 }
 
 .letterBase {
@@ -148,7 +452,7 @@
     top: 0;
     width: 1ch;
     height: 100%;
-    animation-delay: 1s;
+    // animation-delay: 1s;
 
     & span:first-child,
     & span:last-child {
@@ -200,7 +504,7 @@
 // $substitutionAnimationDuration: $animation-duration / 5 * 1;
 // $substitutionAnimationDelay: $insertAnimationDuration + $deleteAnimationDuration;
 
-$animation-duration: 10s;
+$animation-duration: 5s;
 $animation-step: $animation-duration / 4;
 
 $insertAnimationDuration: $animation-step;
@@ -309,14 +613,14 @@ $matchAnimationDelay: $animation-step * 3;
                 }
                 #{$insertShowPercent},
                 #{100% - $insertShowPercent} {
-                    clip-path: inset(0 0 0 0);
+                    clip-path: inset(-10% 0 -10% 0);
                 }
                 100% {
                     clip-path: inset(0 0 0 100%);
                 }
             }
             @include themed() {
-                color: t("brand");
+                color: t("accent");
                 background-color: t("surface1");
             }
             animation: insertionBefore $insertAnimationDuration ease-in forwards;
@@ -324,15 +628,6 @@ $matchAnimationDelay: $animation-step * 3;
         }
         &::after {
             @keyframes insertionAfter {
-                // 0% {
-                //     // background: none;
-                // }
-                // #{$insertShowPercent - 1%} {
-                //     // background: none;
-                // }
-                // #{$insertShowPercent} {
-                //     background-position: 200%;
-                // }
                 0% {
                     background-position: 200%;
                 }
@@ -349,16 +644,16 @@ $matchAnimationDelay: $animation-step * 3;
             @include themed() {
                 background: linear-gradient(
                     to left,
-                    t("brand") 0%,
-                    t("brand") 10%,
+                    t("accent") 0%,
+                    t("accent") 10%,
                     transparent 20%,
                     transparent 25%,
-                    t("brand") 25%,
-                    t("brand") 35%,
+                    t("accent") 25%,
+                    t("accent") 35%,
                     transparent 35%,
                     transparent 40%,
-                    t("brand") 40%,
-                    t("brand") 50%,
+                    t("accent") 40%,
+                    t("accent") 50%,
                     transparent 50%,
                     transparent 100%
                 );
@@ -392,12 +687,14 @@ $matchAnimationDelay: $animation-step * 3;
             0% {
                 // transform: translate(0, 0);
                 color: inherit;
+                // clip-path: inset(-10% 0 -10% 0);
             }
             49% {
                 color: inherit;
             }
             50% {
                 color: transparent;
+                // clip-path: inset(45% 0 45% 0);
             }
             100% {
                 // transform: translate(0, -100%);
@@ -406,7 +703,7 @@ $matchAnimationDelay: $animation-step * 3;
         }
         // transform: translate(0, 0);
         color: inherit;
-        animation: substitutionOld $substitutionAnimationDuration linear
+        animation: substitutionOld $substitutionAnimationDuration ease-in-out
             forwards;
         animation-delay: $substitutionAnimationDelay;
     }
@@ -416,21 +713,24 @@ $matchAnimationDelay: $animation-step * 3;
             0% {
                 // transform: translate(0, 100%);
                 color: transparent;
+                // clip-path: inset(45% 0 45% 0);
             }
             49% {
                 color: transparent;
             }
             50% {
                 color: inherit;
+                // clip-path: inset(45% 0 45% 0);
             }
             100% {
                 // transform: translate(0, 0);
                 color: inherit;
+                // clip-path: inset(-10% 0 -10% 0);
             }
         }
         // transform: translate(0, 100%);
         color: transparent;
-        animation: substitutionNew $substitutionAnimationDuration linear
+        animation: substitutionNew $substitutionAnimationDuration ease-in-out
             forwards;
         animation-delay: $substitutionAnimationDelay;
 
@@ -438,7 +738,7 @@ $matchAnimationDelay: $animation-step * 3;
             transform-origin: top center;
             transform: translateY(-10%) scale(1, 0);
             @include themed() {
-                border-bottom: 0.2em solid t("brand");
+                border-bottom: 0.2em solid t("accent");
                 // border-top: 0.4em solid red;
             }
 
@@ -462,7 +762,7 @@ $matchAnimationDelay: $animation-step * 3;
             transform-origin: bottom center;
             transform: translateY(-10%) scale(1, 0);
             @include themed() {
-                border-top: 0.2em solid t("brand");
+                border-top: 0.2em solid t("accent");
                 // border-bottom: 0.6em solid red;
                 // // border and we can also do
             }
@@ -536,7 +836,6 @@ $matchAnimationDelay: $animation-step * 3;
         width: 0.2em;
         height: 0.9em;
         border-radius: 0.1em;
-        background-color: red;
         transform-origin: center center;
         z-index: 2;
         transform: scale(0);
@@ -563,11 +862,16 @@ $matchAnimationDelay: $animation-step * 3;
                 transform: scale(0);
             }
         }
+
+        @include themed() {
+            background-color: t("accent");
+        }
+
         animation: deletionX $deleteAnimationDuration linear forwards;
         animation-delay: $deleteAnimationDelay;
     }
 
-    // clip-path: inset(0 0 0 0);
+    // clip-path: inset(-10% 0 -10% 0);
     animation: deletion $deleteAnimationDuration linear forwards;
     animation-delay: $deleteAnimationDelay;
 }
