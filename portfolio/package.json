@@ -5,10 +5,10 @@
     "scripts": {
         "dev": "next dev -H 0.0.0.0",
         "build": "next build",
-        "export": "next export",
         "start": "next start",
         "lint": "next lint",
-        "sitemap": "next-sitemap"
+        "sitemap": "next-sitemap",
+        "deploy": "npm run build && npm run sitemap && cd .. && ./deploy.sh && echo 'deployed'"
     },
     "dependencies": {
         "@types/node": "20.5.8",
