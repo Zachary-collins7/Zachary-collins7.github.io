@@ -27,6 +27,20 @@ div.content {
 
 span.highlight-text {
     @include themed() {
-        color: t("brand");
+        color: t("primary");
     }
 }
+
+// a,
+// a:visited {
+//     @include themed() {
+//         color: t("primary");
+//     }
+//     text-decoration: none;
+//     &:hover {
+//         @include themed() {
+//             color: t("primary");
+//         }
+//         text-decoration: underline;
+//     }
+// }
