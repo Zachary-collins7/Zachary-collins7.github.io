@@ -1,0 +1,89 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+}
+
+.content {
+    @include content-width();
+    @include themed() {
+        background-color: t("surface2");
+        color: t("text1");
+    }
+    padding-top: 1rem;
+    border-radius: 2rem;
+
+    a,
+    a:visited {
+        @include themed() {
+            color: t("primary");
+        }
+    }
+
+    article {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+        & h1 {
+            @include themed() {
+                border-bottom: 1px solid t("text2");
+            }
+        }
+        & > div:first-of-type {
+            display: flex;
+            justify-content: space-between;
+            p {
+                @include themed() {
+                    color: t("text2");
+                    font-size: 12px;
+                }
+            }
+            margin: 0 0.5rem 1rem;
+        }
+
+        & > div:not(:first-of-type, :last-of-type) {
+            display: flex;
+            gap: 0.5em;
+
+            & span {
+                padding: 0.25em 0.6em;
+                border-radius: 1.5em;
+                $hue_range: 720;
+                $places: 20;
+                @for $i from 0 through $places {
+                    &:nth-child(#{$i}) {
+                        background-color: hsl(
+                            $i * $hue_range / $places * 17,
+                            70%,
+                            28%
+                        );
+                        box-shadow: 0
+                            0
+                            0.25em
+                            hsl($i * $hue_range / $places * 17, 70%, 28%);
+                    }
+                }
+            }
+        }
+
+        & > div:last-of-type {
+            margin-top: 1rem;
+            border-top: 3px solid lightgray;
+        }
+
+        & img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 3em;
+            border-radius: 1rem;
+        }
+
+        & ul {
+            margin-bottom: 1.5em;
+        }
+    }
+}
