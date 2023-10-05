@@ -1,81 +1,148 @@
 "use client";
 import Link from "next/link";
 import styles from "./navbar.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+// we need to have types for a option in the navbar thats just a href
+// and an option that is a dropdown with a list of hrefs
+export type NavBarItem = {
+    name: string;
+    href: string;
+    dropdown?: NavBarItem[];
+};
 
 export interface INavBarProps {
-    animate?: boolean;
+    animateDown?: boolean;
+    navBarItems?: NavBarItem[];
 }
 
-export default function Navbar({ animate }: INavBarProps) {
-    const [offset, setOffset] = useState(0);
-    const [showNav, setShowNav] = useState(10000);
-    const navHeight = 16 * 3; // 3rem in px
-    const [pathname, setPathname] = useState("");
+const clamp = (num: number, min: number, max: number) => {
+    return Math.min(Math.max(num, min), max);
+};
 
-    const navLinks = [
-        { name: "Home", href: "/" },
-        { name: "About", href: "/about" },
-        { name: "Projects", href: "/projects" },
-        { name: "Contact", href: "/contact" },
-    ];
+export default function Navbar({ animateDown, navBarItems }: INavBarProps) {
+    const headerRef = useRef<HTMLElement>(null);
+    const [pathname, setPathname] = useState<string>("");
+    const [progress, setProgress] = useState<Number>(0);
+    const [navBlur, setNavBlur] = useState<Number>(0);
+    const [navBarOpen, setNavBarOpen] = useState<boolean>(false);
 
-    // below runs every time the component is rendered
     useEffect(() => {
         setPathname(window.location.pathname);
-    });
 
-    useEffect(() => {
-        setShowNav(window.innerHeight - navHeight);
-        const onScroll = () => setOffset(window.scrollY);
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
+        const handleScroll = () => {
+            const pageHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPosition = window.scrollY;
+            const scrollPercentage = clamp(scrollPosition / pageHeight, 0, 1);
+            const blur = clamp((scrollPosition / window.innerHeight) * 5, 0, 1);
+            setProgress(scrollPercentage);
+            setNavBlur(blur);
+        };
+        handleScroll();
+
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, []);
 
-    const navStyles = [styles.navHeader];
+    const headerStyles = [
+        styles.navHeader,
+        navBarOpen ? styles.open : "",
+        animateDown ? styles.animateDown : "",
+    ].join(" ");
 
-    if (animate) {
-        navStyles.push(styles.animate);
-        if (offset > showNav) {
-            navStyles.push(
-                styles.show // apply animation css and remove hide
-            );
-        } else if (offset > showNav / 2) {
-            navStyles.push(
-                styles.hide, // still hide since we havent scrolled 1 window height yet
-                styles.show // apply animation css
-            );
-        } else if (offset > navHeight) {
-            navStyles.push(
-                styles.hide // hide as soon as the navbar is scrolled past
-            );
-        }
-    }
+    const handleMenuClick = () => {
+        console.log("menu clicked");
+        setNavBarOpen(!navBarOpen);
+    };
 
     return (
-        <header className={navStyles.join(" ")}>
-            <span className={styles.brand}></span>
-            <input
-                className={styles.navInput}
-                type="checkbox"
-                id="nav-toggle"
-            />
-            <label className={styles.navElements} htmlFor="nav-toggle">
-                <ul className={styles.navLinks}>
-                    {navLinks.map(({ name, href }) => (
-                        <li key={name}>
-                            <Link
-                                href={href}
-                                className={
-                                    href === pathname ? styles.active : ""
-                                }
-                            >
-                                {name}
-                            </Link>
-                        </li>
-                    ))}
+        <header
+            className={headerStyles}
+            ref={headerRef}
+            style={
+                {
+                    "--progress": `${progress}`,
+                    "--navBlur": `${navBlur}`,
+                } as React.CSSProperties
+            }
+        >
+            <nav>
+                <span className={styles.brand}>
+                    <Link href="/" onClick={() => setNavBarOpen(false)}></Link>
+                </span>
+                <ul className={styles.navElements}>
+                    {navBarItems?.map((item, index) => {
+                        if (item.dropdown) {
+                            const linkStyles = [
+                                styles.linkDropdown,
+                                pathname === item.href ? styles.active : "",
+                            ].join(" ");
+                            return (
+                                <li key={index} className={linkStyles}>
+                                    <Link
+                                        href={item.href}
+                                        onClick={() => setNavBarOpen(false)}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                    {/* <ul className="dropdown">
+                                        {item.dropdown.map(
+                                            (subItem, subIndex) => {
+                                                const linkStyles = [
+                                                    styles.link,
+                                                    pathname === subItem.href
+                                                        ? styles.active
+                                                        : "",
+                                                ].join(" ");
+                                                return (
+                                                    <li
+                                                        key={subIndex}
+                                                        className={linkStyles}
+                                                    >
+                                                        <Link
+                                                            href={subItem.href}
+                                                            onClick={() => setNavBarOpen(false)}
+                                                        >
+                                                            {subItem.name}
+                                                        </Link>
+                                                    </li>
+                                                );
+                                            }
+                                        )}
+                                    </ul> */}
+                                </li>
+                            );
+                        } else {
+                            const linkStyles = [
+                                styles.link,
+                                pathname === item.href ? styles.active : "",
+                            ].join(" ");
+                            return (
+                                <li key={index} className={linkStyles}>
+                                    <Link
+                                        href={item.href}
+                                        onClick={() => setNavBarOpen(false)}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                </li>
+                            );
+                        }
+                    })}
                 </ul>
-            </label>
+                <button
+                    className={styles.menu}
+                    onClick={handleMenuClick}
+                    aria-expanded={navBarOpen}
+                    aria-haspopup={true}
+                >
+                    <span className={styles.bar} />
+                    <span className={styles.bar} />
+                    <span className={styles.bar} />
+                </button>
+            </nav>
         </header>
     );
 }

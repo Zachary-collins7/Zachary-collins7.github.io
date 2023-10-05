@@ -1,261 +1,427 @@
 $mobile-nav-breakpoint: 600px;
-$navHeight: 3rem;
+$mobile-dropdown-animation-duration: 0.3s; // * 2 for full animation
 
 .navHeader {
+    --progress: 0;
+    --navBlur: 0;
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    // justify-content: space-between;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: $navHeight;
-    display: flex;
-    justify-content: space-between;
-
-    input {
-        display: none;
-    }
-
+    height: 3rem;
     z-index: 1000;
-
-    // menu button
-    label {
-        &::before,
-        &::after {
-            $menu_line_height: 5px;
-            content: "";
-            position: absolute;
-            height: $menu_line_height;
-            width: calc($navHeight * 2 / 3);
-            border-radius: $menu_line_height / 2;
-            top: 50%;
-            right: 0;
-            transform: translate(-50%, -50%);
-            transition: transform 0.3s;
-
-            @include breakpoint("md") {
-                display: none;
-                width: calc($navHeight * 4 / 3 * 2 / 3);
-            }
-
-            @include themed() {
-                background-color: t("brand");
-            }
-        }
-        &::before {
-            transform: translate(-50%, 50%);
-        }
-        &::after {
-            transform: translate(-50%, -150%);
-        }
-    }
+    padding: 0 1rem;
+    line-height: 1;
 
     @include themed() {
-        background-color: t("surface1");
+        background-color: rgba(
+            t("surface1"),
+            calc(clamp(0, var(--navBlur), 1) * 0.5)
+        );
+
+        @supports (backdrop-filter: blur(10px)) {
+            background-color: unset;
+            backdrop-filter: blur(calc(clamp(0, var(--navBlur), 1) * 5px));
+        }
     }
 
-    // stick and reappear on scroll
-    @include breakpoint("md") {
-        height: $navHeight * 4/3;
+    nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
 
-        &.animate {
+        & ul {
+            list-style: none;
+        }
+
+        &::after {
+            content: "";
             position: absolute;
-            top: 0;
-            left: 0;
-            @include themed() {
-                background-color: transparent;
-                a::before {
-                    background-color: transparent;
-                }
+            bottom: -1px;
+            left: 1rem;
+            width: calc(100% - 2rem);
+            height: 3px;
+            // border-radius: 1px;
+            border-top-right-radius: calc(
+                50% - calc(pow(clamp(0, var(--progress), 1), 10) * 50%)
+            );
+            border-bottom-right-radius: calc(
+                50% - calc(pow(clamp(0, var(--progress), 1), 10) * 50%)
+            );
+            transform-origin: left center;
+            transform: scaleX(clamp(0, var(--progress), 1));
+            // transition: transform 0.05s linear;
+        }
+        @include themed() {
+            border-bottom: 1px solid t("text3");
+            &::after {
+                background-color: t("text1"); //inside of bar
+                border: 1px solid t("text2");
             }
+        }
+    }
 
-            &.hide,
-            &.show {
-                position: fixed;
-            }
+    a,
+    a:visited {
+        text-decoration: none;
+        color: inherit;
+    }
 
-            &.hide {
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        clip-path: inset(0 0 100% 0);
+        transition: clip-path $mobile-dropdown-animation-duration ease;
+        transition-delay: $mobile-dropdown-animation-duration;
+
+        @include themed() {
+            background-color: t("surface1");
+        }
+    }
+
+    &.open::before {
+        clip-path: inset(0 0 0 0);
+        transition-delay: 0s;
+    }
+
+    &.animateDown {
+        @keyframes animateDown {
+            from {
                 transform: translateY(-100%);
             }
-            &.show {
-                transition: transform 0.3s ease;
-                // position: fixed;
-
-                &:not(.hide) {
-                    transform: translateY(0);
-
-                    @include themed() {
-                        background-color: t("surface1");
-                        a::before {
-                            background-color: t("surface2");
-                        }
-                    }
-                }
+            to {
+                transform: translateY(0);
             }
         }
-
-        // todo feature
-        &.transparent-before-scroll {
-            background-color: transparent;
-        }
-    }
-}
-
-.navElements {
-    height: 100%;
-    width: $navHeight * 4/3;
-    // background-color: blue;
-    user-select: none;
-
-    @include breakpoint("md") {
-        width: 100%;
+        transform: translateY(-100%);
+        animation: animateDown 0.3s ease-out 0.75s forwards;
     }
 }
 
 .brand {
-    position: relative;
-    height: $navHeight;
-    width: $navHeight;
-    border-radius: 50%;
-    scale: 0.8;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    // font-family: "Times New Roman", Times, serif;
 
-    &::before {
+    font-weight: 600;
+    width: max-content;
+    flex: 1 0 max-content;
+
+    a::before {
         content: "Z";
-        position: absolute;
-        font-size: $navHeight * 0.8;
-        font-weight: 700;
-        font-family: "Roboto", sans-serif;
-        top: 50%;
-        left: $navHeight / 2;
-        transform: translate(-50%, -50%);
+        transition: color 0.3s ease-out;
+    }
+    a::after {
+        content: "achary Collins";
+    }
+    a:hover::before {
+        text-decoration: underline;
+    }
+}
+.navElements {
+    position: fixed;
+    top: 3rem;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: calc(120vh - 3rem); //120 = ios fix for scroll navbar changing size
+    padding-bottom: 20vh;
+    font-size: 2em;
+    gap: 0.5em;
+    overflow-x: clip;
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
 
-        @include breakpoint("md") {
-            font-size: $navHeight * 4/3 * 0.8;
-            left: $navHeight * 4/3 / 2;
-        }
+    // border-left: 1px solid;
+    // border: 1px solid;
+
+    // ios fix to lock scroll to popup nav and not body
+    &::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 0;
+        height: 1px;
+        width: 100%;
+        z-index: -1;
+    }
+    &::before {
+        content: "Navigation\AMenu";
+        position: absolute;
+        top: 0.6rem;
+        right: 1rem;
+        font-size: 0.4em;
+        white-space: pre-wrap;
+        text-align: end;
     }
 
     @include themed() {
         background-color: t("surface2");
-
+        &::after {
+            background-color: t("surface2");
+        }
         &::before {
-            color: t("brand");
+            color: t("text2");
         }
     }
 
     @include breakpoint("md") {
-        height: $navHeight * 4/3;
-        width: $navHeight * 4/3;
-    }
-}
+        position: relative;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1em;
+        height: 100%;
+        padding-bottom: 0;
+        top: unset;
+        font-size: 1em;
+        clip-path: none;
 
-.navLinks {
-    position: fixed;
-    top: $navHeight;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    gap: 1rem;
-    font-size: 2rem;
-
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    height: 100%;
-    // overflow-y: scroll;
-    // overflow-x: hidden;
-    clip-path: inset(0 0 100% 0);
-    transition: clip-path 0.3s ease-out;
-
-    z-index: 1001;
-
-    @include themed() {
-        background-color: t("surface1");
-        padding-bottom: 3rem;
-        border-top: 3px solid
-            change-color($color: t("brand"), $saturation: 90%, $lightness: 10%);
-
-        @include breakpoint("md") {
+        @include themed() {
             background-color: transparent;
-            border-top: none;
-            padding-bottom: 0;
         }
 
-        a {
-            position: relative;
-            user-select: auto;
-            color: t("text2");
-            transition: color 0.3s ease-out;
-            height: 1.2em;
+        &::before,
+        &::after {
+            display: none;
+        }
+    }
 
-            @include breakpoint("md") {
-                // capsule behind nav links on hover and on active
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path $mobile-dropdown-animation-duration ease;
+    transition-delay: 0s;
+}
+.navHeader.open .navElements {
+    clip-path: inset(0 0 0 0);
+    transition-delay: $mobile-dropdown-animation-duration;
+}
+
+.link,
+.linkDropdown {
+    // display: grid;
+    // place-items: center;
+    margin-left: 35vw;
+
+    // &::before {
+    //     content: "";
+    //     position: absolute;
+    //     left: -35vw;
+    //     bottom: -0.25em;
+    //     width: 100vw;
+    //     height: 3px;
+    //     background-color: red;
+    // }
+
+    @include breakpoint("md") {
+        margin-left: 0;
+    }
+
+    @include themed() {
+        color: t("text2");
+    }
+
+    a {
+        position: relative;
+        transition: color 0.3s ease-out;
+        text-align: center;
+        height: 1.15em;
+        line-height: 1.15em;
+        text-align: center;
+
+        padding: 0 0.25em;
+
+        &::before,
+        &::after {
+            content: " \203A";
+            // content: " \00BB";
+        }
+        &::after {
+            color: transparent;
+            transition: color 0.2s ease-out;
+        }
+        &::before {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(-0.2em, -50%);
+            transition: transform 0.2s ease-out;
+        }
+
+        @include breakpoint("md") {
+            // &::after {
+            //     content: "";
+            // }
+            &:hover {
+                // text-decoration: underline;
                 &::before {
-                    content: "";
-                    position: absolute;
-                    left: 50%;
-                    top: 50%;
-                    height: calc(100% + 0.85em); // TODO: CHECK padding
-                    width: calc(100% + 2.1em);
-                    box-sizing: "border-box";
-                    overflow: "hidden"; // TODO huh
-                    border-radius: 1em;
-
-                    transform: translate(-50%, -50%);
-                    z-index: -1;
-                    background-color: t("surface2");
-                    opacity: 0;
-                    transition: none;
+                    transform: translate(0em, -50%);
                 }
-                &.active {
-                    transition: none;
-                }
-
-                &:hover,
-                &.active {
+                @include themed() {
                     color: t("text1");
-
-                    &::before {
-                        opacity: 1;
+                    &::after {
+                        color: t("text1");
+                        transition: none;
                     }
                 }
             }
         }
+    }
 
-        @include breakpoint("md") {
+    &.active {
+        a {
             position: relative;
-            flex-direction: row;
-            justify-content: center;
-            gap: 3rem;
-            font-size: 1rem;
-            align-items: center;
-            top: $navHeight * 4/3;
-            padding-bottom: 0;
-            padding-right: $navHeight * 4/3;
-            clip-path: none;
-            transition: none;
-            top: unset;
-            left: unset;
+            @include breakpoint("md") {
+                // text-decoration: underline;
+                // border-left: 1px solid;
+                // border-bottom: 1px solid;
+                // border-bottom-style: inset;
+                // border-bottom-left-radius: 0.5em;
+                // transition: border-bottom-left-radius 0.2s ease-out;
+
+                // &:hover {
+                //     border-bottom-left-radius: 0em;
+                // }
+            }
+            // &::before {
+            //     content: "@";
+            //     position: absolute;
+            //     top: 0;
+            //     left: 0.25em;
+            //     font-size: 0.5em;
+
+            //     transform: translate(-100%);
+            //     @include breakpoint("md") {
+            //         content: "";
+            //     }
+            // }
+
+            @include themed() {
+                color: t("text1");
+            }
         }
     }
 }
 
-.navInput:checked ~ label {
-    &::before {
+.link {
+    position: relative;
+}
+.linkDropdown {
+    position: relative;
+    & ul {
+        display: none;
+    }
+    //dropdown WIP
+    // @include breakpoint("md") {
+    //     &:hover {
+    //         &::before {
+    //             content: "";
+    //             position: absolute;
+    //             top: 50%;
+    //             left: 50%;
+    //             height: 140%;
+    //             width: 110%;
+    //             background-color: red;
+    //             z-index: -1;
+    //             border-radius: 0.5em;
+    //             transform: translate(-50%, -50%);
+    //         }
+    //         & ul {
+    //             position: fixed;
+    //             display: flex;
+    //             flex-direction: column;
+    //             gap: 0.25em;
+    //             padding: 1.925em 1em;
+    //             z-index: 1;
+    //             li {
+    //                 font-size: 0.8em;
+    //                 margin-left: 0.5em;
+    //                 &::before {
+    //                     content: "- ";
+    //                 }
+    //             }
+
+    //             &::before {
+    //                 content: "";
+    //                 position: absolute;
+    //                 top: calc(0.925em);
+    //                 left: 0;
+    //                 height: calc(100% - 1.85em);
+    //                 width: calc(100% - 1em);
+    //                 z-index: -1;
+    //                 border-radius: 0.5em;
+    //             }
+
+    //             @include themed() {
+    //                 &::before {
+    //                     background-color: t("surface1");
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+}
+
+.menu {
+    position: relative;
+    height: 100%;
+    width: 3rem;
+    background-color: transparent;
+    border: none;
+
+    .bar {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1.8em;
+        height: 0.2em;
+        border-radius: 0.1rem;
+        transition: transform $mobile-dropdown-animation-duration ease;
+        transform-origin: center center;
+
+        @include themed() {
+            background-color: t("text2");
+        }
+
+        &:nth-of-type(1) {
+            transform: translate(-50%, -250%);
+        }
+        &:nth-of-type(2) {
+            transition-duration: 0.3s;
+            transform: translate(-50%, -50%);
+        }
+        &:nth-of-type(3) {
+            transform: translate(-50%, 150%);
+        }
+    }
+    @include breakpoint("md") {
+        display: none;
+    }
+}
+
+.navHeader.open .menu .bar {
+    &:nth-of-type(1) {
         transform: translate(-50%, -50%) rotateZ(-45deg);
     }
-    &::after {
-        transform: translate(-50%, -50%) rotateZ(45deg);
+    &:nth-of-type(2) {
+        transition-duration: 0.1s;
+        transform: translate(-50%, -50%) scaleX(0);
     }
-
-    & .navLinks {
-        clip-path: inset(0 0 0 0);
-
-        .navLink {
-            width: 100%;
-            font-size: 2rem;
-            text-align: center;
-        }
+    &:nth-of-type(3) {
+        transform: translate(-50%, -50%) rotateZ(45deg);
     }
 }
