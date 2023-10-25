@@ -64,19 +64,19 @@ export const metadata: Metadata = {
     openGraph: {
         type: "website",
         locale: "en_US",
-        url: "https://zacharycollins.dev",
+        url: `${process.env.SITE_URL!}`,
         siteName: "Zachary's Portfolio",
         title: "Zachary's Portfolio",
         description: "Learn more about my projects and skills",
         images: [
             {
-                url: "https://zacharycollins.dev/assets/images/portfolioV2.jpg",
+                url: `${process.env.SITE_URL!}/assets/images/portfolioV2.jpg`,
                 width: 1920,
                 height: 1080,
                 alt: "Zachary's Portfolio",
             },
             {
-                url: "https://zacharycollins.dev/assets/images/portfolioV2.webp",
+                url: `${process.env.SITE_URL!}/assets/images/portfolioV2.webp`,
                 width: 1920,
                 height: 1080,
                 alt: "Zachary's Portfolio",
