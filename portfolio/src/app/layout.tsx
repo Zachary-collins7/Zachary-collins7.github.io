@@ -2,6 +2,7 @@ import "@styles/app.scss";
 import type { Metadata } from "next";
 import Providers from "@lib/providers";
 import GA from "@lib/googleAnalytics";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
     title: "Zachary's Portfolio",
@@ -129,7 +130,6 @@ export default function RootLayout({
                     />
                     {/* https://www.realtimecolors.com/?colors=faf9fa-030203-a119d7-1d0c1d-ab49ab&fonts=Poppins-Poppins */}
                     {/* {"&lt;!--hello"}--&gt; */}
-                    {process && process.env.NODE_ENV === "production" && <GA />}
                 </head>
 
                 <body>
@@ -140,6 +140,12 @@ export default function RootLayout({
                         }}
                     ></script>
                     <Providers>{children}</Providers>
+                    {process && process.env.NODE_ENV === "production" && (
+                        <>
+                            <GA />
+                            <Analytics />
+                        </>
+                    )}
                 </body>
             </html>
         </>
