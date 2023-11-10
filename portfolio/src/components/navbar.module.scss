@@ -191,6 +191,7 @@ $mobile-dropdown-animation-duration: 0.3s; // * 2 for full animation
         top: unset;
         font-size: 1em;
         clip-path: none;
+        overflow-y: hidden;
 
         @include themed() {
             background-color: transparent;
