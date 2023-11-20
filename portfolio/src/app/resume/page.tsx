@@ -18,21 +18,21 @@ export async function generateMetadata({
         openGraph: {
             images: [
                 {
-                    url: "https://zachary-collins7.github.io/assets/images/resume-seo-image.webp",
+                    url: `${process.env.SITE_URL}/assets/images/resume-seo-image.webp`,
                     width: 1200,
                     height: 630,
                     alt: "Resume SEO Image",
                     type: "image/webp",
                 },
                 {
-                    url: "https://zachary-collins7.github.io/assets/images/resume-seo-image.webp",
+                    url: `${process.env.SITE_URL}/assets/images/resume-seo-image.webp`,
                     width: 1200,
                     height: 630,
                     alt: "Resume SEO Image",
                     type: "image/png",
                 },
                 {
-                    url: "https://zachary-collins7.github.io/assets/images/resume-seo-image.webp",
+                    url: `${process.env.SITE_URL}/assets/images/resume-seo-image.webp`,
                     width: 1200,
                     height: 630,
                     alt: "Resume SEO Image",
@@ -72,11 +72,11 @@ export default async function Resume() {
                             <br />
                             Portfolio:{" "}
                             <a
-                                href="http://zachary-collins7.github.io"
+                                href={process.env.SITE_URL}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                http://zachary-collins7.github.io
+                                thezacharycollins.com
                             </a>
                             <span> | </span>
                             Github:{" "}
@@ -85,7 +85,7 @@ export default async function Resume() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                https://github.com/Zachary-collins7
+                                github.com/Zachary-collins7
                             </a>
                         </p>
                     </div>
@@ -315,9 +315,7 @@ export default async function Resume() {
                                 The bot uses Selenium to scrape the game&apos;s
                                 website and uses Google Translate and GPT-3 to
                                 translate the information into the user&apos;s
-                                language. <br /> Translated information is
-                                cached in a database to prevent unnecessary
-                                requests.
+                                language.
                             </li>
                             <li>
                                 Using information provided by the users, the bot

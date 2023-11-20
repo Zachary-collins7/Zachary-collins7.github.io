@@ -98,7 +98,7 @@ $lightGrey: rgb(170, 170, 170);
 }
 
 .section {
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
 
     .title {
     }
@@ -157,7 +157,7 @@ $lightGrey: rgb(170, 170, 170);
     &:not(:last-of-type) {
         margin-bottom: 1.5em;
     }
-    break-inside: avoid;
+    // break-inside: avoid;
 
     .projectHeader {
         display: flex;
@@ -166,6 +166,7 @@ $lightGrey: rgb(170, 170, 170);
         h6 {
             font-weight: 700;
             font-size: 1.1em;
+            line-height: 1em;
         }
 
         span {
