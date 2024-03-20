@@ -149,6 +149,9 @@ $lightGrey: rgb(170, 170, 170);
 
 .experience {
     @extend .section;
+    @media print {
+        // margin-top: 3.5rem;
+    }
 }
 
 .project {

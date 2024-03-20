@@ -2,13 +2,20 @@
 import { Project } from "@lib/api";
 import styles from "./search.module.scss";
 import { useEffect, useRef, useState } from "react";
+import useDebounce from "@hooks/useDebounce";
 import Link from "next/link";
 import { levenshteinDistance } from "@/util/dataStructures";
+import MiniSearch from "minisearch";
 
 export default function Search({ projects }: { projects: Project[] }) {
-    const maxEditDistance = 7;
+    let miniSearch = new MiniSearch<Project>({
+        fields: ["id", "title", "description", "html"], // fields to index for full-text search
+    });
+    miniSearch.addAll(projects);
+
     const searchRef = useRef<HTMLInputElement>(null);
     const [searchQuery, setSearchQuery] = useState("");
+    const debouncedSearchQuery = useDebounce(searchQuery, 200);
     const [displayedProjects, setDisplayedProjects] =
         useState<Project[]>(projects);
 
@@ -19,38 +26,41 @@ export default function Search({ projects }: { projects: Project[] }) {
     // search for projects that match the search query
     useEffect(() => {
         // if search query is empty, display all projects
-        if (searchQuery === "") {
+        if (debouncedSearchQuery === "") {
             setSearchSuggestions([]);
             return setDisplayedProjects(projects);
         }
 
-        //else find projects that match the search query
-        const searchResults = projects
-            .map((project) => {
-                const query = searchQuery.toLowerCase();
-
-                return {
-                    project,
-                    query,
-                    distance: levenshteinDistance(
-                        query,
-                        project.title.toLowerCase()
-                    ),
-                };
+        const searchResults = miniSearch
+            .search(debouncedSearchQuery, {
+                boost: { id: 3, title: 3 },
+                fuzzy: 1,
             })
-            .filter(({ project, query, distance }) => {
-                if (!searchQuery) return true;
+            .map((result) =>
+                projects.find((project) => project.id === result.id)
+            )
+            .map((project) => project as Project);
 
-                if (project.title.toLowerCase().includes(query)) return true;
-                return distance.distance < maxEditDistance;
-            })
-            .sort((a, b) => a.distance.distance - b.distance.distance)
-            .map(({ project }) => project);
+        const titleStartsWithOrContains = projects.filter(
+            (project) =>
+                project.title
+                    .toLowerCase()
+                    .startsWith(debouncedSearchQuery.toLowerCase()) ||
+                project.title
+                    .toLowerCase()
+                    .includes(debouncedSearchQuery.toLowerCase())
+        );
+
+        titleStartsWithOrContains.forEach((project) => {
+            if (!searchResults.includes(project)) {
+                searchResults.push(project);
+            }
+        });
 
         setSearchSuggestions(searchResults.map((project) => project.title));
         setDisplayedProjects(searchResults);
         setSearchSuggestionSelection(0);
-    }, [searchQuery, projects]);
+    }, [debouncedSearchQuery, projects]);
 
     // handles search suggestions and input like arrow up/down and enter/tab
     const handleSearchSelect = (e: React.KeyboardEvent<HTMLInputElement>) => {

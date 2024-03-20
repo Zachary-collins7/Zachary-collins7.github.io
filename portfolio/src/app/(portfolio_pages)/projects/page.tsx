@@ -1,6 +1,5 @@
 // page to list all projects
 import styles from "./page.module.scss";
-import Link from "next/link";
 import { getAllPosts } from "@lib/api";
 import Search from "./search";
 

@@ -1,5 +1,4 @@
 import React from "react";
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import styles from "./resume.module.scss";
 import { Metadata } from "next";
 import Phone from "./phone";
@@ -152,25 +151,17 @@ export default async function Resume() {
                             <li>
                                 Designed and developed a Python-based program to
                                 connect to a diverse array of over 10,000
-                                database nodes - all of various types including
-                                mysql, mssql, Oracle, and Teradata. This effort
-                                yielded valuable analytics about database
-                                functionality, user access, and credential
-                                verification. Collected data was processed
-                                further before being fed into a web application.
+                                database servers - all of various types
+                                including mysql, mssql, Oracle, and Teradata.
+                                This effort yielded valuable analytics about
+                                database functionality, user access, and
+                                credential verification.
                                 <br />
                                 Notably, the resulting web application empowered
                                 Data-Auditors to efficiently pinpoint tables for
                                 deeper analysis, saving significant time that
                                 was previously lost to firewall challenges and
-                                manual interactions. <br />
-                                Tables queued for analysis were then processed
-                                by a separate Python program that connected and
-                                queried the database nodes, sending the results
-                                back to the web application for display. The
-                                project&apos;s efficiency-focused design
-                                included the use of threads and processes to
-                                speed up the entire process.
+                                manual interactions.
                             </li>
 
                             <li>
@@ -226,8 +217,7 @@ export default async function Resume() {
                                 Migrated customers to new deployment
                                 environments. Learned and applied the end-to-end
                                 process of developing and deploying a web
-                                application from environment initialization to
-                                DNS configuration.
+                                application.
                             </li>
                         </ul>
                     </Project>
@@ -305,11 +295,11 @@ export default async function Resume() {
                         <ul>
                             <li>
                                 Created a discord bot to connect users of a game
-                                to resources and information provided by the
-                                game and the community. <br /> With over 1,400
-                                daily users, I focused on making the bot as
-                                efficient and fast as possible while still
-                                providing a great user experience.
+                                to resources and tools provided by the game and
+                                the community. <br /> With over 1,400 daily
+                                users, I focused on making the bot as efficient
+                                and fast as possible while still providing a
+                                great user experience.
                             </li>
                             <li>
                                 The bot uses Selenium to scrape the game&apos;s
@@ -318,26 +308,16 @@ export default async function Resume() {
                                 language.
                             </li>
                             <li>
-                                Using information provided by the users, the bot
-                                calculates insights about the individual
-                                user&apos;s progress and provides them with
-                                personalized information. Personalized
-                                information is also translated into the
-                                user&apos;s language (if supported). The
-                                information is also used to hit the game&apos;s
-                                API to give the user in-game items.
-                            </li>
-                            <li>
                                 Detailed logs are kept for each user to help
                                 with debugging and to provide insight into how
                                 the bot is being used. Logs are queried, sorted,
                                 and displayed in a dashboard for easy viewing.{" "}
-                                <br />
-                                <i>
+                                {/* <br /> */}
+                                {/* <i>
                                     A Terms of Service and Privacy Policy are
                                     also provided to all users to comply with
                                     Discord&apos;s terms of service.
-                                </i>
+                                </i> */}
                             </li>
                         </ul>
                     </Project>
@@ -359,13 +339,12 @@ export default async function Resume() {
                                 alongside the main branch)
                             </li>
                             <li>
-                                The Site features a fully decked-out SEO
-                                (including sitemap and robots.txt), color
-                                themes, Google Analytics, and a custom 404 page.
+                                The Site features a fully decked-out SEO, color
+                                themes, and Google Analytics.
                             </li>
                             <li>
-                                Uses SCSS modules (non-decorated) to prevent CSS
-                                class-name collisions.
+                                Uses SCSS modules to prevent CSS class-name
+                                collisions.
                             </li>
                             <li>
                                 Uses typescript for live type-checking and to
@@ -400,7 +379,7 @@ export default async function Resume() {
                     </Project>
 
                     <Project
-                        title="Invited to MIT"
+                        title="MIT - Robotics Workshop"
                         date="2018"
                         tools={["Python", "TensorFlow", "ROS"]}
                     >
@@ -429,52 +408,66 @@ export default async function Resume() {
                     <div
                         style={{
                             display: "flex",
-                            justifyContent: "flex-start", // "space-between",
-                            alignItems: "center",
-                            gap: "1rem",
+                            justifyContent: "flex-start",
+                            alignItems: "stretch",
                             flexWrap: "wrap",
                         }}
                     >
-                        <div>
-                            <b>University of Tulsa</b>
-                            <br />
-                            Computer Science
-                            <br />
-                            Aug 2020 - May 2021
-                        </div>
-
                         <div
                             style={{
-                                width: "1px",
-                                height: "2.5em",
-                                backgroundColor: "rgb(170, 170, 170)",
+                                display: "flex",
+                                justifyContent: "flex-start",
+                                alignItems: "center",
+                                gap: "1rem",
+                                flexWrap: "wrap",
                             }}
-                        />
-
-                        <div>
-                            <b>Tulsa Community College</b>
-                            <br />
-                            Gen Eds
-                            <br />
-                            2018 - 2020
-                        </div>
-
-                        <div
-                            style={{
-                                width: "1px",
-                                height: "2.5em",
-                                backgroundColor: "rgb(170, 170, 170)",
-                            }}
-                        />
-
-                        <div>
+                        >
                             <div>
-                                <b>Home School</b>
+                                <b>University of Tulsa</b>
                                 <br />
-                                High School Diploma
+                                Computer Science
                                 <br />
-                                2016 - 2020
+                                Aug 2020 - May 2021
                             </div>
+                            <div
+                                style={{
+                                    width: "1px",
+                                    height: "2.5em",
+                                    backgroundColor: "rgb(170, 170, 170)",
+                                }}
+                            />
+                            <div>
+                                <b>Tulsa Community College</b>
+                                <br />
+                                Gen Eds
+                                <br />
+                                2018 - 2020
+                            </div>
+                            <div
+                                style={{
+                                    width: "1px",
+                                    height: "2.5em",
+                                    backgroundColor: "rgb(170, 170, 170)",
+                                }}
+                            />
+                            <div>
+                                <div>
+                                    <b>Home School</b>
+                                    <br />
+                                    High School Diploma
+                                    <br />
+                                    2016 - 2020
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            style={{
+                                marginLeft: "1rem",
+                                flexGrow: 1,
+                            }}
+                        >
+                            {/* content room */}
                         </div>
                     </div>
                 </section>

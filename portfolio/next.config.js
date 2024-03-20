@@ -11,7 +11,6 @@ const nextConfig = {
         additionalData: `@import "src/styles/abstracts/_variables.scss"; @import "src/styles/abstracts/_mixins.scss";`,
     },
     experimental: {
-        appDir: true,
         images: {
             unoptimized: true,
         },

@@ -600,10 +600,10 @@ $matchAnimationDelay: $animation-step * 3;
         &::after {
             content: "";
             position: absolute;
-            top: 0;
+            top: -0.15em;
             left: 0;
             width: 1ch;
-            height: 1em;
+            height: 1.3em;
         }
         &::before {
             content: "\21FE";

@@ -43,6 +43,11 @@
         border-radius: 2em;
         @include themed() {
             background-color: t("surface2");
+
+            @include breakpoint("md") {
+                box-shadow: 0 0 0.5em 0.5em t("surface3");
+                border: 1px solid t("surface4");
+            }
         }
     }
 }
