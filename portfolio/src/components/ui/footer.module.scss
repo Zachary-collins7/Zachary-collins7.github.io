@@ -40,6 +40,9 @@
             width: 2em;
         }
         // normalize image color to consistent gray color
-        filter: brightness(10) grayscale(1) brightness(0.5);
+        // and then apply sepia and brightness filters to color
+        // match to text2 color
+        filter: brightness(10) grayscale(1) sepia(1) hue-rotate(-100deg)
+            brightness(0.55);
     }
 }
