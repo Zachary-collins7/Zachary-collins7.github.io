@@ -3,9 +3,6 @@ import type { Metadata } from "next";
 import Providers from "@lib/providers";
 import GA from "@lib/googleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
-import NavBar from "@components/navbar";
-import { NavBarItem } from "@components/navbar";
-import Footer from "@/components/ui/footer";
 
 export const metadata: Metadata = {
     title: "Zachary's Portfolio",
@@ -115,26 +112,6 @@ export default function RootLayout({
             .map((line) => `<!-- ${line} -->`)
             .join("\n") + `\n${realTimeColors}`;
 
-    const navBarItems: NavBarItem[] = [
-        { name: "Home", href: "/" },
-        { name: "About", href: "/about" },
-        {
-            name: "Projects",
-            href: "/projects",
-            dropdown: [
-                {
-                    name: "Project 1",
-                    href: "/project/1",
-                },
-                {
-                    name: "Project 2",
-                    href: "/project/2",
-                },
-            ],
-        },
-        { name: "Contact", href: "/contact" },
-    ];
-
     return (
         <>
             <html lang="en" data-theme="monotone-dark">
@@ -163,9 +140,7 @@ export default function RootLayout({
                             __html: devNote,
                         }}
                     ></script>
-                    <NavBar navBarItems={navBarItems} />
                     <Providers>{children}</Providers>
-                    <Footer />
                     {process && process.env.NODE_ENV === "production" && (
                         <>
                             <GA />

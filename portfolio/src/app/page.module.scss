@@ -7,21 +7,19 @@
 }
 
 .gridview {
-    display: grid;
     width: 100%;
-    // grid-template-columns: 1fr 1fr;
-    grid-auto-columns: 1fr;
-    grid-template-areas: "aboutme" "aboutme" "projects" "contact";
+    // align-items: center;
+    // display: grid;
+    // width: 100%;
+    // // grid-template-columns: 1fr 1fr;
+    // grid-auto-columns: 1fr;
+    // grid-template-areas: "aboutme" "aboutme" "projects" "contact";
 
-    @include content-width();
-    @include breakpoint("md") {
-        grid-auto-columns: 1fr;
-        grid-template-areas: "aboutme aboutme" "projects projects" "contact contact";
-    }
-}
+    // @include breakpoint("md") {
+    //     grid-auto-columns: 1fr;
+    //     grid-template-areas: "aboutme aboutme" "projects projects" "contact contact";
+    // }
 
-.section {
-    margin: 3rem 0 0;
     @include breakpoint("md") {
         min-height: 100vh;
         min-height: 100svh;
@@ -29,43 +27,234 @@
     }
 }
 
-.aboutMe {
-    @extend .section;
-    grid-area: aboutme;
+.section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    // margin: 3em 0 1em;
+    margin: 1.5rem 0;
+    padding: 1.5rem 0;
+
+    @include themed() {
+        border-top: 1px solid t("surface2");
+    }
 
     @include breakpoint("md") {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        min-height: 100vh;
+        min-height: 100svh;
+        margin: 0;
+        padding: 3rem 0;
+        border-top: none !important;
     }
-    & > div {
-        padding: 1em;
-        border-radius: 2em;
-        @include themed() {
-            background-color: t("surface2");
 
-            @include breakpoint("md") {
-                box-shadow: 0 0 0.5em 0.5em t("surface3");
-                border: 1px solid t("surface4");
-            }
+    h2 {
+        padding: 0 0.5em;
+        margin-bottom: 1rem;
+        @include breakpoint("md") {
+            margin-bottom: 3rem;
+        }
+    }
+    // & > div {
+    //     width: 100%;
+    // }
+
+    .content {
+        @include content-width();
+    }
+
+    // for each section, iterate the z-index
+    @for $i from 1 through 5 {
+        &:nth-of-type(#{$i}) {
+            z-index: $i;
         }
     }
 }
 
-.projects {
+.aboutMe {
     @extend .section;
-    position: relative;
-    grid-area: projects;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
+    position: unset !important;
 
-    h1 {
-        padding: 0 0.5em;
+    // @include breakpoint("md") {
+    //     height: 200vh;
+    //     height: 200svh;
+    //     justify-content: start;
+    //     // padding-top: 10vh;
+    //     // padding-top: 10svh;
+
+    //     .content {
+    //         position: sticky;
+    //         top: calc(50% - 100vh);
+    //         top: calc(50% - 100svh);
+    //         transform: translate(0, -50%);
+    //     }
+
+    //     transform: translateY(100vh);
+    //     transform: translateY(100svh);
+    // }
+
+    // & * {
+    //     z-index: -1; // todo check if this is necessary
+    // }
+
+    .content > div {
+        display: grid;
+
+        grid-template-areas: "about" "myfavlangs" "myfavtech" "git";
+        grid-template-columns: auto;
+
+        @include breakpoint("lg") {
+            grid-template-areas:
+                "about about about"
+                "myfavlangs myfavtech git";
+            grid-template-columns: 1fr 1fr;
+            gap: 1em;
+        }
+
+        @include breakpoint("xl") {
+            grid-template-areas:
+                "about myfavlangs myfavtech"
+                "about myfavlangs myfavtech"
+                "mytitle mytitle git";
+            grid-template-columns: auto 1fr 1fr;
+            gap: 1em;
+        }
+
+        & > div {
+            border-radius: 1rem;
+            padding: 1em;
+
+            @include themed() {
+                border: 3px solid t("surface2");
+                box-shadow: inset 0 0 3rem 2rem t("surface2");
+            }
+        }
+    }
+}
+.mytitle {
+    position: relative;
+    grid-area: mytitle;
+    background-image: url("/assets/images/swe.png");
+    background-size: 2.5rem;
+    background-repeat: repeat;
+
+    display: none;
+    @include breakpoint("xl") {
+        display: block;
     }
 
+    // &::after {
+    //     content: "Software Engineer";
+    //     position: absolute;
+    //     top: 50%;
+    //     left: 50%;
+    //     transform: translate(-50%, -50%);
+    //     font-size: 3.8em;
+    //     font-weight: bold;
+    //     white-space: nowrap;
+    //     @include themed() {
+    //         color: t("surface1");
+    //         // color: transparent;
+    //         // background-clip: text;
+    //         // text-shadow: 0 0 0rem white;
+    //         opacity: 0.7;
+    //     }
+    // }
+}
+.myfavlangs,
+.myfavtech {
+    display: none;
+    @include breakpoint("lg") {
+        display: block;
+    }
+}
+.myfavlangs {
+    grid-area: myfavlangs;
+}
+.myfavtech {
+    grid-area: myfavtech;
+}
+.git {
+    grid-area: git;
+    div::before {
+        content: "~/ $ ";
+        @include themed() {
+            color: t("primary");
+        }
+    }
+
+    display: none;
+    @include breakpoint("lg") {
+        display: grid;
+    }
+    place-items: center;
+}
+.about {
+    grid-area: about;
+    // display: none;
+    // @include breakpoint("lg") {
+    //     display: block;
+    // }
+}
+
+.projects {
+    position: relative;
+    @extend .section;
+
     @include breakpoint("md") {
-        gap: 2em;
+        // top: -100vh;
+        // top: -100svh;
+
+        // @include themed() {
+        //     background-color: t("surface1");
+        // }
+
+        // mask-image: linear-gradient(
+        //     rgba(0, 0, 0, 0) 0%,
+        //     rgba(0, 0, 0, 0.1) calc(0% + 3rem),
+        //     rgba(0, 0, 0, 1) calc(0% + 3rem),
+        //     rgba(0, 0, 0, 1) 100%
+        // );
+
+        // backdrop-filter: blur(3px);
+
+        // &::after {
+        //     content: "";
+        //     position: absolute;
+        //     top: -30vh;
+        //     top: -30svh;
+        //     left: 0;
+        //     width: 100%;
+        //     height: 30vh;
+        //     height: 30svh;
+        //     mask-image: linear-gradient(
+        //         rgba(0, 0, 0, 0) 0%,
+        //         rgba(0, 0, 0, 1) 50%,
+        //         rgba(0, 0, 0, 1) 100%
+        //     );
+        //     backdrop-filter: blur(100px);
+
+        //     @include themed() {
+        //         background-image: linear-gradient(
+        //             rgba(0, 0, 0, 0) 0%,
+        //             rgba(0, 0, 0, 0) 50%,
+        //             t("surface1") 100%
+        //         );
+        //     }
+        // }
+    }
+
+    & > div > div {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+
+        @include breakpoint("md") {
+            gap: 2em;
+        }
     }
 }
 
@@ -82,6 +271,7 @@
 
     @include themed() {
         color: t("text1");
+        border: 2px solid t("surface4");
     }
 
     a {
@@ -180,7 +370,7 @@
         height: auto;
         object-fit: cover;
         border-radius: 2em;
-        z-index: -1;
+        // z-index: -1;
         transition: filter 0.5s ease-in-out;
     }
 
