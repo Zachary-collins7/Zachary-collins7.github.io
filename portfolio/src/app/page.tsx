@@ -1,11 +1,8 @@
 import styles from "./page.module.scss";
-import NavBar from "@components/navbar";
-import { NavBarItem } from "@components/navbar";
-import Hero from "@components/hero";
-import { getAllPosts, getPostById } from "@lib/api";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "@/components/ui/button";
+import Hero from "@/components/ui/hero";
+import { getAllPosts, getPostById } from "@lib/api";
 
 export default async function Home() {
     const projects = await getAllPosts();
@@ -13,30 +10,8 @@ export default async function Home() {
         .filter((project) => project.featured)
         .slice(0, 3);
 
-    const navBarItems: NavBarItem[] = [
-        { name: "Home", href: "/" },
-        { name: "About", href: "/about" },
-        {
-            name: "Projects",
-            href: "/projects",
-            dropdown: [
-                {
-                    name: "Project 1",
-                    href: "/project/1",
-                },
-                {
-                    name: "Project 2",
-                    href: "/project/2",
-                },
-            ],
-        },
-        { name: "Contact", href: "/contact" },
-    ];
-
     return (
         <main className={styles.main}>
-            <NavBar animateDown navBarItems={navBarItems} />
-
             <Hero />
 
             <div className={styles.gridview}>
@@ -78,81 +53,6 @@ export default async function Home() {
                         ))}
                 </div>
             </div>
-
-            <div
-                style={{
-                    margin: "3rem 0",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "1rem",
-                }}
-            >
-                <div>
-                    Need a developer?{" "}
-                    <Button
-                        as="link"
-                        styleType="tertiary"
-                        href="/contact"
-                        noPadding
-                    >
-                        Contact Me
-                    </Button>
-                </div>
-            </div>
-
-            <div className={styles.links}>
-                <Link
-                    href="https://www.linkedin.com/in/zachary-collins7/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <Image
-                        src="/assets/logos/linkedin.png"
-                        alt="LinkedIn"
-                        width={32}
-                        height={32}
-                    />
-                </Link>
-                <Link
-                    href="https://github.com/Zachary-collins7"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <Image
-                        src="/assets/logos/github-mark.png"
-                        alt="Github"
-                        width={32}
-                        height={32}
-                    />
-                </Link>
-                <Link
-                    href="https://twitter.com/ZachTheCollins"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <Image
-                        src="/assets/logos/twitter.png"
-                        alt="Twitter"
-                        width={32}
-                        height={32}
-                        style={{
-                            filter: "invert(1)",
-                        }}
-                    />
-                </Link>
-                <Link href="/contact" target="_blank" rel="noopener noreferrer">
-                    <Image
-                        src="/assets/logos/email.png"
-                        alt="Email"
-                        width={32}
-                        height={32}
-                        style={{
-                            filter: "invert(1)",
-                        }}
-                    />
-                </Link>
-            </div>
             {/* hello I am and short about */}
             {/* projects */}
             {/* certs? */}
@@ -160,24 +60,3 @@ export default async function Home() {
         </main>
     );
 }
-
-const MyAnimation = () => (
-    <div className={styles.ani}>
-        {Array(16)
-            .fill(0)
-            .map((_, i) => (
-                <span
-                    style={
-                        {
-                            "--i": i,
-                        } as React.CSSProperties
-                    }
-                    key={i}
-                >
-                    <i>EAT</i>
-                    SLEEP
-                    <i>CODE</i>
-                </span>
-            ))}
-    </div>
-);

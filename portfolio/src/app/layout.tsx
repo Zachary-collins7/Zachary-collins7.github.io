@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import Providers from "@lib/providers";
 import GA from "@lib/googleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
+import NavBar from "@components/navbar";
+import { NavBarItem } from "@components/navbar";
+import Footer from "@/components/ui/footer";
 
 export const metadata: Metadata = {
     title: "Zachary's Portfolio",
@@ -91,24 +94,46 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const art = (
-        "           __________                                  \n" +
-        "         .'----------`.                   😤😤😤      \n" +
-        "         | .--------. |                                \n" +
-        "         | |########| |       __________               \n" +
-        "         | |########| |      /__________               \n" +
-        ".--------| `--------' |------|    --=-- |-------------.\n" +
-        "|        `----,-.-----'      |o ======  |             |\n" +
-        "|       ______|_|_______     |__________|             |\n" +
-        "|      /  %%%%%%%%%%%%  \\                             |\n" +
-        "|     /  %%%%%%%%%%%%%%  \\      Rust > Python ;)      |\n" +
-        "|     ^^^^^^^^^^^^^^^^^^^^                            |\n" +
-        "+-----------------------------------------------------+\n" +
-        "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-    )
-        .split("\n")
-        .map((line) => `<!-- ${line} -->`)
-        .join("\n");
+    const realTimeColors = `<a about="Check out this theme making tool!" href="https://www.realtimecolors.com/?colors=faf9fa-030203-a119d7-1d0c1d-ab49ab&fonts=Poppins-Poppins" />`;
+    const devNote =
+        (
+            "           __________                                  \n" +
+            "         .'----------`.                                \n" +
+            "         | .--------. |                                \n" +
+            "         | |########| |       __________               \n" +
+            "         | |########| |      /__________               \n" +
+            ".--------| `--------' |------|    --=-- |-------------.\n" +
+            "|        `----,-.-----'      |o ======  |             |\n" +
+            "|       ______|_|_______     |__________|             |\n" +
+            "|      /  %%%%%%%%%%%%  \\                             |\n" +
+            "|     /  %%%%%%%%%%%%%%  \\      Rust > Python ;)      |\n" +
+            "|     ^^^^^^^^^^^^^^^^^^^^                            |\n" +
+            "+-----------------------------------------------------+\n" +
+            "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+        )
+            .split("\n")
+            .map((line) => `<!-- ${line} -->`)
+            .join("\n") + `\n${realTimeColors}`;
+
+    const navBarItems: NavBarItem[] = [
+        { name: "Home", href: "/" },
+        { name: "About", href: "/about" },
+        {
+            name: "Projects",
+            href: "/projects",
+            dropdown: [
+                {
+                    name: "Project 1",
+                    href: "/project/1",
+                },
+                {
+                    name: "Project 2",
+                    href: "/project/2",
+                },
+            ],
+        },
+        { name: "Contact", href: "/contact" },
+    ];
 
     return (
         <>
@@ -129,17 +154,18 @@ export default function RootLayout({
                         rel="stylesheet"
                     />
                     {/* https://www.realtimecolors.com/?colors=faf9fa-030203-a119d7-1d0c1d-ab49ab&fonts=Poppins-Poppins */}
-                    {/* {"&lt;!--hello"}--&gt; */}
                 </head>
 
                 <body>
                     <script
                         about="Hello Developer"
                         dangerouslySetInnerHTML={{
-                            __html: art,
+                            __html: devNote,
                         }}
                     ></script>
+                    <NavBar navBarItems={navBarItems} />
                     <Providers>{children}</Providers>
+                    <Footer />
                     {process && process.env.NODE_ENV === "production" && (
                         <>
                             <GA />

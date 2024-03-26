@@ -4,9 +4,9 @@ import Image from "next/image";
 import {
     levenshteinDistance,
     LevenshteinDistanceResult,
-} from "../util/dataStructures"; //"@util/dataStructures";
+} from "../../util/dataStructures"; //"@util/dataStructures";
 import styles from "./hero.module.scss";
-import Button from "./ui/button";
+import Button from "./button";
 import Link from "next/link";
 
 export default function Hero() {
