@@ -1,7 +1,6 @@
 import styles from "./page.module.scss";
 import NavBar from "@components/navbar";
 import { NavBarItem } from "@components/navbar";
-import ContentView from "@components/ui/contentView";
 import Hero from "@components/hero";
 import { getAllPosts, getPostById } from "@lib/api";
 import Image from "next/image";
