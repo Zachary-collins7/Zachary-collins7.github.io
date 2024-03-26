@@ -142,6 +142,8 @@ export default function Navbar({ animateDown, navBarItems }: INavBarProps) {
                     <span className={styles.bar} />
                     <span className={styles.bar} />
                 </button>
+
+                <span className={styles.scrollBar} />
             </nav>
         </header>
     );
