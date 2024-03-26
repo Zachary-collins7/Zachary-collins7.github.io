@@ -3,17 +3,24 @@
     display: grid;
     place-items: center;
     align-items: center;
+
     gap: 1rem;
     padding: 2rem 0;
     margin-top: 2rem;
 
     @include themed() {
         background-color: t("surface2");
+        border-top: 2px solid t("surface4");
         // color: t("text1");
     }
 }
 
 .cta {
+    p {
+        @include themed() {
+            color: t("text2");
+        }
+    }
 }
 
 .links {

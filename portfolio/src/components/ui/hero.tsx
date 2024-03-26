@@ -158,7 +158,7 @@ const Greeting = () => {
         "Fullstack Developer",
         "Pizza Lover",
     ];
-    const titleChangeDelayMs = 10000;
+    const titleChangeDelayMs = 6000;
     const [titleIndex, setTitleIndex] = useState(1); // TODO: check prod. no idea why this is 1 and not 0
     const [title, setTitle] = useState(allTitles[0]);
     const [wordChanges, setWordChanges]: [LevenshteinDistanceResult[], any] =
@@ -253,7 +253,7 @@ const Greeting = () => {
                     maxWidth: "45ch",
                 }}
             >
-                ... with agile software development skills and a passion for
+                &ndash; with agile software development skills and a passion for
                 creating beautiful and functional applications
             </p>
             <p className={styles.callToActionButtons}>

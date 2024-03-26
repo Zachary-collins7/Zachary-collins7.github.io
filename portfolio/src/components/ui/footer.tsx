@@ -7,17 +7,20 @@ export default function Footer() {
     return (
         <footer className={styles.footer}>
             <div className={styles.cta}>
-                <div>
+                <p>
                     Need a developer?{" "}
                     <Button
                         as="link"
                         styleType="tertiary"
-                        href="/contact"
+                        href={"mailto:hi@the1.com".replace(
+                            "1",
+                            "zacharycollins"
+                        )}
                         noPadding
                     >
                         Contact Me
                     </Button>
-                </div>
+                </p>
             </div>
 
             <div className={styles.links}>

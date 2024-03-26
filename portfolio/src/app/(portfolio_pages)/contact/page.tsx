@@ -16,13 +16,10 @@ export default function Page() {
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
-                            let emailString =
-                                "mailto:" +
-                                "z4ary31@2.com"
-                                    .replace("1", "collins")
-                                    .replace("2", "icloud")
-                                    .replace("3", "_")
-                                    .replace("4", "ach");
+                            let emailString = "mailto:hi@the1.com".replace(
+                                "1",
+                                "zacharycollins"
+                            );
 
                             const nl = "%0D%0A";
                             const formEl = e.target as HTMLFormElement;
