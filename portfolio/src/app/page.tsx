@@ -76,7 +76,7 @@ export default async function Home() {
                                     <p>
                                         Hello! I am Zachary Collins, a software
                                         engineer based in Colorado USA. Since I
-                                        was 13, I've had a passion for
+                                        was 13, I&apos;ve had a passion for
                                         programming and technology.
                                     </p>
                                     <p>
