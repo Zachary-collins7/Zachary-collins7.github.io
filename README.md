@@ -1,6 +1,6 @@
 # Portfolio Project built in NextJS/ReactJS ✨
 
-Check out the project [Here](https://zachary-collins7.github.io "Zachary's Portfolio")
+Check out the project [Here](https://thezacharycollins.com "Zachary's Portfolio")
 
 #### Main Tech
 
@@ -13,8 +13,8 @@ Check out the project [Here](https://zachary-collins7.github.io "Zachary's Portf
 
 #### Other Links
 
--   [/Projects](https://zachary-collins7.github.io/projects "My Projects")
--   [/About](https://zachary-collins7.github.io/about "About me")
+-   [/Projects](https://thezacharycollins.com/projects "My Projects")
+-   [/About](https://thezacharycollins.com/about "About me")
 
 ## Description
 
