@@ -130,69 +130,43 @@ export default async function Resume() {
                     <h2 className={styles.title}>Professional Experience</h2>
 
                     <Project
-                        title="Comcast - Python Developer III - Contract"
+                        title="Python Developer III - Comcast"
                         date="Aug 2022 - Aug 2023"
                         location="Durango, CO"
                         tools={[
                             "Python",
                             "Selenium",
                             "EC2",
-                            "Mysql",
+                            "Postgresql",
                             "MongoDB",
                             "S3",
-                            "Oracle",
-                            "Postgresql",
-                            "DynamoDB",
-                            "Teradata",
-                            "Redis",
                         ]}
                     >
                         <ul>
                             <li>
                                 Designed and developed a Python-based program to
                                 connect to a diverse array of over 10,000
-                                database servers - all of various types
-                                including mysql, mssql, Oracle, and Teradata.
-                                This effort yielded valuable analytics about
-                                database functionality, user access, and
-                                credential verification.
-                                <br />
-                                Notably, the resulting web application empowered
-                                Data-Auditors to efficiently pinpoint tables for
-                                deeper analysis, saving significant time that
-                                was previously lost to firewall challenges and
-                                manual interactions.
+                                database servers while maintaining a high level
+                                of security and performance.
                             </li>
 
                             <li>
-                                Lead the creation of a Python library dedicated
-                                to web automation testing, overseeing its
-                                development to evaluate the operational
-                                integrity of an in-house web application
-                                <br />
-                                Engineered with a strong focus on programmer
-                                accessibility, the library was thoughtfully
-                                architected utilizing many design principles
-                                that contributed to its robustness. <br />
-                                Among these principles, the builder pattern
-                                stands out, as it allowed for a simple interface
-                                which made the library fast to pick up and tests
-                                built with it easy to read.
+                                Led team management and the design for a web
+                                testing project that enabled comprehensive,
+                                easy-to-write live tests for the team's internal
+                                tools.
                             </li>
 
                             <li>
                                 Actively engaged and collaborated with fellow
                                 team members across teams to resolve various
-                                operational challenges as they surfaced,
-                                highlighting my strong aptitude for
-                                collaborative problem-solving and contributing
-                                to a harmonious team environment.
+                                operational challenges as they surfaced.
                             </li>
                         </ul>
                     </Project>
 
                     <Project
-                        title="Expert Ready - Developer"
+                        title="Developer - Expert Ready"
                         date="Sept 2019 - Oct 2020"
                         location="Tulsa, OK"
                         tools={["Laravel", "PHP", "Docker", ".Net", "K6"]}
@@ -207,12 +181,12 @@ export default async function Resume() {
                                 improved the system&apos;s performance and
                                 reduced the number of support tickets.
                             </li>
-                            <li>
+                            {/* <li>
                                 Developed a data generation tool to migrate data
                                 tables to streamline the customer&apos;s
                                 workflow. Streamlining reduced on-field table
                                 conversation and minimized user error.
-                            </li>
+                            </li> */}
                             <li>
                                 Migrated customers to new deployment
                                 environments. Learned and applied the end-to-end
@@ -223,7 +197,7 @@ export default async function Resume() {
                     </Project>
 
                     <Project
-                        title="ITRS Group - Intern"
+                        title="Intern - ITRS Group"
                         date="May 2019 - Sept 2019"
                         location="Tulsa, OK"
                         tools={["Python", "Bash", "Nagios API", "Web API"]}
@@ -249,7 +223,7 @@ export default async function Resume() {
                     </Project>
 
                     <Project
-                        title="Samp Innovations - Consultant"
+                        title="Consultant - Samp Innovations"
                         date="May 2019 - July 2019"
                         location="Tulsa, OK"
                         tools={[".Net", "JS"]}
@@ -264,7 +238,7 @@ export default async function Resume() {
                     </Project>
 
                     <Project
-                        title="Oklahoma Aquarium - Consultant"
+                        title="Consultant - Oklahoma Aquarium"
                         date="Feb 2019 - Jun 2019"
                         location="Jenks, OK"
                         tools={["Swift", "Objective C"]}
@@ -284,36 +258,27 @@ export default async function Resume() {
                     <Project
                         title="Discord Bot"
                         date="Feb 2023"
-                        tools={[
-                            "Python",
-                            "GPT-3",
-                            "Selenium",
-                            "Discord-api",
-                            "Mysql",
-                        ]}
+                        tools={["Python", "GPT-3", "Selenium", "Discord-api"]}
                     >
                         <ul>
                             <li>
-                                Created a discord bot to connect users of a game
-                                to resources and tools provided by the game and
-                                the community. <br /> With over 1,400 daily
-                                users, I focused on making the bot as efficient
-                                and fast as possible while still providing a
-                                great user experience.
+                                Created a discord bot to connect over 1,400
+                                daily users of a game to resources and tools
+                                provided by the game and the community.
                             </li>
-                            <li>
+                            {/* <li>
                                 The bot uses Selenium to scrape the game&apos;s
                                 website and uses Google Translate and GPT-3 to
                                 translate the information into the user&apos;s
                                 language.
-                            </li>
+                            </li> */}
                             <li>
                                 Detailed logs are kept for each user to help
                                 with debugging and to provide insight into how
                                 the bot is being used. Logs are queried, sorted,
                                 and displayed in a dashboard for easy viewing.{" "}
-                                {/* <br /> */}
-                                {/* <i>
+                                {/* <br />
+                                <i>
                                     A Terms of Service and Privacy Policy are
                                     also provided to all users to comply with
                                     Discord&apos;s terms of service.
@@ -329,7 +294,7 @@ export default async function Resume() {
                             "ReactJS",
                             "Typescript",
                             "SCSS",
-                            "NPM",
+                            // "NPM",
                         ]}
                     >
                         <ul>
@@ -346,10 +311,10 @@ export default async function Resume() {
                                 Uses SCSS modules to prevent CSS class-name
                                 collisions.
                             </li>
-                            <li>
+                            {/* <li>
                                 Uses typescript for live type-checking and to
                                 give confidence in deployed code.
-                            </li>
+                            </li> */}
                         </ul>
                     </Project>
                 </section>
@@ -493,7 +458,13 @@ const Project = ({
         <>
             <article className={styles.project}>
                 <header className={styles.projectHeader}>
-                    <h6>
+                    <span
+                        style={{
+                            fontWeight: "600",
+                            // make not italic
+                            fontStyle: "normal",
+                        }}
+                    >
                         {title}
                         {location && (
                             <>
@@ -501,8 +472,18 @@ const Project = ({
                                 {location}
                             </>
                         )}
-                    </h6>
-                    <span>{date}</span>
+                    </span>
+                    <span>
+                        {date}
+                        {/* <br />
+                        <span
+                            style={{
+                                marginLeft: "8ch",
+                            }}
+                        >
+                            Tech Used
+                        </span> */}
+                    </span>
                 </header>
 
                 <div className={styles.projectBody}>

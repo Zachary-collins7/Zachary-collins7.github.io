@@ -91,7 +91,7 @@ export default function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const realTimeColors = `<a about="Check out this theme making tool!" href="https://www.realtimecolors.com/?colors=faf9fa-030203-a119d7-1d0c1d-ab49ab&fonts=Poppins-Poppins" />`;
+    const realTimeColors = `// <a about="Check out this theme making tool!" href="https://www.realtimecolors.com/?colors=faf9fa-030203-a119d7-1d0c1d-ab49ab&fonts=Poppins-Poppins" />`;
     const devNote =
         (
             "           __________                                  \n" +

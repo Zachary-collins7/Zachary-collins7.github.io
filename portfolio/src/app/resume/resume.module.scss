@@ -37,18 +37,6 @@ $lightGrey: rgb(170, 170, 170);
         padding: 0.5in;
     }
 
-    ul {
-        list-style: disc;
-
-        li {
-            margin-left: 2em;
-
-            &:not(:last-child) {
-                margin-bottom: 0.4em;
-            }
-        }
-    }
-
     a {
         color: hsl(212, 100%, 60%);
         text-decoration: none;
@@ -98,14 +86,28 @@ $lightGrey: rgb(170, 170, 170);
 }
 
 .section {
+    position: relative;
     margin-bottom: 1.5em;
 
     .title {
+        font-size: 1.35em;
+        margin-bottom: 0.3em;
     }
 }
 
 .skills {
     @extend .section;
+
+    // .title {
+    //     font-size: 1.2em;
+    // }
+    // .title::after {
+    //     content: "Contact Me";
+    //     position: absolute;
+    //     top: 0;
+    //     right: 0;
+    //     // display: none;
+    // }
 
     .skillBlock {
         position: relative;
@@ -113,12 +115,38 @@ $lightGrey: rgb(170, 170, 170);
         flex-wrap: wrap;
         align-items: center;
 
+        $bullet_spacing: 0.05em;
+
         .skillsLeft {
             min-width: fit-content;
+
+            ul {
+                list-style: disc;
+
+                li {
+                    margin-left: 2em;
+
+                    &:not(:last-child) {
+                        margin-bottom: $bullet_spacing;
+                    }
+                }
+            }
         }
 
         .skillsRight {
             margin: 1em 0 0 0;
+
+            ul {
+                list-style: disc;
+
+                li {
+                    margin-left: 2em;
+
+                    &:not(:last-child) {
+                        margin-bottom: $bullet_spacing;
+                    }
+                }
+            }
         }
 
         @media screen and (min-width: $mobile-breakpoint) {
