@@ -153,8 +153,8 @@ export default async function Resume() {
                             <li>
                                 Led team management and the design for a web
                                 testing project that enabled comprehensive,
-                                easy-to-write live tests for the team's internal
-                                tools.
+                                easy-to-write live tests for the team&apos;s
+                                internal tools.
                             </li>
 
                             <li>
