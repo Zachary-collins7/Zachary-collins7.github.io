@@ -65,8 +65,9 @@ export default async function Resume() {
                     <div className={styles.about}>
                         <p>
                             <i>
-                                Developer with 7 years of Programming experience
-                                and a passion for creating
+                                Developer with over 7 years of Programming
+                                experience and a passion for creating preformant
+                                applications.
                             </i>
                             <br />
                             Portfolio:{" "}
@@ -96,16 +97,17 @@ export default async function Resume() {
                         <div className={styles.skillsLeft}>
                             <ul>
                                 <li>
-                                    <b>Programming Languages:</b> Python |
-                                    Typescript | Swift | PHP
+                                    <b>Programming Languages:</b> Python{" "}
+                                    <i>4 YOE</i> | Typescript <i>3 YOE</i> | PHP{" "}
+                                    <i>1 YOE</i>
                                 </li>
                                 <li>
-                                    <b>Framework/Platforms:</b> NextJS | ReactJS
-                                    | SwiftUI | Laravel | .NET
+                                    <b>Framework/Platforms:</b> NextJS/ReactJS
+                                    <i>2 YOE</i> | .NET <i>1 YOE</i>
                                 </li>
                                 <li>
-                                    <b>Databases:</b> MySQL | MsSql | MongoDB |
-                                    MariaDB | Sqlite3
+                                    <b>Databases:</b> MySQL/MsSql/MariaDB{" "}
+                                    <i>3 YOE</i>| MongoDB <i>1 YOE</i>
                                 </li>
                             </ul>
                         </div>
@@ -206,7 +208,7 @@ export default async function Resume() {
                             <li>
                                 Head of Global Strategy mentored me about
                                 product competition and the Gartner Magic
-                                Quadrant. Created &quot;battle cards&quot;
+                                Quadrant. Created <i>battle cards</i>
                                 comparing our product with competitors.
                             </li>
                             <li>
@@ -254,7 +256,7 @@ export default async function Resume() {
                 </section>
 
                 <section className={styles.section}>
-                    <h2 className={styles.title}>Personal Projects</h2>
+                    <h2 className={styles.title}>Projects</h2>
                     <Project
                         title="Discord Bot"
                         date="Feb 2023"
@@ -317,33 +319,25 @@ export default async function Resume() {
                             </li> */}
                         </ul>
                     </Project>
-                </section>
-
-                <section className={styles.experience}>
-                    <h2 className={styles.title}>Robotics Experience</h2>
 
                     <Project
                         title="Robotics Experience - Team Leader/Lead Programmer"
                         date="2017 - 2020"
-                        tools={["Java", "Python", "CAD"]}
+                        tools={["Java", "CAD"]}
                     >
                         <ul>
                             <li>
-                                Lead FTC team 11572 - a team of 10 to design and
-                                create a robot.
+                                Led FTC team 11572 - a team of 10 to design and
+                                create a robot using modern control systems
                             </li>
                             <li>
                                 Competed at the world level against 70+
                                 countries.
                             </li>
-                            <li>
-                                Independently learned and applied control
-                                systems to autonomously complete challenges.
-                            </li>
                         </ul>
                     </Project>
 
-                    <Project
+                    {/* <Project
                         title="MIT - Robotics Workshop"
                         date="2018"
                         tools={["Python", "TensorFlow", "ROS"]}
@@ -354,7 +348,7 @@ export default async function Resume() {
                                 course and was invited based on merit.
                             </li>
                             <li>
-                                MIT Department leads and partnered technology
+                                MIT department leads and partnered technology
                                 corporations mentored us through various control
                                 systems and technologies.
                             </li>
@@ -365,7 +359,7 @@ export default async function Resume() {
                                 Lidar, and Stereoscopic cameras.
                             </li>
                         </ul>
-                    </Project>
+                    </Project> */}
                 </section>
 
                 <section className={styles.section}>
