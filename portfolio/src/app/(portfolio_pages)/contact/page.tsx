@@ -8,7 +8,7 @@ export default function Page() {
                 <h1>
                     Contact <span>Zachary</span>
                 </h1>
-                <h3>Lets build somthing</h3>
+                <h3>Lets build something</h3>
 
                 <div className={styles.formBox}>
                     {/* <h2>Sedn </h2> */}

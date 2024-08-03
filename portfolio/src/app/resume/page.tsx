@@ -66,8 +66,11 @@ export default async function Resume() {
                         <p>
                             <i>
                                 Developer with over 7 years of Programming
-                                experience and a passion for creating preformant
+                                experience and a passion for creating performant
                                 applications.
+                                {/* What I am */}
+                                {/* what Im good at */}
+                                {/* what Im looking for */}
                             </i>
                             <br />
                             Portfolio:{" "}
@@ -107,7 +110,7 @@ export default async function Resume() {
                                 </li>
                                 <li>
                                     <b>Databases:</b> MySQL/MsSql/MariaDB{" "}
-                                    <i>3 YOE</i>| MongoDB <i>1 YOE</i>
+                                    <i>3 YOE</i> | MongoDB <i>1 YOE</i>
                                 </li>
                             </ul>
                         </div>
@@ -160,9 +163,9 @@ export default async function Resume() {
                             </li>
 
                             <li>
-                                Actively engaged and collaborated with fellow
-                                team members across teams to resolve various
-                                operational challenges as they surfaced.
+                                Actively engaged and collaborated across teams
+                                to resolve various operational challenges as
+                                they arose.
                             </li>
                         </ul>
                     </Project>
@@ -175,13 +178,12 @@ export default async function Resume() {
                     >
                         <ul>
                             <li>
-                                Designed and implemented an event processing
+                                Designed and implemented an event-processing
                                 system that eliminated monthly bugs and unified
                                 system management. The system provided an 80%
                                 reduction in support tickets and a traceable log
                                 of events which aided development and greatly
-                                improved the system&apos;s performance and
-                                reduced the number of support tickets.
+                                improved the system&apos;s performance.
                             </li>
                             {/* <li>
                                 Developed a data generation tool to migrate data
@@ -208,8 +210,8 @@ export default async function Resume() {
                             <li>
                                 Head of Global Strategy mentored me about
                                 product competition and the Gartner Magic
-                                Quadrant. Created <i>battle cards</i>
-                                comparing our product with competitors.
+                                Quadrant. Created <i>battle cards</i> comparing
+                                our product with competitors.
                             </li>
                             <li>
                                 Designed and implemented a Nagios compatible
@@ -232,6 +234,7 @@ export default async function Resume() {
                     >
                         <ul>
                             <li>
+                                {/* TODO: add more details */}
                                 Worked on a .NET application to create a web
                                 form with client-side validation and inserted
                                 that data into an SQL database.
@@ -264,7 +267,7 @@ export default async function Resume() {
                     >
                         <ul>
                             <li>
-                                Created a discord bot to connect over 1,400
+                                Created a Discord bot to connect over 1,400
                                 daily users of a game to resources and tools
                                 provided by the game and the community.
                             </li>
@@ -301,12 +304,10 @@ export default async function Resume() {
                     >
                         <ul>
                             <li>
-                                Deployed using NextJS static site generation to
-                                Github Pages (uses a work-tree deployment branch
-                                alongside the main branch)
+                                Deployed using NextJS static-site-generation
                             </li>
                             <li>
-                                The Site features a fully decked-out SEO, color
+                                The site features a fully decked-out SEO, color
                                 themes, and Google Analytics.
                             </li>
                             <li>
